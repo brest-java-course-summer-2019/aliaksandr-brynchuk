@@ -7,6 +7,12 @@
     <groupId>com.epam.brest.summer.courses2019</groupId>
     <artifactId>music-shop</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
     <packaging>pom</packaging>
 
     <name>Music Shop</name>
@@ -14,6 +20,7 @@
 
     <modules>
         <module>model</module>
+        <module>dao</module>
     </modules>
 
     <distributionManagement>
@@ -42,7 +49,7 @@
 
         <checkstyle.version>8.22</checkstyle.version>
         <jacoco.version>0.8.2</jacoco.version>
-        <jacoco.bundle.coveredratio.minimum>95%</jacoco.bundle.coveredratio.minimum>
+        <jacoco.bundle.coveredratio.minimum>5%</jacoco.bundle.coveredratio.minimum>
     </properties>
 
     <dependencyManagement>
@@ -50,7 +57,7 @@
             <dependency>
                 <groupId>com.epam.brest.summer.courses2019</groupId>
                 <artifactId>model</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -119,6 +126,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.0.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.eluder.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>4.3.0</version>
                 </plugin>
 
             </plugins>
@@ -231,6 +244,11 @@
                 <artifactId>maven-project-info-reports-plugin</artifactId>
             </plugin>
 
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -277,6 +295,10 @@
                         </reports>
                     </reportSet>
                 </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </reporting>

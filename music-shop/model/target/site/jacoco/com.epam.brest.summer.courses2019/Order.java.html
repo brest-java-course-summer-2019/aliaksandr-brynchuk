@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Order.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Music Shop</a> &gt; <a href="index.source.html" class="el_package">com.epam.brest.summer.courses2019</a> &gt; <span class="el_source">Order.java</span></div><h1>Order.java</h1><pre class="source lang-java linenums">package com.epam.brest.summer.courses2019;
+
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+
+/**
+ * POJO Order for model
+ */
+
+public class Order {
+    /**
+     * Order id
+     */
+    private Integer orderId;
+
+    /**
+     * Order number
+     */
+    private Integer orderNumber;
+
+    /**
+     * Order date
+     */
+    private LocalDate date;
+
+    /**
+     * Items list
+     */
+    private List&lt;Item&gt; itemsList;
+
+    /**
+     * Order cost
+     */
+    private BigDecimal orderCost;
+
+
+<span class="nc" id="L39">    private Order(Integer orderId, Integer orderNumber, LocalDate date) {</span>
+<span class="nc" id="L40">        this.orderId = orderId;</span>
+<span class="nc" id="L41">        this.orderNumber = orderNumber;</span>
+<span class="nc" id="L42">        this.date = date;</span>
+<span class="nc" id="L43">    }</span>
+
+<span class="nc" id="L45">    private Order(Integer orderId, Integer orderNumber, LocalDate date, List&lt;Item&gt; itemsList, BigDecimal orderCost) {</span>
+<span class="nc" id="L46">        this.orderId = orderId;</span>
+<span class="nc" id="L47">        this.orderNumber = orderNumber;</span>
+<span class="nc" id="L48">        this.date = date;</span>
+<span class="nc" id="L49">        this.itemsList = itemsList;</span>
+<span class="nc" id="L50">        this.orderCost = orderCost;</span>
+<span class="nc" id="L51">    }</span>
+
+    public Order createEmptyOrder(Integer orderId, Integer orderNumber, LocalDate date) {
+<span class="nc" id="L54">        return new Order(orderId, orderNumber, date);</span>
+    }
+
+    public Order createOrderWithItems(
+            Integer orderId,
+            Integer orderNumber,
+            LocalDate date,
+            List&lt;Item&gt; itemsList,
+            BigDecimal orderCost) {
+<span class="nc" id="L63">        return new Order(orderId, orderNumber, date, itemsList, orderCost);</span>
+    }
+
+    public Integer getOrderId() {
+<span class="nc" id="L67">        return orderId;</span>
+    }
+
+    public void setOrderId(Integer orderId) {
+<span class="nc" id="L71">        this.orderId = orderId;</span>
+<span class="nc" id="L72">    }</span>
+
+    public Integer getOrderNumber() {
+<span class="nc" id="L75">        return orderNumber;</span>
+    }
+
+    public void setOrderNumber(Integer orderNumber) {
+<span class="nc" id="L79">        this.orderNumber = orderNumber;</span>
+<span class="nc" id="L80">    }</span>
+
+    public LocalDate getDate() {
+<span class="nc" id="L83">        return date;</span>
+    }
+
+    public void setDate(LocalDate date) {
+<span class="nc" id="L87">        this.date = date;</span>
+<span class="nc" id="L88">    }</span>
+
+    public List&lt;Item&gt; getItemsList() {
+<span class="nc" id="L91">        return itemsList;</span>
+    }
+
+    public void setItemsList(List&lt;Item&gt; itemsList) {
+<span class="nc" id="L95">        this.itemsList = itemsList;</span>
+<span class="nc" id="L96">    }</span>
+
+    public BigDecimal getOrderCost() {
+<span class="nc" id="L99">        return orderCost;</span>
+    }
+
+    public void setOrderCost(BigDecimal orderCost) {
+<span class="nc" id="L103">        this.orderCost = orderCost;</span>
+<span class="nc" id="L104">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L108">        return &quot;Order{&quot; +</span>
+                &quot;orderId=&quot; + orderId +
+                &quot;, orderNumber=&quot; + orderNumber +
+                &quot;, date=&quot; + date +
+                &quot;, itemsList=&quot; + itemsList +
+                &quot;, orderCost=&quot; + orderCost +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
