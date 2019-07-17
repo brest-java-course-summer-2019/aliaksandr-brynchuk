@@ -1,0 +1,98 @@
+package com.epam.brest.summer.courses2019;
+
+import java.util.Objects;
+
+/**
+ * POJO Item for model
+ */
+
+public class Item {
+    /**
+     * Item id
+     */
+    private Integer itemId;
+
+    /**
+     * Item group
+     */
+    private String itemGroup;
+
+    /**
+     * Item name
+     */
+    private String itemName;
+
+    /**
+     * Item price;
+     */
+    private Integer itemPrice;
+
+    private Item(Integer itemId, String itemGroup, String itemName, Integer itemPrice) {
+        this.itemId = itemId;
+        this.itemGroup = itemGroup;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+    }
+
+    public static Item createItem(Integer itemId, String itemGroup, String itemName, Integer itemPrice) {
+        return new Item(itemId, itemGroup, itemName, itemPrice);
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemGroup() {
+        return itemGroup;
+    }
+
+    public void setItemGroup(String itemGroup) {
+        this.itemGroup = itemGroup;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public Integer getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(Integer itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+        Item item = (Item) o;
+        return getItemId().equals(item.getItemId()) &&
+                getItemGroup().equals(item.getItemGroup()) &&
+                getItemName().equals(item.getItemName()) &&
+                getItemPrice().equals(item.getItemPrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getItemId(), getItemGroup(), getItemName(), getItemPrice());
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemId=" + itemId +
+                ", itemGroup='" + itemGroup + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", itemPrice=" + itemPrice +
+                '}';
+    }
+}
