@@ -2,7 +2,7 @@ package com.epam.brest.summer.courses2019;
 
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class Order {
     /**
      * Order date
      */
-    private LocalDate date;
+    private Date orderDate;
 
     /**
      * Items list
@@ -35,33 +35,6 @@ public class Order {
      */
     private BigDecimal orderCost;
 
-
-    private Order(Integer orderId, Integer orderNumber, LocalDate date) {
-        this.orderId = orderId;
-        this.orderNumber = orderNumber;
-        this.date = date;
-    }
-
-    private Order(Integer orderId, Integer orderNumber, LocalDate date, List<Item> itemsList, BigDecimal orderCost) {
-        this.orderId = orderId;
-        this.orderNumber = orderNumber;
-        this.date = date;
-        this.itemsList = itemsList;
-        this.orderCost = orderCost;
-    }
-
-    public Order createEmptyOrder(Integer orderId, Integer orderNumber, LocalDate date) {
-        return new Order(orderId, orderNumber, date);
-    }
-
-    public Order createOrderWithItems(
-            Integer orderId,
-            Integer orderNumber,
-            LocalDate date,
-            List<Item> itemsList,
-            BigDecimal orderCost) {
-        return new Order(orderId, orderNumber, date, itemsList, orderCost);
-    }
 
     public Integer getOrderId() {
         return orderId;
@@ -79,12 +52,12 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Date getOrderDate() {
+        return orderDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public List<Item> getItemsList() {
@@ -108,7 +81,7 @@ public class Order {
         return "Order{" +
                 "orderId=" + orderId +
                 ", orderNumber=" + orderNumber +
-                ", date=" + date +
+                ", date=" + orderDate +
                 ", itemsList=" + itemsList +
                 ", orderCost=" + orderCost +
                 '}';
