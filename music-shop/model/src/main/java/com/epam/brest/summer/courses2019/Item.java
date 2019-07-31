@@ -1,5 +1,6 @@
 package com.epam.brest.summer.courses2019;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -25,18 +26,8 @@ public class Item {
     /**
      * Item price;
      */
-    private Integer itemPrice;
+    private BigDecimal itemPrice;
 
-    private Item(Integer itemId, String itemGroup, String itemName, Integer itemPrice) {
-        this.itemId = itemId;
-        this.itemGroup = itemGroup;
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
-    }
-
-    public static Item createItem(Integer itemId, String itemGroup, String itemName, Integer itemPrice) {
-        return new Item(itemId, itemGroup, itemName, itemPrice);
-    }
 
     public Integer getItemId() {
         return itemId;
@@ -62,11 +53,11 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public Integer getItemPrice() {
+    public BigDecimal getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(Integer itemPrice) {
+    public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
 

@@ -1,5 +1,6 @@
 package com.epam.brest.summer.courses2019;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface OrderDao {
@@ -12,6 +13,6 @@ public interface OrderDao {
 
     List<Order> findAllOrders();
 
-    List<Order> findOrdersByDates();
+    List<Order> findOrdersByDates(Date from, Date to);
 
 }
