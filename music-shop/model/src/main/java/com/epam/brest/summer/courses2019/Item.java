@@ -19,6 +19,11 @@ public class Item {
     private String itemGroup;
 
     /**
+     * Item firm
+     */
+    private String itemFirm;
+
+    /**
      * Item name
      */
     private String itemName;
@@ -45,6 +50,14 @@ public class Item {
         this.itemGroup = itemGroup;
     }
 
+    public void setItemFirm(String itemFirm) {
+        this.itemFirm = itemFirm;
+    }
+
+    public String getItemFirm() {
+        return itemFirm;
+    }
+
     public String getItemName() {
         return itemName;
     }
@@ -60,30 +73,5 @@ public class Item {
     public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Item)) return false;
-        Item item = (Item) o;
-        return getItemId().equals(item.getItemId()) &&
-                getItemGroup().equals(item.getItemGroup()) &&
-                getItemName().equals(item.getItemName()) &&
-                getItemPrice().equals(item.getItemPrice());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getItemId(), getItemGroup(), getItemName(), getItemPrice());
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "itemId=" + itemId +
-                ", itemGroup='" + itemGroup + '\'' +
-                ", itemName='" + itemName + '\'' +
-                ", itemPrice=" + itemPrice +
-                '}';
-    }
 }
+

@@ -16,9 +16,11 @@ public class ItemDaoJdbcImpl implements ItemDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private static final String SELECT_ALL = "select i.item_id, i.item_name from items i order by item_name";
+    private static final String SELECT_ALL = "select i.item_id, i.group_id i.firm_id i.item_name i.item_price "
+                                            +" from items i order by item_name";
 
-    private static final String ADD_ITEM = "insert into items (item_group, item_name, item_price) values (:item_group, :item_name, :item_price))";
+    private static final String ADD_ITEM = "insert into items (group_id, firm_id, item_name, item_price) "
+                                          +"values (:group_id, :firm_id, :item_name, :item_price))";
 
     private static final String UPDATE_ITEM ="";
 
@@ -35,7 +37,8 @@ public class ItemDaoJdbcImpl implements ItemDao {
     @Override
     public Item addItem(Item item) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("item_group", item.getItemGroup());
+        parameters.addValue("group_id", item.getItemGroup());
+        parameters.addValue("firm_id", item.getItemFirm());
         parameters.addValue("item_name", item.getItemName());
         parameters.addValue("item_price", item.getItemPrice());
 

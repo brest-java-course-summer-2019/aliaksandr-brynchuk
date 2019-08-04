@@ -11,7 +11,7 @@ CREATE TABLE items (
   group_id VARCHAR(45) NOT NULL,
   firm_id INT NOT NULL,
   item_name VARCHAR(255) NOT NULL,
-  item_cost DECIMAL NOT NULL,
+  item_price DECIMAL NOT NULL,
   PRIMARY KEY(item_id),
   FOREIGN KEY (group_id) REFERENCES item_groups,
   FOREIGN KEY (firm_id) REFERENCES item_firm
