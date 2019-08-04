@@ -1,5 +1,6 @@
 package com.epam.brest.summer.courses2019;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -16,13 +17,14 @@ public class ItemDaoJdbcImpl implements ItemDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private static final String SELECT_ALL = "select i.item_id, i.group_id i.firm_id i.item_name i.item_price "
+    private static final String SELECT_ALL = "select i.item_id, i.group_id, i.firm_id, i.item_name, i.item_price "
                                             +" from items i order by item_name";
 
     private static final String ADD_ITEM = "insert into items (group_id, firm_id, item_name, item_price) "
                                           +"values (:group_id, :firm_id, :item_name, :item_price))";
 
-    private static final String UPDATE_ITEM ="";
+    private static final String UPDATE_ITEM ="update items set group_id = :itemGroup,firmId = :itemFirm, "
+                                            +"item_name = :itemName, item_price = :itemPrice where item_id = :itemId";
 
     private static final String DELETE_ITEM = "delete from items where item_id = :item_id";
 
@@ -59,9 +61,9 @@ public class ItemDaoJdbcImpl implements ItemDao {
     }
 
     @Override
-    public void deleteItem(Item item) {
+    public void deleteItem(Integer itemId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("item_id", item.getItemId());
+        parameters.addValue("item_id", itemId);
 
         Optional.of(namedParameterJdbcTemplate.update(DELETE_ITEM, parameters))
                 .filter(this::succesfullyUpdated)
@@ -70,19 +72,8 @@ public class ItemDaoJdbcImpl implements ItemDao {
 
     @Override
     public List<Item> findAllItems() {
-        List<Item> items = namedParameterJdbcTemplate.query(SELECT_ALL, new ItemRowMapper());
+        List<Item> items = namedParameterJdbcTemplate.query(SELECT_ALL, BeanPropertyRowMapper.newInstance(Item.class));
         return items;
     }
 
-    public class ItemRowMapper implements RowMapper<Item>{
-        @Override
-        public Item mapRow(ResultSet resultSet, int i) throws SQLException {
-            Item item = new Item();
-            item.setItemId(resultSet.getInt("item_id"));
-            item.setItemGroup(resultSet.getString("item_group"));
-            item.setItemName(resultSet.getString("item_name"));
-            item.setItemPrice(resultSet.getBigDecimal("item_price"));
-            return item;
-        }
-    }
 }

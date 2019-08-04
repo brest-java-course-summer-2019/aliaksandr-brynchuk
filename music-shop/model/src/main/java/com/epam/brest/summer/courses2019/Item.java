@@ -33,6 +33,18 @@ public class Item {
      */
     private BigDecimal itemPrice;
 
+    public Item(){
+
+    }
+
+
+    public Item(Integer itemId, String itemGroup, String itemFirm, String itemName, BigDecimal itemPrice) {
+        this.itemId = itemId;
+        this.itemGroup = itemGroup;
+        this.itemFirm = itemFirm;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+    }
 
     public Integer getItemId() {
         return itemId;
@@ -72,6 +84,34 @@ public class Item {
 
     public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+        Item item = (Item) o;
+        return Objects.equals(getItemId(), item.getItemId()) &&
+                Objects.equals(getItemGroup(), item.getItemGroup()) &&
+                Objects.equals(getItemFirm(), item.getItemFirm()) &&
+                Objects.equals(getItemName(), item.getItemName()) &&
+                Objects.equals(getItemPrice(), item.getItemPrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getItemId(), getItemGroup(), getItemFirm(), getItemName(), getItemPrice());
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemId=" + itemId +
+                ", itemGroup='" + itemGroup + '\'' +
+                ", itemFirm='" + itemFirm + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", itemPrice=" + itemPrice +
+                '}';
     }
 }
 
