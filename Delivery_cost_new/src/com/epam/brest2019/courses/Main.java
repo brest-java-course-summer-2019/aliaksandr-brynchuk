@@ -44,11 +44,6 @@ public class Main {
             throw new FileNotFoundException("File not found.");
         }
 
-        /*do{
-            System.out.println("Enter weight in kg or 'q' for quit");
-            enteredValue = fromConsole.getValue();
-
-        }while(enteredValue.getType()!=EnteredValue.Types.EXIT);*/
 
         while(true){
             System.out.println("Enter weight in kg or 'q' for quit");

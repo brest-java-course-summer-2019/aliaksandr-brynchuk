@@ -1,13 +1,35 @@
+INSERT INTO item_firm (firm_id, firm_name) VALUES (1, 'Fender');
+INSERT INTO item_firm (firm_id, firm_name) VALUES (2, 'Gibson');
+INSERT INTO item_firm (firm_id, firm_name) VALUES (3, 'Tama Drums');
+INSERT INTO item_firm (firm_id, firm_name) VALUES (4, 'SONER');
+INSERT INTO item_firm (firm_id, firm_name) VALUES (5, 'Yamaha');
+INSERT INTO item_firm (firm_id, firm_name) VALUES (6, 'Dunlop');
+
+INSERT INTO items_group (group_id, group_name) VALUES (1, 'Gutars');
+INSERT INTO items_group (group_id, group_name) VALUES (2, 'Drums');
+INSERT INTO items_group (group_id, group_name) VALUES (3, 'Accesories');
+
+INSERT INTO items (item_id, grop_id, firm_id, item_name, item_cost) VALUES(1, 1, 2, 'Les Paul', 1100);
+INSERT INTO items (item_id, grop_id, firm_id, item_name, item_cost) VALUES(2, 1, 1, 'Telecaster', 900);
+INSERT INTO items (item_id, grop_id, firm_id, item_name, item_cost) VALUES(3, 1, 1, 'Stratocaster', 1200);
+INSERT INTO items (item_id, grop_id, firm_id, item_name, item_cost) VALUES(4, 2, 3, 'ML40HZBN2-FBV', 2100);
+INSERT INTO items (item_id, grop_id, firm_id, item_name, item_cost) VALUES(5, 2, 4,'AQ1 Stage Set' 2000);
+INSERT INTO items (item_id, grop_id, firm_id, item_name, item_cost) VALUES(6, 2, 5, 'TOUR CUSTOM' 1600);
+INSERT INTO items (item_id, grop_id, firm_id, item_name, item_cost) VALUES(7, 3, 6, 'Strings', 10);
+INSERT INTO items (item_id, grop_id, firm_id, item_name, item_cost) VALUES(8, 3, 6, 'Pics', 5);
+INSERT INTO items (item_id, grop_id, firm_id, item_name, item_cost) VALUES(9, 3, 5, 'Drum Kit', 25);
+
+
 INSERT INTO orders (order_id, order_number, order_date) VALUES (1, '1001', 21.07.2019);
 INSERT INTO orders (order_id, order_number, order_date) VALUES (2, '1002', 22.07.2019);
 INSERT INTO orders (order_id, order_number, order_date) VALUES (3, '1003', 23.07.2019);
 
-INSERT INTO items (item_id, item_group, item_name, item_cost) VALUES(1, 'Guitars', 'Gibson Les Paul', 1100);
-INSERT INTO items (item_id, item_group, item_name, item_cost) VALUES(2, 'Guitars', 'Fender Telecaster', 900);
-INSERT INTO items (item_id, item_group, item_name, item_cost) VALUES(3, 'Guitars', 'Fender Stratocaster', 1200);
-INSERT INTO items (item_id, item_group, item_name, item_cost) VALUES(4, 'Drums', 'TAMA Music', 1600);
-INSERT INTO items (item_id, item_group, item_name, item_cost) VALUES(5, 'Drums', 'SONER', 2000);
-INSERT INTO items (item_id, item_group, item_name, item_cost) VALUES(6, 'Drums', 'Yamaha', 1400);
-INSERT INTO items (item_id, item_group, item_name, item_cost) VALUES(7, 'Accesories', 'Strings', 10);
-INSERT INTO items (item_id, item_group, item_name, item_cost) VALUES(8, 'Accesories', 'Pics', 5);
-INSERT INTO items (item_id, item_group, item_name, item_cost) VALUES(9, 'Accesories', 'Drum Kit', 25);
+INSERT INTO order_items_list (order_id, item_id) VALUES (1, 1);
+INSERT INTO order_items_list (order_id, item_id) VALUES (1, 7);
+INSERT INTO order_items_list (order_id, item_id) VALUES (1, 8);
+INSERT INTO order_items_list (order_id, item_id) VALUES (2, 4);
+INSERT INTO order_items_list (order_id, item_id) VALUES (2, 9);
+INSERT INTO order_items_list (order_id, item_id) VALUES (3, 2);
+INSERT INTO order_items_list (order_id, item_id) VALUES (3, 5);
+
+
