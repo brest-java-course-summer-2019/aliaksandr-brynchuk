@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -17,6 +18,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final String SELECT_ALL = "select o.order_id, o.order_number from orders o order by order_number";
+
+    private static final String FIND_BY_DATE ="";
 
     private static final String ADD_ORDER = "insert into orders (order_number, order_date) values (:order_number, :order_date)";
 
@@ -47,9 +50,10 @@ public class OrderDaoJdbcImpl implements OrderDao {
     public void updateOrder(Order order) {
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("order_id", order.getOrderId());
 
         for (Item item: order.getItemsList()){
-            parameters.addValue("order_id", order.getOrderId());
+            parameters.addValue("item_id", item.getItemId());
             namedParameterJdbcTemplate.update(UPDATE_ORDER, parameters);
         }
     }
@@ -69,8 +73,14 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> findOrdersByDates() {
-        return null;
+    public List<Order> findOrdersByDates(Date from, Date to) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+         parameters.addValue("date_from", from);
+         parameters.addValue("date_to", to);
+
+         List<Order> orders = namedParameterJdbcTemplate.query(FIND_BY_DATE, parameters, new OrderRowMapper());
+
+        return orders;
     }
 
     private class OrderRowMapper implements RowMapper<Order> {

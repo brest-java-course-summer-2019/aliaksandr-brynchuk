@@ -1,0 +1,53 @@
+package com.epam.brest.summer.courses2019.services;
+
+import com.epam.brest.summer.courses2019.Order;
+import com.epam.brest.summer.courses2019.OrderDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.util.List;
+
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
+
+    private OrderDao dao;
+
+    public OrderServiceImpl(OrderDao dao) {
+        this.dao = dao;
+    }
+
+
+    @Override
+    public Order addOrder(Order order) {
+        LOGGER.debug("Add order:  {}", order);
+        return dao.addOrder(order);
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        LOGGER.debug("Update order:  {}", order);
+        dao.updateOrder(order);
+    }
+
+    @Override
+    public void deleteOrder(Integer orderId) {
+        LOGGER.debug("Delete order:  {}", orderId);
+       dao.deleteOrder(orderId);
+    }
+
+    @Override
+    public List<Order> findAllOrders() {
+        LOGGER.debug("Find all orders");
+        return dao.findAllOrders();
+    }
+
+    @Override
+    public List<Order> findOrdersByDates(Date from, Date to) {
+        LOGGER.debug("Find orders by date");
+        return dao.findOrdersByDates(from, to);
+    }
+}

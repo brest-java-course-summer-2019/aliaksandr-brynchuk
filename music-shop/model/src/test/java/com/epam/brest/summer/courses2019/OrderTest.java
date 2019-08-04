@@ -1,6 +1,6 @@
 package com.epam.brest.summer.courses2019;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
