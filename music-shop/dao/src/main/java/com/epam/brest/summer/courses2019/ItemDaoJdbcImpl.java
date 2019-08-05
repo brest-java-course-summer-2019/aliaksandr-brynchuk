@@ -1,5 +1,6 @@
 package com.epam.brest.summer.courses2019;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -8,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import javax.swing.text.html.Option;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,16 +19,19 @@ public class ItemDaoJdbcImpl implements ItemDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private static final String SELECT_ALL = "select i.item_id, i.group_id, i.firm_id, i.item_name, i.item_price "
+   private static final String SELECT_ALL = "select i.item_id, i.group_id, i.firm_id, i.item_name, i.item_price "
                                             +" from items i order by item_name";
 
-    private static final String ADD_ITEM = "insert into items (group_id, firm_id, item_name, item_price) "
-                                          +"values (:group_id, :firm_id, :item_name, :item_price))";
+    private static final String ADD_ITEM = "insert into items (group_id, firm_id, item_name, item_price)" +
+                                           "values (:group_id, :firm_id, :item_name, :item_price)";
 
     private static final String UPDATE_ITEM ="update items set group_id = :itemGroup,firmId = :itemFirm, "
                                             +"item_name = :itemName, item_price = :itemPrice where item_id = :itemId";
 
     private static final String DELETE_ITEM = "delete from items where item_id = :item_id";
+
+    private static final String FIND_ITEM_BY_ID = "select i.group_id, i.firm_id, i.item_name, i.item_price "+
+                                                  "from items i where item_id = :itemId";
 
     public ItemDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate){
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -34,6 +39,14 @@ public class ItemDaoJdbcImpl implements ItemDao {
 
     public boolean succesfullyUpdated(int numRowsUpdated){
         return numRowsUpdated>0;
+    }
+
+    @Override
+    public Optional<Item> findItemById(Integer itemId) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource("item_id", itemId);
+
+        List<Item> item = namedParameterJdbcTemplate.query(FIND_ITEM_BY_ID, parameters,BeanPropertyRowMapper.newInstance(Item.class));
+        return Optional.ofNullable(DataAccessUtils.uniqueResult(item));
     }
 
     @Override
@@ -62,8 +75,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
 
     @Override
     public void deleteItem(Integer itemId) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("item_id", itemId);
+        MapSqlParameterSource parameters = new MapSqlParameterSource("item_id", itemId);
 
         Optional.of(namedParameterJdbcTemplate.update(DELETE_ITEM, parameters))
                 .filter(this::succesfullyUpdated)

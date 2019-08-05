@@ -16,12 +16,12 @@ public class Item {
     /**
      * Item group
      */
-    private String itemGroup;
+    private Integer itemGroup;
 
     /**
      * Item firm
      */
-    private String itemFirm;
+    private Integer itemFirm;
 
     /**
      * Item name
@@ -38,8 +38,7 @@ public class Item {
     }
 
 
-    public Item(Integer itemId, String itemGroup, String itemFirm, String itemName, BigDecimal itemPrice) {
-        this.itemId = itemId;
+    public Item(Integer itemGroup, Integer itemFirm, String itemName, BigDecimal itemPrice) {
         this.itemGroup = itemGroup;
         this.itemFirm = itemFirm;
         this.itemName = itemName;
@@ -54,19 +53,19 @@ public class Item {
         this.itemId = itemId;
     }
 
-    public String getItemGroup() {
+    public Integer getItemGroup() {
         return itemGroup;
     }
 
-    public void setItemGroup(String itemGroup) {
+    public void setItemGroup(Integer itemGroup) {
         this.itemGroup = itemGroup;
     }
 
-    public void setItemFirm(String itemFirm) {
+    public void setItemFirm(Integer itemFirm) {
         this.itemFirm = itemFirm;
     }
 
-    public String getItemFirm() {
+    public Integer getItemFirm() {
         return itemFirm;
     }
 

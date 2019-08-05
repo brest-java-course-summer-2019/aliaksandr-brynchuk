@@ -6,6 +6,17 @@ CREATE TABLE orders (
   PRIMARY KEY (order_id)
 );
 
+/*DROP TABLE IF EXISTS items;
+CREATE TABLE items (
+  item_id INT NOT NULL AUTO_INCREMENT,
+  group_name VARCHAR(255) NOT NULL,
+  item_name VARCHAR(255) NOT NULL,
+  item_price DECIMAL NOT NULL,
+  order_id INT,
+  PRIMARY KEY (item_id),
+  FOREIGN KEY (order_id) REFERENCES orders
+);*/
+
 CREATE TABLE items_group (
   group_id INT NOT NULL,
   group_name VARCHAR(45) NOT NULL,
@@ -20,7 +31,7 @@ CREATE TABLE item_firm (
 DROP TABLE IF EXISTS items;
 CREATE TABLE items (
   item_id INT NOT NULL AUTO_INCREMENT,
-  group_id VARCHAR(45) NOT NULL,
+  group_id INT NOT NULL,
   firm_id INT NOT NULL,
   item_name VARCHAR(255) NOT NULL,
   item_price DECIMAL NOT NULL,
@@ -36,6 +47,5 @@ CREATE TABLE order_items_list(
   FOREIGN KEY(order_id) REFERENCES orders,
   FOREIGN KEY (item_id) REFERENCES items
 );
-
 
 
