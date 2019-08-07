@@ -19,8 +19,8 @@ public class ItemTest {
 
     @Test
     public void getItemGroup() {
-        paddle.setItemGroup(1);
-        Assert.assertEquals(paddle.getItemGroup().intValue(), 1);
+        paddle.setItemGroup("Guitars");
+        Assert.assertEquals(paddle.getItemGroup(), "Guitars");
     }
 
     @Test

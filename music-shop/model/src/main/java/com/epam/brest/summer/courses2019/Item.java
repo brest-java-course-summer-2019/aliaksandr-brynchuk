@@ -16,12 +16,12 @@ public class Item {
     /**
      * Item group
      */
-    private Integer itemGroup;
+    private String itemGroup;
 
-    /**
-     * Item firm
-     */
-    private Integer itemFirm;
+//    /**
+//     * Item firm
+//     */
+//    private Integer itemFirm;
 
     /**
      * Item name
@@ -38,9 +38,8 @@ public class Item {
     }
 
 
-    public Item(Integer itemGroup, Integer itemFirm, String itemName, BigDecimal itemPrice) {
+    public Item(String itemGroup, String itemName, BigDecimal itemPrice) {
         this.itemGroup = itemGroup;
-        this.itemFirm = itemFirm;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
     }
@@ -53,21 +52,21 @@ public class Item {
         this.itemId = itemId;
     }
 
-    public Integer getItemGroup() {
+    public String getItemGroup() {
         return itemGroup;
     }
 
-    public void setItemGroup(Integer itemGroup) {
+    public void setItemGroup(String itemGroup) {
         this.itemGroup = itemGroup;
     }
 
-    public void setItemFirm(Integer itemFirm) {
-        this.itemFirm = itemFirm;
-    }
-
-    public Integer getItemFirm() {
-        return itemFirm;
-    }
+//    public void setItemFirm(Integer itemFirm) {
+//        this.itemFirm = itemFirm;
+//    }
+//
+//    public Integer getItemFirm() {
+//        return itemFirm;
+//    }
 
     public String getItemName() {
         return itemName;
@@ -92,14 +91,13 @@ public class Item {
         Item item = (Item) o;
         return Objects.equals(getItemId(), item.getItemId()) &&
                 Objects.equals(getItemGroup(), item.getItemGroup()) &&
-                Objects.equals(getItemFirm(), item.getItemFirm()) &&
                 Objects.equals(getItemName(), item.getItemName()) &&
                 Objects.equals(getItemPrice(), item.getItemPrice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getItemId(), getItemGroup(), getItemFirm(), getItemName(), getItemPrice());
+        return Objects.hash(getItemId(), getItemGroup(), getItemName(), getItemPrice());
     }
 
     @Override
@@ -107,7 +105,6 @@ public class Item {
         return "Item{" +
                 "itemId=" + itemId +
                 ", itemGroup='" + itemGroup + '\'' +
-                ", itemFirm='" + itemFirm + '\'' +
                 ", itemName='" + itemName + '\'' +
                 ", itemPrice=" + itemPrice +
                 '}';
