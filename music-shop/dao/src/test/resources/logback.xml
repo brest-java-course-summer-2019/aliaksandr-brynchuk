@@ -10,7 +10,7 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <root>
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

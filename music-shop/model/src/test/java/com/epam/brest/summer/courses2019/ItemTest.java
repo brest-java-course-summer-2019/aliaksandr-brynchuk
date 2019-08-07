@@ -1,13 +1,14 @@
 package com.epam.brest.summer.courses2019;
 
-import com.epam.brest.summer.courses2019.Item;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 public class ItemTest {
 
-    Item paddle = new Item();
+   private Item paddle = new Item();
 
     @Test
     public void getItemId() {
@@ -18,8 +19,8 @@ public class ItemTest {
 
     @Test
     public void getItemGroup() {
-        paddle.setItemGroup("Guitar");
-        Assert.assertEquals(paddle.getItemGroup(), "Guitar");
+        paddle.setItemGroup("Guitars");
+        Assert.assertEquals(paddle.getItemGroup(), "Guitars");
     }
 
     @Test
@@ -28,8 +29,9 @@ public class ItemTest {
         Assert.assertEquals(paddle.getItemName(), ("paddleWithStrings"));
     }
 
-    /*@Test
+    @Test
     public void getItemPrice() {
-        paddle.setItemPrice(0);
-        Assert.assertEquals(paddle.getItemPrice(), (0));*/
+        paddle.setItemPrice(new BigDecimal("1"));
+        Assert.assertEquals(paddle.getItemPrice(), new BigDecimal("1"));
     }
+}

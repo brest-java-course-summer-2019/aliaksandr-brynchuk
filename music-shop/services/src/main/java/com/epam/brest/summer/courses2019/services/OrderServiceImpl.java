@@ -4,6 +4,7 @@ import com.epam.brest.summer.courses2019.Order;
 import com.epam.brest.summer.courses2019.OrderDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -24,13 +25,24 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order addOrder(Order order) {
         LOGGER.debug("Add order:  {}", order);
-        return dao.addOrder(order);
+
+        dao.addOrder(order);
+        updateOrder(order);
+
+        return order;
     }
 
     @Override
     public void updateOrder(Order order) {
         LOGGER.debug("Update order:  {}", order);
-        dao.updateOrder(order);
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("order_id", order.getOrderId());
+
+        order.getItemsList().
+                forEach(item-> {
+                    parameters.addValue("item_id", item.getItemId());
+                    dao.updateOrder(parameters);
+                });
     }
 
     @Override
@@ -46,8 +58,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order findOrderById(Integer orderId) {
+        LOGGER.debug("Find order:  {}", orderId);
+        return dao.findOrderById(orderId);
+    }
+
+    @Override
     public List<Order> findOrdersByDates(Date from, Date to) {
-        LOGGER.debug("Find orders by date");
+        LOGGER.debug("Find orders by dates: {}", from,to);
         return dao.findOrdersByDates(from, to);
     }
 }

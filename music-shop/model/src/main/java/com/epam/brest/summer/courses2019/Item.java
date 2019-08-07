@@ -18,6 +18,11 @@ public class Item {
      */
     private String itemGroup;
 
+//    /**
+//     * Item firm
+//     */
+//    private Integer itemFirm;
+
     /**
      * Item name
      */
@@ -28,6 +33,16 @@ public class Item {
      */
     private BigDecimal itemPrice;
 
+    public Item(){
+
+    }
+
+
+    public Item(String itemGroup, String itemName, BigDecimal itemPrice) {
+        this.itemGroup = itemGroup;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+    }
 
     public Integer getItemId() {
         return itemId;
@@ -44,6 +59,14 @@ public class Item {
     public void setItemGroup(String itemGroup) {
         this.itemGroup = itemGroup;
     }
+
+//    public void setItemFirm(Integer itemFirm) {
+//        this.itemFirm = itemFirm;
+//    }
+//
+//    public Integer getItemFirm() {
+//        return itemFirm;
+//    }
 
     public String getItemName() {
         return itemName;
@@ -66,10 +89,10 @@ public class Item {
         if (this == o) return true;
         if (!(o instanceof Item)) return false;
         Item item = (Item) o;
-        return getItemId().equals(item.getItemId()) &&
-                getItemGroup().equals(item.getItemGroup()) &&
-                getItemName().equals(item.getItemName()) &&
-                getItemPrice().equals(item.getItemPrice());
+        return Objects.equals(getItemId(), item.getItemId()) &&
+                Objects.equals(getItemGroup(), item.getItemGroup()) &&
+                Objects.equals(getItemName(), item.getItemName()) &&
+                Objects.equals(getItemPrice(), item.getItemPrice());
     }
 
     @Override
@@ -87,3 +110,4 @@ public class Item {
                 '}';
     }
 }
+

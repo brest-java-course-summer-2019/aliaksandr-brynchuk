@@ -5,6 +5,7 @@ import org.junit.Test;
 
 public class OrderDaoJdbcImplTest {
 
+
     @Test
     public void addOrder() {
     }
@@ -24,5 +25,10 @@ public class OrderDaoJdbcImplTest {
 
     @Test
     public void findOrdersByDates() {
+    }
+
+    @Test
+    public void findOrderById(){
+
     }
 }

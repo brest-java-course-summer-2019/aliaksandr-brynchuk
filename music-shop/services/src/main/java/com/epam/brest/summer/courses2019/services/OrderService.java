@@ -13,6 +13,8 @@ public interface OrderService {
 
     void deleteOrder(Integer orderId);
 
+    Order findOrderById(Integer orderId);
+
     List<Order> findAllOrders();
 
     List<Order> findOrdersByDates(Date from, Date to);

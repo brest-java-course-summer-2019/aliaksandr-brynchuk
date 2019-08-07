@@ -2,6 +2,7 @@ package com.epam.brest.summer.courses2019;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemDao {
 
@@ -9,8 +10,10 @@ public interface ItemDao {
 
     void updateItem(Item item);
 
-    void deleteItem(Item item);
+    void deleteItem(Integer itemId);
 
     List<Item>findAllItems();
+
+    Optional<Item> findItemById(Integer itemId);
 
 }
