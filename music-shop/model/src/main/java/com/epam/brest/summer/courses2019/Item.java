@@ -18,11 +18,6 @@ public class Item {
      */
     private String itemGroup;
 
-//    /**
-//     * Item firm
-//     */
-//    private Integer itemFirm;
-
     /**
      * Item name
      */
@@ -59,14 +54,6 @@ public class Item {
     public void setItemGroup(String itemGroup) {
         this.itemGroup = itemGroup;
     }
-
-//    public void setItemFirm(Integer itemFirm) {
-//        this.itemFirm = itemFirm;
-//    }
-//
-//    public Integer getItemFirm() {
-//        return itemFirm;
-//    }
 
     public String getItemName() {
         return itemName;
