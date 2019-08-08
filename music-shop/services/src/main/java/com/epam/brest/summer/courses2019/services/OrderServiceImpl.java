@@ -1,5 +1,6 @@
 package com.epam.brest.summer.courses2019.services;
 
+import com.epam.brest.summer.courses2019.ItemDao;
 import com.epam.brest.summer.courses2019.Order;
 import com.epam.brest.summer.courses2019.OrderDao;
 import org.slf4j.Logger;
@@ -15,10 +16,12 @@ public class OrderServiceImpl implements OrderService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 
-    private OrderDao dao;
+    private ItemDao itemDao;
+    private OrderDao orderDao;
 
-    public OrderServiceImpl(OrderDao dao) {
-        this.dao = dao;
+    public OrderServiceImpl(OrderDao orderDao, ItemDao itemDao) {
+        this.orderDao = orderDao;
+        this.itemDao = itemDao;
     }
 
 
@@ -26,46 +29,65 @@ public class OrderServiceImpl implements OrderService {
     public Order addOrder(Order order) {
         LOGGER.debug("Add order:  {}", order);
 
-        dao.addOrder(order);
-        updateOrder(order);
+        orderDao.addOrder(order);
+        updateOrderItems(order);
 
         return order;
     }
 
     @Override
-    public void updateOrder(Order order) {
+    public void changeStatus(Integer orderId, String status) {
+        orderDao.changeStatus(orderId, status);
+    }
+
+    @Override
+    public void updateOrderItems(Order order) {
         LOGGER.debug("Update order:  {}", order);
+
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("order_id", order.getOrderId());
 
         order.getItemsList().
                 forEach(item-> {
                     parameters.addValue("item_id", item.getItemId());
-                    dao.updateOrder(parameters);
+                    itemDao.insertItem(parameters);
                 });
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        itemDao.deleteItemsList(order.getOrderId());
+        updateOrderItems(order);
+        orderDao.orderCost(order);
+
+    }
+
+    @Override
+    public void updateCost(Order order) {
+        orderDao.orderCost(order);
     }
 
     @Override
     public void deleteOrder(Integer orderId) {
         LOGGER.debug("Delete order:  {}", orderId);
-       dao.deleteOrder(orderId);
+       orderDao.deleteOrder(orderId);
     }
 
     @Override
     public List<Order> findAllOrders() {
         LOGGER.debug("Find all orders");
-        return dao.findAllOrders();
+        return orderDao.findAllOrders();
     }
 
     @Override
     public Order findOrderById(Integer orderId) {
         LOGGER.debug("Find order:  {}", orderId);
-        return dao.findOrderById(orderId);
+        return orderDao.findOrderById(orderId);
     }
 
     @Override
     public List<Order> findOrdersByDates(Date from, Date to) {
         LOGGER.debug("Find orders by dates: {}", from,to);
-        return dao.findOrdersByDates(from, to);
+        return orderDao.findOrdersByDates(from, to);
     }
 }

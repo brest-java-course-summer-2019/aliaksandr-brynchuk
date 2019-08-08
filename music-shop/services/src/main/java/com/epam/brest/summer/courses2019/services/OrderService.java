@@ -9,7 +9,13 @@ public interface OrderService {
 
     Order addOrder(Order order);
 
+    void changeStatus(Integer orderId, String status);
+
     void updateOrder(Order order);
+
+    void updateOrderItems(Order order);
+
+    void updateCost(Order order);
 
     void deleteOrder(Integer orderId);
 
