@@ -9,7 +9,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,24 +17,27 @@ public class ItemDaoJdbcImpl implements ItemDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private static final String SELECT_ALL = "select i.item_id, i.group_name, i.item_name, i.item_price "
-            + " from items i order by item_name";
-    private static final String SELECT_ITEMS_FROM_ORDER = "select oi.item_id from order_items_list oi where order_id = :order_id";
+    private static final String SELECT_ALL_AVAILABLE = "select i.item_id, i.group_name, i.item_name, i.item_price "
+            + " from items i where item_status = :status order by item_name";
+    private static final String SELECT_ITEMS_FROM_ORDER = "select oi.item_id from order_items_list oi where order_id = :orderId";
 
     private static final String ADD_ITEM = "insert into items (group_name, item_name, item_price)" +
-            "values (:group_id, :firm_id, :item_name, :item_price)";
+            "values (:groupId, :itemName, :itemPrice)";
 
     private static final String INSERT_ITEM = "insert into order_items (order_id, item_id) values (:orderId, :itemId)";
 
-    private static final String UPDATE_ITEM = "update items set group_name = :item_name, "
-            + "item_name = :item_name, item_price = :item_price where item_id = :item_id";
+    private static final String UPDATE_ITEM = "update items set group_name = :itemGroup, "
+            + "item_name = :itemName, item_price = :itemPrice where item_id = :itemId";
 
-    private static final String DELETE_ITEM = "delete from items where item_id = :item_id";
+    private static final String DELETE_ITEM = "delete from items where item_id = :itemId";
 
     private static final String DELETE_ITEM_FROM_ORDER = "delete from order_items where order_id = :orderId";
 
     private static final String FIND_ITEM_BY_ID = "select i.group_name, i.item_name, i.item_price " +
-            "from items i where item_id = :item_id";
+            "from items i where item_id = :itemId";
+
+    private static final String FIND_ITEM_BY_NAME = "select i.item_id, i.group_name, i.item_price " +
+            "from items i where item_name = :itemName";
 
     private static final String FIND_ITEMS_BY_GROUP = "select i.item_id, i.item_name, i.item_price " +
                                                       "from items i where item_group = :itemGroup";
@@ -50,8 +52,10 @@ public class ItemDaoJdbcImpl implements ItemDao {
     }
 
     @Override
-    public List<Item> findAllItems() {
-        List<Item> items = namedParameterJdbcTemplate.query(SELECT_ALL, BeanPropertyRowMapper.newInstance(Item.class));
+    public List<Item> findAllAvailableItems() {
+        String status = "available";
+        MapSqlParameterSource parameters = new MapSqlParameterSource("item_status", status);
+        List<Item> items = namedParameterJdbcTemplate.query(SELECT_ALL_AVAILABLE, parameters, BeanPropertyRowMapper.newInstance(Item.class));
         return items;
     }
 
@@ -60,6 +64,14 @@ public class ItemDaoJdbcImpl implements ItemDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource("item_id", itemId);
 
         Item item = namedParameterJdbcTemplate.queryForObject(FIND_ITEM_BY_ID, parameters, BeanPropertyRowMapper.newInstance(Item.class));
+        return Optional.ofNullable(item);
+    }
+
+    @Override
+    public Optional<Item> findItemByName(String itemName) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource("item_name", itemName);
+
+        Item item = namedParameterJdbcTemplate.queryForObject(FIND_ITEM_BY_NAME, parameters, BeanPropertyRowMapper.newInstance(Item.class));
         return Optional.ofNullable(item);
     }
 
@@ -78,8 +90,8 @@ public class ItemDaoJdbcImpl implements ItemDao {
         return orderItemsList;
     }
 
-    @Override
-    public List<Item> itemsList(final String sqlRequest, MapSqlParameterSource parameters){
+
+    private List<Item> itemsList(final String sqlRequest, MapSqlParameterSource parameters){
         List<Integer> itemIds = namedParameterJdbcTemplate.queryForList(sqlRequest, parameters, Integer.class);
         List<Item> items = itemIds.stream()
                 .map(this::findItemById)

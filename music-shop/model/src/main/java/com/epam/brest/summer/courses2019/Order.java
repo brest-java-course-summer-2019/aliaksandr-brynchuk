@@ -28,7 +28,7 @@ public class Order {
     /**
      * Status
      */
-    private Integer status;
+    private String status;
 
     /**
      * Items list
@@ -65,11 +65,11 @@ public class Order {
         this.clientId = clientId;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer statusId) {
+    public void setStatus(String statusId) {
         this.status = statusId;
     }
 

@@ -24,6 +24,11 @@ public class Item {
     private String itemName;
 
     /**
+     * Item status
+     */
+    private String itemStatus;
+
+    /**
      * Item price;
      */
     private BigDecimal itemPrice;
@@ -33,9 +38,10 @@ public class Item {
     }
 
 
-    public Item(String itemGroup, String itemName, BigDecimal itemPrice) {
+    public Item(String itemGroup, String itemName, String itemStatus,  BigDecimal itemPrice) {
         this.itemGroup = itemGroup;
         this.itemName = itemName;
+        this.itemStatus = itemStatus;
         this.itemPrice = itemPrice;
     }
 
@@ -63,6 +69,14 @@ public class Item {
         this.itemName = itemName;
     }
 
+    public String getItemStatus() {
+        return itemStatus;
+    }
+
+    public void setItemStatus(String itemStatus) {
+        this.itemStatus = itemStatus;
+    }
+
     public BigDecimal getItemPrice() {
         return itemPrice;
     }
@@ -79,12 +93,13 @@ public class Item {
         return Objects.equals(getItemId(), item.getItemId()) &&
                 Objects.equals(getItemGroup(), item.getItemGroup()) &&
                 Objects.equals(getItemName(), item.getItemName()) &&
+                Objects.equals(getItemStatus(), item.getItemStatus()) &&
                 Objects.equals(getItemPrice(), item.getItemPrice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getItemId(), getItemGroup(), getItemName(), getItemPrice());
+        return Objects.hash(getItemId(), getItemGroup(), getItemName(), getItemStatus(), getItemPrice());
     }
 
     @Override
@@ -93,6 +108,7 @@ public class Item {
                 "itemId=" + itemId +
                 ", itemGroup='" + itemGroup + '\'' +
                 ", itemName='" + itemName + '\'' +
+                ", itemStatus='" + itemStatus + '\'' +
                 ", itemPrice=" + itemPrice +
                 '}';
     }

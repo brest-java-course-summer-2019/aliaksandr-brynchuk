@@ -18,6 +18,8 @@
         <module>test-db</module>
         <module>web-app</module>
         <module>services</module>
+        <module>rest-app</module>
+        <module>dao-api</module>
     </modules>
 
     <distributionManagement>

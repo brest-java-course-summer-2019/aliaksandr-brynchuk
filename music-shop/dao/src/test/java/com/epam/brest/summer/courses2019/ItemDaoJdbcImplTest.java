@@ -4,12 +4,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +23,8 @@ public class ItemDaoJdbcImplTest {
 
     @Autowired
     ItemDao itemDao;
+
+
 
     private static Item item;
 
@@ -40,22 +44,38 @@ public class ItemDaoJdbcImplTest {
     }
 
     @Test
-    void findAllItems() {
-        List<Item> items = itemDao.findAllItems();
+    void findAllAvailabItems() {
+        List<Item> items = itemDao.findAllAvailableItems();
         assertNotNull(items);
         assertFalse(items.isEmpty());
+        assertEquals(items.size(), 9);
+    }
+
+    @Test
+    void findItemByGroup(){
+        List<Item> items = itemDao.findItemsByGroup("Guitars");
+        assertNotNull(items);
+        assertFalse(items.isEmpty());
+        assertEquals(items.size(), 3);
+    }
+
+    @Test
+    void itemsListFromOrder(){
+        List<Item> items = itemDao.itemsListFromOrder(1);
+        assertNotNull(items);
+        assertEquals(items.size(), 3);
     }
 
     @Test
     void addItem() {
-        List<Item> items = itemDao.findAllItems();
+        List<Item> items = itemDao.findAllAvailableItems();
         int sizeBefore = items.size();
         Item newItem = itemDao.addItem(item);
         assertNotNull(newItem.getItemId());
         assertEquals(newItem.getItemGroup(), item.getItemGroup());
         assertEquals(newItem.getItemName(), item.getItemName());
         assertEquals(newItem.getItemPrice(), item.getItemPrice());
-        assertEquals((sizeBefore + 1), itemDao.findAllItems().size());
+        assertEquals((sizeBefore + 1), itemDao.findAllAvailableItems().size());
     }
 
     @Test
@@ -75,10 +95,22 @@ public class ItemDaoJdbcImplTest {
     @Test
     void deleteItem() {
         itemDao.addItem(item);
-        List<Item> items = itemDao.findAllItems();
+        List<Item> items = itemDao.findAllAvailableItems();
         int sizeBefore = items.size();
         itemDao.deleteItem(item.getItemId());
-        assertEquals(sizeBefore - 1, itemDao.findAllItems().size());
+        assertEquals(sizeBefore - 1, itemDao.findAllAvailableItems().size());
+
+    }
+
+    @Test
+    void insertItem(){
+        List<Item> items = itemDao.itemsListFromOrder(1);
+        int sizeBefore = items.size();
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("order_id", 1);
+        parameters.addValue("item_id", )
+        itemDao.insertItem();
 
     }
 
