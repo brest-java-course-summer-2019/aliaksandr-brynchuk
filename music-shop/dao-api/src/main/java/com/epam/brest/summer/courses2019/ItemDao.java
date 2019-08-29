@@ -3,9 +3,7 @@ package com.epam.brest.summer.courses2019;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface ItemDao {
@@ -20,14 +18,10 @@ public interface ItemDao {
 
     void deleteItemsList(Integer orderId);
 
+    List<Item> findAllItems();
+
     List<Item> itemsListFromOrder(Integer orderId);
 
-    List<Item>findAllItems();
-
     Optional<Item> findItemById(Integer itemId);
-
-    List<Item> findItemsByGroup(String group);
-
-    List<Item> itemsList(final String sqlRequest, MapSqlParameterSource parameters);
 
 }

@@ -14,11 +14,6 @@ public class Item {
     private Integer itemId;
 
     /**
-     * Item group
-     */
-    private String itemGroup;
-
-    /**
      * Item name
      */
     private String itemName;
@@ -33,8 +28,7 @@ public class Item {
     }
 
 
-    public Item(String itemGroup, String itemName, BigDecimal itemPrice) {
-        this.itemGroup = itemGroup;
+    public Item(String itemName, BigDecimal itemPrice) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
     }
@@ -45,14 +39,6 @@ public class Item {
 
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
-    }
-
-    public String getItemGroup() {
-        return itemGroup;
-    }
-
-    public void setItemGroup(String itemGroup) {
-        this.itemGroup = itemGroup;
     }
 
     public String getItemName() {
@@ -77,21 +63,19 @@ public class Item {
         if (!(o instanceof Item)) return false;
         Item item = (Item) o;
         return Objects.equals(getItemId(), item.getItemId()) &&
-                Objects.equals(getItemGroup(), item.getItemGroup()) &&
                 Objects.equals(getItemName(), item.getItemName()) &&
                 Objects.equals(getItemPrice(), item.getItemPrice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getItemId(), getItemGroup(), getItemName(), getItemPrice());
+        return Objects.hash(getItemId(), getItemName(),getItemPrice());
     }
 
     @Override
     public String toString() {
         return "Item{" +
                 "itemId=" + itemId +
-                ", itemGroup='" + itemGroup + '\'' +
                 ", itemName='" + itemName + '\'' +
                 ", itemPrice=" + itemPrice +
                 '}';

@@ -20,15 +20,6 @@ public class Order {
      */
     private Date orderDate;
 
-    /**
-     * Client id
-     */
-    private Integer clientId;
-
-    /**
-     * Status
-     */
-    private Integer status;
 
     /**
      * Items list
@@ -57,22 +48,6 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Integer getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(Integer clientId) {
-        this.clientId = clientId;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer statusId) {
-        this.status = statusId;
-    }
-
     public List<Item> getItemsList() {
         return itemsList;
     }
@@ -94,8 +69,6 @@ public class Order {
         return "Order{" +
                 "orderId=" + orderId +
                 ", orderDate=" + orderDate +
-                ", clientId=" + clientId +
-                ", status=" + status +
                 ", itemsList=" + itemsList +
                 ", orderCost=" + orderCost +
                 '}';

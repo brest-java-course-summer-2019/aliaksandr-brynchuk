@@ -1,6 +1,4 @@
-package com.epam.brest.summer.courses2019.services;
-
-import com.epam.brest.summer.courses2019.Order;
+package com.epam.brest.summer.courses2019;
 
 import java.sql.Date;
 import java.util.List;
@@ -8,8 +6,6 @@ import java.util.List;
 public interface OrderService {
 
     Order addOrder(Order order);
-
-    void changeStatus(Integer orderId, String status);
 
     void updateOrder(Order order);
 

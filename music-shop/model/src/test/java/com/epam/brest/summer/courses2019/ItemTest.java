@@ -16,13 +16,6 @@ public class ItemTest {
         Assert.assertEquals(paddle.getItemId().intValue(), 1);
     }
 
-
-    @Test
-    public void getItemGroup() {
-        paddle.setItemGroup("Guitars");
-        Assert.assertEquals(paddle.getItemGroup(), "Guitars");
-    }
-
     @Test
     public void getItemName() {
         paddle.setItemName("paddleWithStrings");

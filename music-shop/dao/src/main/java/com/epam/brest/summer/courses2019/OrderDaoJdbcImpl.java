@@ -19,7 +19,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     private ItemDaoJdbcImpl itemDao;
 
-    private static final String SELECT_ALL = "select o.order_id, o.order_date from orders o order by order_number";
+    private static final String SELECT_ALL = "select o.order_id, o.order_number, o.order_date from orders o order by order_number";
 
     private static final String SELECT_BY_ID = "select o.order_id, o.order_date, sum(i.item_price) as orderCost" +
                                                "from orders o" +
@@ -38,8 +38,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
                                              "from order_items io"+
                                              "inner join items i on io.item_id = i.item_id" +
                                              "where io.order_id = :orderId";
-
-    private static final String CHANGE_ORDER_STATUS = "update orders set order_status = :orderStatus where order_id = :orderId";
 
     public OrderDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -81,14 +79,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
         return orderCost;
     }
 
-    @Override
-    public void changeStatus(Integer orderId, String status) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("order_id", orderId);
-        parameters.addValue("order_status", status);
-
-        namedParameterJdbcTemplate.update(CHANGE_ORDER_STATUS, parameters);
-    }
 
     @Override
     public Order addOrder(Order order) {

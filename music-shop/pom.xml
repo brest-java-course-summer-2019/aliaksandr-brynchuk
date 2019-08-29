@@ -12,12 +12,16 @@
     <name>Music Shop</name>
     <url>http://www.example.com</url>
 
+
     <modules>
         <module>model</module>
         <module>dao</module>
         <module>test-db</module>
         <module>web-app</module>
         <module>services</module>
+        <module>rest-app</module>
+        <module>dao-api</module>
+        <module>services-api</module>
     </modules>
 
     <distributionManagement>
@@ -67,6 +71,30 @@
             <dependency>
                 <groupId>com.epam.brest.summer.courses2019</groupId>
                 <artifactId>dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.epam.brest.summer.courses2019</groupId>
+                <artifactId>dao-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.epam.brest.summer.courses2019</groupId>
+                <artifactId>services</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.epam.brest.summer.courses2019</groupId>
+                <artifactId>services-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.epam.brest.summer.courses2019</groupId>
+                <artifactId>web-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

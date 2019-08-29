@@ -2,6 +2,7 @@ package com.epam.brest.summer.courses2019.services;
 
 import com.epam.brest.summer.courses2019.Item;
 import com.epam.brest.summer.courses2019.ItemDao;
+import com.epam.brest.summer.courses2019.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
-public class ItemServiceImpl implements ItemService{
+public class ItemServiceImpl implements ItemService {
 
     private ItemDao dao;
 
@@ -43,12 +44,6 @@ public class ItemServiceImpl implements ItemService{
     public List<Item> findAllItems() {
         LOGGER.debug("Find all items");
         return dao.findAllItems();
-    }
-
-    @Override
-    public List<Item> findItemsByGroup(String group) {
-        LOGGER.debug("Find all items by group {}", group);
-        return dao.findItemsByGroup(group);
     }
 
     @Override
