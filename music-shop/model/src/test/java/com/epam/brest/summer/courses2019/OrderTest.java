@@ -17,18 +17,6 @@ public class OrderTest {
     }
 
     @Test
-    void getClientId(){
-        order.setClientId(1);
-        assertEquals(order.getClientId().intValue(), 1);
-    }
-
-    @Test
-    void getStatus(){
-        order.setStatus("New");
-        assertEquals(order.getStatus(), "New");
-    }
-
-    @Test
     void getItemsList(){
     }
 

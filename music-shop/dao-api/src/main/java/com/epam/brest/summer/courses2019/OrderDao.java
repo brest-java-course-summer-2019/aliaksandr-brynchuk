@@ -1,6 +1,5 @@
 package com.epam.brest.summer.courses2019;
 
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -13,8 +12,6 @@ public interface OrderDao {
     BigDecimal orderCost(Order order);
 
     void deleteOrder(Integer orderId);
-
-    void changeStatus(Integer orderId, String status);
 
     Order findOrderById(Integer orderId);
 

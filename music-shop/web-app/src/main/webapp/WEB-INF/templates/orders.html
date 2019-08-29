@@ -13,7 +13,7 @@
     <link rel="stylesheet"
           href="../../resources/static/css/style.css"
           th:href="@{/resources/static/css/style.css}">
-    <title>Employees List</title>
+    <title>Departments List</title>
 </head>
 <body>
 
@@ -27,86 +27,70 @@
                                               height="32" width="32" alt="HR"></a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <a class="nav-item nav-link"
-                   href="departments.html"
-                   th:href="@{/departments}">Departments</a>
                 <a class="nav-item nav-link active"
-                   href="employees.html"
-                   th:href="@{/employees}">Employees</a>
+                   href="orders.html"
+                   th:href="@{/orders}">Orders</a>
+                <a class="nav-item nav-link"
+                   href="assortment.html"
+                   th:href="@{/assortment}">Assortment</a>
             </ul>
         </div>
     </nav>
     <nav id="main-header"
          class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
-        <span class="navbar-brand text-uppercase mr-auto">Employees</span>
+        <span class="navbar-brand text-uppercase mr-auto">Orders</span>
         <ul class="navbar-nav float-right">
             <li class="nav-item">
-                <a href="employee.html"
-                   th:href="@{/employee}"
+                <a href="assortment.html"
+                   th:href="@{/assortment}"
                    class="btn btn-light"
-                   title="Add employee"
+                   title="Add department"
                    data-toggle="tooltip"
                    data-placement="bottom">
                     <i class="fa fa-plus"></i> <span
-                        class="d-none d-sm-inline">Add</span></a>
+                        class="d-none d-sm-inline">New Order</span></a>
             </li>
         </ul>
     </nav>
 </header>
 
-<section id="employees">
+<section id="orders">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <div class="card">
+
                     <table class="table table-striped">
                         <thead class="thead-dark">
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Salary</th>
+                            <th>Order</th>
+                            <th>Status</th>
+                            <th>Cost</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Ivan Ivanov</td>
-                            <td>ivan.ivanov@test.com</td>
-                            <td>1000</td>
-                            <td class="text-right">
-                                <a href="employee.html"
-                                   th:href="@{/employee}"
-                                   class="btn-sm btn-outline-secondary"
-                                   title="Edit employee"
-                                   data-toggle="tooltip"
-                                   data-placement="top">
-                                    <i class="fa fa-pencil"></i> <span
-                                        class="d-none d-md-inline">Edit</span></a>
-                                <span data-toggle="modal" data-target="#deleteDialog">
-                                <a href="#" class="btn-sm btn-outline-secondary"
-                                   title="Delete employee"
-                                   data-toggle="tooltip"
-                                   data-placement="top">
-                                    <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>
-                                </span>
+                        <tr th:each="order : ${orders}">
+                            <td th:text="${order.orderNumber}">
+                                <a href="order.html"
+                                   th:href="@{|/order/${order.orderId}|}"
                             </td>
-                        </tr>
-                        <tr>
-                            <td>Alexander Petrov</td>
-                            <td>alex.petrov@test.com</td>
-                            <td>1100</td>
+                            <td th:text="${order.orderDate}"></td>
+                            <td th:text="${order.orderCost}"></td>
                             <td class="text-right">
-                                <a href="employee.html"
-                                   th:href="@{/employee}"
+                                <a href="order.html"
+                                   th:href="@{|/order/${order.orderId}|}"
                                    class="btn-sm btn-outline-secondary"
-                                   title="Edit employee"
+                                   title="Edit department"
                                    data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-pencil"></i> <span
                                         class="d-none d-md-inline">Edit</span></a>
-                                <span data-toggle="modal" data-target="#deleteDialog">
+                                <span data-toggle="modal"
+                                      data-target="#deleteDialog"
+                                      th:attr="data-id=${order.orderId},data-name=${order.orderName}">
                                 <a href="#" class="btn-sm btn-outline-secondary"
-                                   title="Delete employee"
+                                   title="delete department"
                                    data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>
@@ -115,6 +99,7 @@
                         </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
@@ -132,7 +117,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header alert-danger">
-                <h5 class="modal-title" id="exampleModalLabel">Delete employee</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Delete department</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -142,7 +127,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <a id="deleteUrl" href="#" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
@@ -157,6 +142,11 @@
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
+    })
+    $('#deleteDialog').on('show.bs.modal', function (event) {
+        var target = $(event.relatedTarget)
+        $(this).find('.modal-body').text('Please confirm delete departmeтt: "' + target.data('name') + '"')
+        document.getElementById('deleteUrl').href = '/department/' + target.data('id') + '/delete';
     })
 </script>
 </body>

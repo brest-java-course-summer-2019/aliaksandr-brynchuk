@@ -18,13 +18,10 @@ public interface ItemDao {
 
     void deleteItemsList(Integer orderId);
 
-    List<Item> itemsListFromOrder(Integer orderId);
+    List<Item> findAllItems();
 
-    List<Item>findAllAvailableItems();
+    List<Item> itemsListFromOrder(Integer orderId);
 
     Optional<Item> findItemById(Integer itemId);
 
-    Optional<Item> findItemByName(String itemName);
-
-    List<Item> findItemsByGroup(String group);
 }

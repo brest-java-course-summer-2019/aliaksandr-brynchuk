@@ -3,6 +3,7 @@ package com.epam.brest.summer.courses2019.services;
 import com.epam.brest.summer.courses2019.ItemDao;
 import com.epam.brest.summer.courses2019.Order;
 import com.epam.brest.summer.courses2019.OrderDao;
+import com.epam.brest.summer.courses2019.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -35,10 +36,6 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
-    @Override
-    public void changeStatus(Integer orderId, String status) {
-        orderDao.changeStatus(orderId, status);
-    }
 
     @Override
     public void updateOrderItems(Order order) {
