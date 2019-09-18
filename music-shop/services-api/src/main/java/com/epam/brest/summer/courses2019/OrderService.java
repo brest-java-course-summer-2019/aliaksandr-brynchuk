@@ -17,7 +17,7 @@ public interface OrderService {
 
     Order findOrderById(Integer orderId);
 
-    List<Order> findAllOrders();
+    List<OrderDTO> findAllOrderDTOs();
 
     List<Order> findOrdersByDates(Date from, Date to);
 

@@ -1,28 +1,33 @@
 package com.epam.brest.summer.courses2019.services;
 
-import com.epam.brest.summer.courses2019.ItemDao;
-import com.epam.brest.summer.courses2019.Order;
-import com.epam.brest.summer.courses2019.OrderDao;
-import com.epam.brest.summer.courses2019.OrderService;
+import com.epam.brest.summer.courses2019.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
 
 
-
+@Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     private ItemDao itemDao;
     private OrderDao orderDao;
+    private OrderDTODao orderDTODao;
 
-    public OrderServiceImpl(OrderDao orderDao, ItemDao itemDao) {
+
+    @Autowired
+    public OrderServiceImpl(OrderDao orderDao, ItemDao itemDao, OrderDTODao orderDTODao) {
         this.orderDao = orderDao;
         this.itemDao = itemDao;
+        this.orderDTODao = orderDTODao;
     }
 
 
@@ -70,9 +75,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAllOrders() {
+    public List<OrderDTO> findAllOrderDTOs() {
         LOGGER.debug("Find all orders");
-        return orderDao.findAllOrders();
+        return orderDTODao.findAllOrderDTOs();
     }
 
     @Override
