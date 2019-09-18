@@ -64,33 +64,30 @@
                         <thead class="thead-dark">
                         <tr>
                             <th>Order</th>
-                            <th>Status</th>
+                            <th>Date</th>
                             <th>Cost</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="order : ${orders}">
-                            <td th:text="${order.orderNumber}">
-                                <a href="order.html"
-                                   th:href="@{|/order/${order.orderId}|}"
-                            </td>
-                            <td th:text="${order.orderDate}"></td>
-                            <td th:text="${order.orderCost}"></td>
+                            <td th:text="${order.orderNumber}">00</td>
+                            <td th:text="${order.orderDate}">00</td>
+                            <td th:text="${order.orderCost}">00</td>
                             <td class="text-right">
                                 <a href="order.html"
                                    th:href="@{|/order/${order.orderId}|}"
                                    class="btn-sm btn-outline-secondary"
-                                   title="Edit department"
+                                   title="Edit order"
                                    data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-pencil"></i> <span
                                         class="d-none d-md-inline">Edit</span></a>
                                 <span data-toggle="modal"
                                       data-target="#deleteDialog"
-                                      th:attr="data-id=${order.orderId},data-name=${order.orderName}">
-                                <a href="#" class="btn-sm btn-outline-secondary"
-                                   title="delete department"
+                                      th:attr="data-id=${order.orderId},data-name=${order.orderNumber}">
+                                <a th:href="@{|/order/${order.orderId}/delete|}" class="btn-sm btn-outline-secondary"
+                                   title="delete order"
                                    data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>

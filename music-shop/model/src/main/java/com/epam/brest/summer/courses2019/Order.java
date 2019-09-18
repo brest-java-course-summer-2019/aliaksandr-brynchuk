@@ -15,6 +15,12 @@ public class Order {
      */
     private Integer orderId;
 
+
+    /**
+     * Order number
+     */
+    private Integer orderNumber;
+
     /**
      * Order date
      */
@@ -38,6 +44,14 @@ public class Order {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public Date getOrderDate() {
@@ -68,6 +82,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
+                ", orderNumber=" + orderNumber +
                 ", orderDate=" + orderDate +
                 ", itemsList=" + itemsList +
                 ", orderCost=" + orderCost +
