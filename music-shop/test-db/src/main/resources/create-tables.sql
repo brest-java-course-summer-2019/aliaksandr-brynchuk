@@ -22,7 +22,7 @@ CREATE TABLE order_items
   item_id  INT NOT NULL,
   PRIMARY KEY (order_id, item_id),
   FOREIGN KEY (order_id) REFERENCES orders,
-  FOREIGN KEY (item_id) REFERENCES items
+  FOREIGN KEY (item_id) REFERENCES items ON DELETE CASCADE
 );
 
 

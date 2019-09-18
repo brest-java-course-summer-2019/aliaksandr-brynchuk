@@ -36,7 +36,7 @@ public class ItemController {
     }
 
     @PostMapping(value = "/item")
-    public  final String addItem(Item item){
+    public final String addItem(Item item){
         LOGGER.debug("add item ({})", item);
         this.itemService.addItem(item);
         return "redirect:/assortment";
@@ -59,21 +59,13 @@ public class ItemController {
         return "redirect:/assortment";
     }
 
-    @GetMapping(value = "/item/{id}")
+    @GetMapping(value = "/item/{id}/delete")
     public final String deleteItem(@PathVariable Integer id){
+        System.out.println("delete" + id);
         LOGGER.debug("delete item, ({})", id);
 
         this.itemService.deleteItem(id);
         return "redirect:/assortment";
     }
-
-
-
-
-
-
-
-
-
 
 }

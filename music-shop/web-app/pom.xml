@@ -22,7 +22,15 @@
         </dependency>
         <dependency>
             <groupId>com.epam.brest.summer.courses2019</groupId>
-            <artifactId>services-api</artifactId>
+            <artifactId>services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.brest.summer.courses2019</groupId>
+            <artifactId>dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.brest.summer.courses2019</groupId>
+            <artifactId>test-db</artifactId>
         </dependency>
 
         <dependency>
@@ -44,6 +52,14 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
     </dependencies>
 

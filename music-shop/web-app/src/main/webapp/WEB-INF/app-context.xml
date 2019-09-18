@@ -18,6 +18,23 @@
     
     <context:component-scan base-package="com.epam.brest.summer.courses2019.*"/>
 
+
+    <import resource="classpath*:test-db.xml"/>
+
+    <bean id="itemService" class="com.epam.brest.summer.courses2019.services.ItemServiceImpl">
+        <constructor-arg ref="itemDao"/>
+    </bean>
+
+    <bean id="itemDao" class="com.epam.brest.summer.courses2019.ItemDaoJdbcImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+
     <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
         <property name="prefix" value="/WEB-INF/templates/" />
@@ -39,5 +56,6 @@
         <property name="templateEngine" ref="templateEngine" />
         <property name="characterEncoding" value="UTF-8" />
     </bean>
+
 
 </beans>

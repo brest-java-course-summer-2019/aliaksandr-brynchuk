@@ -7,14 +7,18 @@
         http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <tx:annotation-driven/>
+    <import resource="classpath*:test-db.xml"/>
 
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="txManager" />
 
     <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="orderDao" class="com.epam.brest.summer.courses2019.dao.OrderDaoJdbcImpl">
+    <bean id="orderDao" class="com.epam.brest.summer.courses2019.OrderDaoJdbcImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
@@ -23,7 +27,7 @@
         <constructor-arg ref="itemDao"/>
     </bean>
 
-    <bean id="itemDao" class="com.epam.brest.summer.courses2019.dao.ItemDaoJdbcImpl">
+    <bean id="itemDao" class="com.epam.brest.summer.courses2019.ItemDaoJdbcImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
