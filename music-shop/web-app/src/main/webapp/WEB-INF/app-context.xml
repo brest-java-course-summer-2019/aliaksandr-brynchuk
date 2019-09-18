@@ -29,6 +29,20 @@
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
+    <bean id="orderService" class="com.epam.brest.summer.courses2019.services.OrderServiceImpl">
+        <constructor-arg index="0" ref="orderDao"/>
+        <constructor-arg index="1" ref="itemDao"/>
+        <constructor-arg index="2" ref="orderDTODao"/>
+    </bean>
+
+    <bean id="orderDao" class="com.epam.brest.summer.courses2019.OrderDaoJdbcImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="orderDTODao" class="com.epam.brest.summer.courses2019.OrderDTODaoJdbcImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
     <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>

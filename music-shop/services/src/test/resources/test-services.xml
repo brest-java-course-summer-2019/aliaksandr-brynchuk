@@ -22,8 +22,13 @@
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
+    <bean id="orderDTODao" class="com.epam.brest.summer.courses2019.OrderDTODaoJdbcImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
     <bean id="orderService" class="com.epam.brest.summer.courses2019.services.OrderServiceImpl">
         <constructor-arg ref="orderDao"/>
+        <constructor-arg ref="orderDTODao"/>
         <constructor-arg ref="itemDao"/>
     </bean>
 

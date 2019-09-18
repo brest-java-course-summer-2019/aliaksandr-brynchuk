@@ -21,7 +21,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     private static final String SELECT_ALL = "select o.order_id, o.order_number, o.order_date from orders o order by order_number";
 
-    private static final String SELECT_BY_ID = "select o.order_id, o.order_date, sum(i.item_price) as orderCost" +
+    private static final String SELECT_BY_ID = "select o.order_id, o.orderNumber, o.order_date, sum(i.item_price) as orderCost" +
                                                "from orders o" +
                                                "left join items_order io on o.order_id = io.order_id" +
                                                "inner join items i on i.item_id = io.item_id";
@@ -30,7 +30,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
     private static final String FIND_BY_DATE = "";
 
 
-    private static final String ADD_ORDER = "insert into orders (order_date) values ( :order_date)";
+    private static final String ADD_ORDER = "insert into orders (order_number, order_date) values ( :orderNumber, :orderDate)";
 
     private static final String DELETE_ORDER = "delete from orders where order_id = :order_id";
 
@@ -82,7 +82,9 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public Order addOrder(Order order) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource("order_date", order.getOrderDate());
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("order_number", order.getOrderNumber());
+        parameters.addValue("order_date", order.getOrderDate());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
