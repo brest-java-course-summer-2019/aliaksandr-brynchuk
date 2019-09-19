@@ -21,7 +21,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     private static final String SELECT_ALL = "select o.order_id, o.order_number, o.order_date from orders o order by order_number";
 
-    private static final String SELECT_BY_ID = "select o.order_id, o.orderNumber, o.order_date, sum(i.item_price) as orderCost" +
+    private static final String SELECT_BY_ID = "select o.order_id, o.orderNumber, o.order_date, sum(i.item_price) as orderCost " +
                                                "from orders o" +
                                                "left join items_order io on o.order_id = io.order_id" +
                                                "inner join items i on i.item_id = io.item_id";
