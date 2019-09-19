@@ -61,7 +61,6 @@ public class ItemController {
 
     @GetMapping(value = "/item/{id}/delete")
     public final String deleteItem(@PathVariable Integer id){
-        System.out.println("delete" + id);
         LOGGER.debug("delete item, ({})", id);
 
         this.itemService.deleteItem(id);
