@@ -18,11 +18,11 @@ public class ItemDaoJdbcImpl implements ItemDao {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final String SELECT_ALL = "select i.item_id, i.item_name, i.item_price "
-            + " from items i order by item_name";
+            + " from items i where i.is_reserved = false order by item_name";
     private static final String SELECT_ITEMS_FROM_ORDER = "select oi.item_id from order_items oi where order_id = :orderId";
 
-    private static final String ADD_ITEM = "insert into items (item_name, item_price)" +
-            "values (:itemName, :itemPrice)";
+    private static final String ADD_ITEM = "insert into items (item_name, item_price, is_reserved)" +
+            "values (:itemName, :itemPrice, :isReserved)";
 
     private static final String INSERT_ITEM = "insert into order_items (order_id, item_id) values (:orderId, :itemId)";
 
@@ -40,6 +40,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
     private static final String ITEM_NAME = "itemName";
     private static final String ITEM_PRICE = "itemPrice";
     private static final String ORDER_ID = "orderId";
+    private static final String ITEM_STATUS = "isReserved";
 
 
     public ItemDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -87,6 +88,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(ITEM_NAME, item.getItemName());
         parameters.addValue(ITEM_PRICE, item.getItemPrice());
+        parameters.addValue(ITEM_STATUS, item.isReserved());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 

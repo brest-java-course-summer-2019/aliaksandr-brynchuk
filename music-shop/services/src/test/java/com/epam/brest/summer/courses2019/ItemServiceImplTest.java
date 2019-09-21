@@ -67,7 +67,7 @@ public class ItemServiceImplTest {
 
     @Test
     void deleteItem(){
-        int id = 3;
+        int id = 13;
         Item item = create();
         item.setItemId(id);
         itemService.addItem(item);

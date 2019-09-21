@@ -61,12 +61,6 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrder(Order order) {
         itemDao.deleteItemsList(order.getOrderId());
         updateOrderItems(order);
-        orderDao.orderCost(order);
-    }
-
-    @Override
-    public void updateCost(Order order) {
-        orderDao.orderCost(order);
     }
 
     @Override
@@ -98,8 +92,4 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.findOrdersByDates(from, to);
     }
 
-    @Override
-    public List<Order> fetchOrders(Integer id) {
-        return orderDao.fetchOrders(id);
-    }
 }
