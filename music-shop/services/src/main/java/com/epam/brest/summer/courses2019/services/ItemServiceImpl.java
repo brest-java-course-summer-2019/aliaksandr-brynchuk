@@ -53,4 +53,9 @@ public class ItemServiceImpl implements ItemService {
         LOGGER.debug("Find item by id {}", itemId);
         return dao.findItemById(itemId);
     }
+
+    @Override
+    public List<Item> itemsList(Integer id) {
+        return dao.itemsListFromOrder(id);
+    }
 }

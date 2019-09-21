@@ -7,44 +7,23 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
 @Rollback
-public class OrderDaoJdbcImplTest {
+public class OrderDtoDaoJdbcImplTest {
 
     @Autowired
-    OrderDao orderDao;
+    OrderDTODao orderDTODao;
 
     @Test
-    public void addOrder() {
-    }
-
-    @Test
-    public void updateOrder() {
-    }
-
-    @Test
-    public void deleteOrder() {
-    }
-
-    @Test
-    public void findAllOrders() {
-//        assertNotNull(orderDao);
-
-
-    }
-
-    @Test
-    public void findOrdersByDates() {
-    }
-
-    @Test
-    public void findOrderById(){
-//        assertNotNull(orderDao);
-//        Integer id = 1;
-//        Order order = orderDao.findOrderById(id);
-//        assertNotNull(order);
+    public void findAllOrderDTOs(){
+        assertNotNull(orderDTODao);
+        List<OrderDTO> orders = orderDTODao.findAllOrderDTOs();
+        assertNotNull(orders);
+        assertFalse(orders.isEmpty());
     }
 }

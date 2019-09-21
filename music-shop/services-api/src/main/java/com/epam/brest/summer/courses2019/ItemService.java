@@ -14,4 +14,6 @@ public interface ItemService {
     List<Item>findAllItems();
 
     Optional<Item> findItemById(Integer itemId);
+
+    List<Item> itemsList(Integer id);
 }

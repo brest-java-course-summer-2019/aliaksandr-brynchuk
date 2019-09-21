@@ -8,7 +8,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -35,9 +36,9 @@ public class OrderServiceImpl implements OrderService {
     public Order addOrder(Order order) {
         LOGGER.debug("Add order:  {}", order);
 
+        order.setOrderDate(LocalDate.now());
+        System.out.println("test date" + order.getOrderDate());
         orderDao.addOrder(order);
-        updateOrderItems(order);
-
         return order;
     }
 
@@ -83,12 +84,22 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order findOrderById(Integer orderId) {
         LOGGER.debug("Find order:  {}", orderId);
-        return orderDao.findOrderById(orderId);
+
+
+        Order orderById = orderDao.findOrderById(orderId);
+        List<Item> items= itemDao.itemsListFromOrder(orderId);
+        orderById.setItemsList(items);
+        return orderById;
     }
 
     @Override
-    public List<Order> findOrdersByDates(Date from, Date to) {
+    public List<Order> findOrdersByDates(LocalDate from, LocalDate to) {
         LOGGER.debug("Find orders by dates: {}", from,to);
         return orderDao.findOrdersByDates(from, to);
+    }
+
+    @Override
+    public List<Order> fetchOrders(Integer id) {
+        return orderDao.fetchOrders(id);
     }
 }

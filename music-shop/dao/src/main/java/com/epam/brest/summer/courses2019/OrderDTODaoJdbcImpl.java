@@ -9,10 +9,11 @@ import java.util.List;
 public class OrderDTODaoJdbcImpl implements OrderDTODao {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private static final String SELECT_ALL_WITH_COST = "select o.order_id, o.order_number, o.order_date, sum(i.item_price) as orderCost" +
-            "from orders o" +
-            "left join items_order io on o.order_id = io.order_id" +
-            "inner join items i on i.item_id = io.item_id";
+    private static final String SELECT_ALL_WITH_COST = "select o.order_id, o.order_number, o.order_date, sum(i.item_price) as orderCost " +
+            "from orders o " +
+            "left join order_items io on o.order_id = io.order_id " +
+            "left join items i on i.item_id = io.item_id "+
+            "group by o.order_id, o.order_number";
 
     public OrderDTODaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate){
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;

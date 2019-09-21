@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS orders;
 CREATE TABLE orders
 (
   order_id     INT         NOT NULL AUTO_INCREMENT UNIQUE,
-  order_number INT         NOT NULL,
+--   order_number INT         NOT NULL AUTO_INCREMENT UNIQUE,
   order_date   DATE        NOT NULL,
   PRIMARY KEY (order_id)
 );
@@ -21,7 +21,7 @@ CREATE TABLE order_items
   order_id INT NOT NULL,
   item_id  INT NOT NULL,
   PRIMARY KEY (order_id, item_id),
-  FOREIGN KEY (order_id) REFERENCES orders,
+  FOREIGN KEY (order_id) REFERENCES orders  ON DELETE CASCADE,
   FOREIGN KEY (item_id) REFERENCES items ON DELETE CASCADE
 );
 
