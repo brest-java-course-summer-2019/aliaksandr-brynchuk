@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS orders;
 CREATE TABLE orders
 (
   order_id     INT         NOT NULL AUTO_INCREMENT UNIQUE,
---   order_number INT         NOT NULL AUTO_INCREMENT UNIQUE,
   order_date   DATE        NOT NULL,
   PRIMARY KEY (order_id)
 );
@@ -13,6 +12,7 @@ CREATE TABLE items
   item_id     INT          NOT NULL AUTO_INCREMENT UNIQUE,
   item_name   VARCHAR(255) NOT NULL,
   item_price  DECIMAL      NOT NULL,
+  is_reserved boolean,
   PRIMARY KEY (item_id),
 );
 DROP TABLE IF EXISTS order_items;

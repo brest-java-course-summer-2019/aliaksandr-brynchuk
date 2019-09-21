@@ -23,8 +23,12 @@ public class Item {
      */
     private BigDecimal itemPrice;
 
-    public Item(){
+    /**
+     * Item status;
+     */
+    private boolean isReserved;
 
+    public Item(){
     }
 
 
@@ -55,6 +59,14 @@ public class Item {
 
     public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
+    }
+
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        isReserved = reserved;
     }
 
     @Override
