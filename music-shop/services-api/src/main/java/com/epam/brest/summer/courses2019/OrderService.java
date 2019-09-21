@@ -12,8 +12,6 @@ public interface OrderService {
 
     void updateOrderItems(Order order);
 
-    void updateCost(Order order);
-
     void deleteOrder(Integer orderId);
 
     Order findOrderById(Integer orderId);
@@ -22,6 +20,5 @@ public interface OrderService {
 
     List<Order> findOrdersByDates(LocalDate from, LocalDate to);
 
-    List<Order> fetchOrders(Integer id);
 
 }
