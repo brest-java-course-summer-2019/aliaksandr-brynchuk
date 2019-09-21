@@ -12,18 +12,26 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
+@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-services.xml"})
 @Rollback
-public class OrderDtoDaoJdbcImplTest {
+
+public class OrderServiceImplTest {
 
     @Autowired
-    OrderDTODao orderDTODao;
+    OrderService orderService;
 
     @Test
-    public void findAllOrderDTOs(){
-        assertNotNull(orderDTODao);
-        List<OrderDTO> orders = orderDTODao.findAllOrderDTOs();
-        assertNotNull(orders);
-        assertFalse(orders.isEmpty());
+    void findOrderById(){
+        Order orders = orderService.findOrderById(1);
+        System.out.println("orders = " + orders);
+    }
+
+    @Test
+    void hyh(){
+        Order order = new Order();
+        orderService.addOrder(order);
+        List<OrderDTO>orders = orderService.findAllOrderDTOs();
+        System.out.println("orders = " + orders);
+
     }
 }

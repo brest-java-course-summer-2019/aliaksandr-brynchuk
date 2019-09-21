@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS orders;
 CREATE TABLE orders
 (
   order_id     INT         NOT NULL AUTO_INCREMENT UNIQUE,
-  order_number INT         NOT NULL,
+--   order_number INT         NOT NULL AUTO_INCREMENT UNIQUE,
   order_date   DATE        NOT NULL,
   PRIMARY KEY (order_id)
 );

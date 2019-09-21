@@ -1,6 +1,6 @@
-INSERT INTO orders (order_id, order_number, order_date) VALUES (1, 1001, '2019-08-1');
-INSERT INTO orders (order_id, order_number, order_date) VALUES (2, 1002, '2019-08-2');
-INSERT INTO orders (order_id, order_number, order_date) VALUES (3, 1003, '2019-08-3');
+INSERT INTO orders (order_date) VALUES ('2019-08-1');
+INSERT INTO orders (order_date) VALUES ('2019-08-2');
+INSERT INTO orders (order_date) VALUES ('2019-08-3');
 
 INSERT INTO items (item_id, item_name, item_price) VALUES(1, 'Gibson Les Paul', 1100);
 INSERT INTO items (item_id, item_name, item_price) VALUES(2, 'Fender Stratocaster', 1200);

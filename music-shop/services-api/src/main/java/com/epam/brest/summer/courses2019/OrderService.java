@@ -1,6 +1,7 @@
 package com.epam.brest.summer.courses2019;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderService {
@@ -19,6 +20,8 @@ public interface OrderService {
 
     List<OrderDTO> findAllOrderDTOs();
 
-    List<Order> findOrdersByDates(Date from, Date to);
+    List<Order> findOrdersByDates(LocalDate from, LocalDate to);
+
+    List<Order> fetchOrders(Integer id);
 
 }

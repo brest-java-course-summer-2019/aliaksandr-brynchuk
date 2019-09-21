@@ -2,7 +2,8 @@ package com.epam.brest.summer.courses2019;
 
 
 import java.math.BigDecimal;
-import java.sql.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -16,15 +17,15 @@ public class Order {
     private Integer orderId;
 
 
-    /**
-     * Order number
-     */
-    private Integer orderNumber;
+//    /**
+//     * Order number
+//     */
+//    private Integer orderNumber;
 
     /**
      * Order date
      */
-    private Date orderDate;
+    private LocalDate orderDate;
 
 
     /**
@@ -46,19 +47,19 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Integer getOrderNumber() {
-        return orderNumber;
-    }
+//    public Integer getOrderNumber() {
+//        return orderNumber;
+//    }
+//
+//    public void setOrderNumber(Integer orderNumber) {
+//        this.orderNumber = orderNumber;
+//    }
 
-    public void setOrderNumber(Integer orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -82,7 +83,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", orderNumber=" + orderNumber +
+//                ", orderNumber=" + orderNumber +
                 ", orderDate=" + orderDate +
                 ", itemsList=" + itemsList +
                 ", orderCost=" + orderCost +

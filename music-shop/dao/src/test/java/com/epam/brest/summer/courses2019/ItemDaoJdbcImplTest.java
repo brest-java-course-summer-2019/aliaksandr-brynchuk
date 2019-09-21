@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
 @Rollback
 
-public class ItemDaoJdbcImplTest {
+class ItemDaoJdbcImplTest {
 
     @Autowired
     ItemDao itemDao;

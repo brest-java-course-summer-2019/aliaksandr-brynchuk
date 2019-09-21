@@ -11,7 +11,7 @@ public class OrderDTODaoJdbcImpl implements OrderDTODao {
 
     private static final String SELECT_ALL_WITH_COST = "select o.order_id, o.order_number, o.order_date, sum(i.item_price) as orderCost " +
             "from orders o " +
-            "inner join order_items io on o.order_id = io.order_id " +
+            "left join order_items io on o.order_id = io.order_id " +
             "left join items i on i.item_id = io.item_id "+
             "group by o.order_id, o.order_number";
 
