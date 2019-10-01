@@ -22,6 +22,7 @@ public class ItemController {
     @GetMapping(value="/assortment")
     public final String allItems(Model model){
         LOGGER.debug("Find all items{()}", model);
+
         model.addAttribute("assortment", itemService.findAllItems());
         return "assortment";
     }

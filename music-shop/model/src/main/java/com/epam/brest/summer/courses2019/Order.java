@@ -21,11 +21,16 @@ public class Order {
      */
     private LocalDate orderDate;
 
-
     /**
      * Items list
      */
     private List<Item> itemsList;
+
+
+    /**
+     * Items ids list
+     */
+    private List<String> itemsIds;
 
     /**
      * Order cost
@@ -63,6 +68,18 @@ public class Order {
 
     public void setOrderCost(BigDecimal orderCost) {
         this.orderCost = orderCost;
+    }
+
+    public List<String> getItemsIds() {
+        return itemsIds;
+    }
+
+    public void setItemsIds(List<String> itemsIds) {
+        this.itemsIds = itemsIds;
+    }
+
+    public void clearIds(){
+        this.itemsIds.clear();
     }
 
     @Override

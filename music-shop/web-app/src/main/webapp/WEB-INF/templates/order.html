@@ -90,29 +90,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="item : ${items}">
+                        <form id="orderForm"
+                              th:object="${order}"
+                              th:action="${isNew} ? @{/order} : @{/order/${order.orderId}}"
+                              th:method="@{post}">
+                        <tr th:each="item, temp : ${items}">
                             <td th:text="${item.itemName}">Guitar 1</td>
                             <td th:text="${item.itemPrice}">1000</td>
-                            <td class="text-right">
-                                <a href="#"
-                                   th:href="@{|/item/${item.itemId}|}"
-                                   class="btn-sm btn-outline-secondary"
-                                   title="Edit item"
-                                   data-toggle="tooltip"
-                                   data-placement="top">
-                                    <i class="fa fa-pencil"></i> <span
-                                        class="d-none d-md-inline">Edit</span></a>
-                                <span data-toggle="modal" data-target="#deleteDialog"
-                                      th:attr="data-id=${item.itemId}, data-name=${item.itemName}">
-                                <a th:href="@{|/item/${item.itemId}/delete|}" class="btn-sm btn-outline-secondary"
-                                   title="Delete item"
-                                   data-toggle="tooltip"
-                                   data-placement="top">
-                                    <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>
-                                </span>
+                            <td>
+                                <input id="orderId"
+                                       type="hidden"
+                                       th:field="*{orderId}"/>
+                                <label><input type="checkbox" id="check"
+                                              th:text="${orderId}"
+                                              th:field="*{itemsIds}"
+                                              th:value="${item.itemId}">
+                                </label>
+
                             </td>
                         </tr>
-
+                        </form>
                         </tbody>
                     </table>
                 </div>
@@ -120,25 +117,6 @@
         </div>
     </div>
 </section>
-
-<section id="order">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <form id="orderForm"
-                              th:object="${order}"
-                              th:action="${isNew} ? @{/order} : @{/order/${order.orderId}}"
-                              th:method="@{post}">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <footer>
     <hr/>
     <p class="text-center">&copy; 2019</p>

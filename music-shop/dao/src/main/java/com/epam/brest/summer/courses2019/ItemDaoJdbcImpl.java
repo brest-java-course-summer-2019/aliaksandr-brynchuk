@@ -24,7 +24,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
     private static final String ADD_ITEM = "insert into items (item_name, item_price, is_reserved)" +
             "values (:itemName, :itemPrice, :isReserved)";
 
-    private static final String INSERT_ITEM = "insert into order_items (order_id, item_id) values (:orderId, :itemId)";
+    private static final String INSERT_ITEM = "insert into order_items (order_id, item_id) values (:order_id, :item_id)";
 
     private static final String UPDATE_ITEM = "update items set "
             + "item_name = :itemName, item_price = :itemPrice where item_id = :itemId";
