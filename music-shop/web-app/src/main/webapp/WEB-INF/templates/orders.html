@@ -13,7 +13,7 @@
     <link rel="stylesheet"
           href="../../resources/static/css/style.css"
           th:href="@{/resources/static/css/style.css}">
-    <title>Departments List</title>
+    <title>Orders List</title>
 </head>
 <body>
 
@@ -44,7 +44,7 @@
                 <a href="order.html"
                    th:href="@{/order}"
                    class="btn btn-light"
-                   title="Add department"
+                   title="New order"
                    data-toggle="tooltip"
                    data-placement="bottom">
                     <i class="fa fa-plus"></i> <span
@@ -71,9 +71,16 @@
                         </thead>
                         <tbody>
                         <tr th:each="order : ${orders}">
-                            <td th:text="${order.orderId}">00</td>
-                            <td th:text="${order.orderDate}">00</td>
-                            <td th:text="${order.orderCost}">00</td>
+
+                            <td> <a href="orderview.html"
+                                    th:href="@{|/orderview/${order.orderId}|}"
+                                    th:text="${order.orderId}"
+                                    class="btn-lg btn-outline-secondary"
+                                    title="Order"
+                                    data-toggle="tooltip"
+                                    data-placement="top"></a></td>
+                            <td th:text="${order.orderDate}"></td>
+                            <td th:text="${order.orderCost}"></td>
                             <td class="text-right">
                                 <a href="order.html"
                                    th:href="@{|/order/${order.orderId}|}"

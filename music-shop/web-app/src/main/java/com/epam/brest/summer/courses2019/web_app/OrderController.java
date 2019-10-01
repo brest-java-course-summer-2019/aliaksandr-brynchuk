@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Controller
@@ -22,6 +22,7 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
+    @Autowired
     ItemService itemService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
@@ -45,8 +46,10 @@ public class OrderController {
         LOGGER.debug("go to add order page {}", model);
 
         Order order = new Order();
+        List<Item> items = itemService.findAllItems();
         model.addAttribute("isNew", true);
         model.addAttribute("order", order);
+        model.addAttribute("items", items);
         return "order";
     }
 
@@ -63,7 +66,9 @@ public class OrderController {
         LOGGER.debug("goto edit order page {}, {}", id, model);
 
         Order order = orderService.findOrderById(id);
-        List<Item> items = order.getItemsList();
+        List<Item> items = Stream.of(itemService.findAllItems(), order.getItemsList()).
+                flatMap(x ->x.stream())
+                .collect(Collectors.toList());
         model.addAttribute("order", order);
         model.addAttribute("items", items);
         return "order";
@@ -74,6 +79,19 @@ public class OrderController {
         LOGGER.debug("update order {}", order);
 
         this.orderService.updateOrder(order);
+//        order.clearIds();
         return "redirect:/orders";
+    }
+
+    @GetMapping(value = "/orderview/{id}")
+    public final String orderView(@PathVariable Integer id, Model model){
+        LOGGER.debug("goto order page {}, {}", id, model);
+
+        Order order = orderService.findOrderById(id);
+        List<Item> items = order.getItemsList();
+
+        model.addAttribute("order", order);
+        model.addAttribute("items", items);
+        return "orderview";
     }
 }

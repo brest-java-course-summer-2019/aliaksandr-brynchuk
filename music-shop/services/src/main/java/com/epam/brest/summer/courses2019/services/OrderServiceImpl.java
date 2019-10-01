@@ -39,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderDate(LocalDate.now());
         System.out.println("test date" + order.getOrderDate());
         orderDao.addOrder(order);
+        updateOrderItems(order);
         return order;
     }
 
@@ -50,15 +51,16 @@ public class OrderServiceImpl implements OrderService {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("order_id", order.getOrderId());
 
-        order.getItemsList().
+        order.getItemsIds().
                 forEach(item-> {
-                    parameters.addValue("item_id", item.getItemId());
-                    itemDao.insertItem(parameters);
-                });
+                    parameters.addValue("item_id", item);
+                    itemDao.insertItem(parameters); });
     }
 
     @Override
     public void updateOrder(Order order) {
+        LOGGER.debug("update order:  {}", order);
+
         itemDao.deleteItemsList(order.getOrderId());
         updateOrderItems(order);
     }
@@ -66,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(Integer orderId) {
         LOGGER.debug("Delete order:  {}", orderId);
-       orderDao.deleteOrder(orderId);
+        orderDao.deleteOrder(orderId);
     }
 
     @Override

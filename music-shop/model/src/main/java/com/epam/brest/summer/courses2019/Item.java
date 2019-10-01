@@ -28,6 +28,7 @@ public class Item {
      */
     private boolean isReserved;
 
+
     public Item(){
     }
 
@@ -74,14 +75,15 @@ public class Item {
         if (this == o) return true;
         if (!(o instanceof Item)) return false;
         Item item = (Item) o;
-        return Objects.equals(getItemId(), item.getItemId()) &&
-                Objects.equals(getItemName(), item.getItemName()) &&
-                Objects.equals(getItemPrice(), item.getItemPrice());
+        return isReserved() == item.isReserved() &&
+                getItemId().equals(item.getItemId()) &&
+                getItemName().equals(item.getItemName()) &&
+                getItemPrice().equals(item.getItemPrice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getItemId(), getItemName(),getItemPrice());
+        return Objects.hash(getItemId(), getItemName(), getItemPrice(), isReserved());
     }
 
     @Override
