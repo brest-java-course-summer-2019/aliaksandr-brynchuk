@@ -7,6 +7,9 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -36,15 +39,12 @@ public class OrderDaoJdbcImplTest {
 
     }
 
-    @Test
-    public void findOrdersByDates() {
-    }
 
     @Test
     public void findOrderById(){
-//        assertNotNull(orderDao);
-//        Integer id = 1;
-//        Order order = orderDao.findOrderById(id);
-//        assertNotNull(order);
+        assertNotNull(orderDao);
+        Integer id = 1;
+        Order order = orderDao.findOrderById(id);
+        assertNotNull(order);
     }
 }

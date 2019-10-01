@@ -7,6 +7,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,5 +26,16 @@ public class OrderDtoDaoJdbcImplTest {
         List<OrderDTO> orders = orderDTODao.findAllOrderDTOs();
         assertNotNull(orders);
         assertFalse(orders.isEmpty());
+    }
+
+    @Test
+    public void findOrdersByDates() {
+        LocalDate from = LocalDate.of(2019, 8,1);
+        LocalDate to = LocalDate.of(2019, 8,2);
+
+        List<Order> orders = orderDTODao.findOrdersByDates(from, to);
+
+        assertNotNull(orders);
+
     }
 }
