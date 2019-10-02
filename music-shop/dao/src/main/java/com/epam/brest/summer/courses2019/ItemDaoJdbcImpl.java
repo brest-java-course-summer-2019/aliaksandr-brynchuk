@@ -130,6 +130,5 @@ public class ItemDaoJdbcImpl implements ItemDao {
     public void deleteItemsList(Integer orderId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
         namedParameterJdbcTemplate.update(deleteItemsFromOrder, parameters);
-
     }
 }

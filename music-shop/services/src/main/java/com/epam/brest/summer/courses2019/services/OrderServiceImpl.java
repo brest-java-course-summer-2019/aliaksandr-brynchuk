@@ -89,9 +89,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findOrdersByDates(LocalDate from, LocalDate to) {
+    public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
         LOGGER.debug("Find orders by dates: {}", from,to);
-        return orderDao.findOrdersByDates(from, to);
+        return orderDTODao.findOrdersByDates(from, to);
     }
 
 }

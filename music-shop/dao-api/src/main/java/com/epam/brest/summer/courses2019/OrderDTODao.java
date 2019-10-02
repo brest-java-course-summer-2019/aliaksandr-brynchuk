@@ -6,5 +6,5 @@ import java.util.List;
 public interface OrderDTODao {
     List<OrderDTO> findAllOrderDTOs();
 
-    List<Order> findOrdersByDates(LocalDate from, LocalDate to);
+    List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to);
 }
