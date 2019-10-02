@@ -7,8 +7,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,27 +17,27 @@ public class OrderDaoJdbcImplTest {
 
     @Autowired
     OrderDao orderDao;
+    @Autowired
+    OrderDTODao orderDto;
 
     @Test
     public void addOrder() {
-
+        Order order = new Order();
+        int sizeBefore = orderDto.findAllOrderDTOs().size();
+        orderDao.addOrder(order);
+        assertEquals(sizeBefore+1, orderDto.findAllOrderDTOs().size());
     }
 
-    @Test
-    public void updateOrder() {
-    }
 
     @Test
     public void deleteOrder() {
+        Order order = new Order();
+        orderDao.addOrder(order);
+        int sizeBefore = orderDto.findAllOrderDTOs().size();
+        orderDao.deleteOrder(order.getOrderId());
+
+        assertEquals(sizeBefore-1, orderDto.findAllOrderDTOs().size());
     }
-
-    @Test
-    public void findAllOrders() {
-//        assertNotNull(orderDao);
-
-
-    }
-
 
     @Test
     public void findOrderById(){
@@ -47,5 +45,6 @@ public class OrderDaoJdbcImplTest {
         Integer id = 1;
         Order order = orderDao.findOrderById(id);
         assertNotNull(order);
+        assertEquals(id, order.getOrderId());
     }
 }

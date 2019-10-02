@@ -30,12 +30,11 @@ public class OrderDtoDaoJdbcImplTest {
 
     @Test
     public void findOrdersByDates() {
-//        LocalDate from = LocalDate.of(2019, 8,1);
-//        LocalDate to = LocalDate.of(2019, 8,2);
-//
-//        List<Order> orders = orderDTODao.findOrdersByDates(from, to);
-//
-//        assertNotNull(orders);
+        LocalDate from = LocalDate.of(2019, 8,1);
+        LocalDate to = LocalDate.of(2019, 8,2);
 
+        List<OrderDTO> orders = orderDTODao.findOrdersByDates(from, to);
+        assertNotNull(orders);
+        assertFalse(orders.isEmpty());
     }
 }

@@ -51,7 +51,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
         return order;
     }
 
-
     @Override
     public void deleteOrder(Integer orderId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
