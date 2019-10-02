@@ -3,6 +3,7 @@ package com.epam.brest.summer.courses2019;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -20,6 +21,9 @@ class ItemDaoJdbcImplTest {
 
     @Autowired
     ItemDao itemDao;
+
+    private final static String ORDER_ID ="orderId";
+    private final static String ITEM_ID ="itemId";
 
     @Test
     void findItemById(){
@@ -69,5 +73,39 @@ class ItemDaoJdbcImplTest {
 
     }
 
+    @Test
+    void deleteItem(){
+        Item item = new Item();
+        itemDao.addItem(item);
 
+        int sizeBefore = itemDao.findAllItems().size();
+
+        itemDao.deleteItem(item.getItemId());
+        assertEquals(sizeBefore-1, itemDao.findAllItems().size());
+    }
+
+    @Test
+    void insertItem(){
+        int id = 1;
+        Item item = new Item();
+
+        itemDao.addItem(item);
+        int sizeBefore = itemDao.itemsListFromOrder(id).size();
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(ORDER_ID, id);
+        parameters.addValue(ITEM_ID, item.getItemId());
+
+        itemDao.insertItem(parameters);
+
+        assertEquals(sizeBefore+1, itemDao.itemsListFromOrder(id).size());
+    }
+
+    @Test
+    void deleteItemsList(){
+        int id = 1;
+
+        itemDao.deleteItemsList(id);
+        assertTrue(itemDao.itemsListFromOrder(id).isEmpty());
+    }
 }
