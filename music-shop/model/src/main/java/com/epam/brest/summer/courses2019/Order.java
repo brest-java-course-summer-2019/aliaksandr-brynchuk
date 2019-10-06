@@ -78,9 +78,6 @@ public class Order {
         this.itemsIds = itemsIds;
     }
 
-    public void clearIds(){
-        this.itemsIds.clear();
-    }
 
     @Override
     public String toString() {
@@ -88,6 +85,7 @@ public class Order {
                 "orderId=" + orderId +
                 ", orderDate=" + orderDate +
                 ", itemsList=" + itemsList +
+                ", itemsIds=" + itemsIds +
                 ", orderCost=" + orderCost +
                 '}';
     }

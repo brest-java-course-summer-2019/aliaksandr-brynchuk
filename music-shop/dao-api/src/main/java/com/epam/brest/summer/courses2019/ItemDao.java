@@ -24,4 +24,5 @@ public interface ItemDao {
 
     Optional<Item> findItemById(Integer itemId);
 
+    void changeItemStatus(Integer itemId, boolean status);
 }

@@ -94,7 +94,7 @@
                               th:object="${order}"
                               th:action="${isNew} ? @{/order} : @{/order/${order.orderId}}"
                               th:method="@{post}">
-                        <tr th:each="item, temp : ${items}">
+                        <tr th:each="item: ${items}">
                             <td th:text="${item.itemName}">Guitar 1</td>
                             <td th:text="${item.itemPrice}">1000</td>
                             <td>
