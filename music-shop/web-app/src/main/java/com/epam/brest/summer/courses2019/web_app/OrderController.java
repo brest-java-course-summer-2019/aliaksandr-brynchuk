@@ -79,7 +79,6 @@ public class OrderController {
         LOGGER.debug("update order {}", order);
 
         this.orderService.updateOrder(order);
-//        order.clearIds();
         return "redirect:/orders";
     }
 

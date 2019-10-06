@@ -7,9 +7,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-//import java.math.BigDecimal;
-//import java.util.ArrayList;
-//import java.util.List;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +22,8 @@ public class OrderServiceImplTest {
 
     @Autowired
     OrderService orderService;
+    @Autowired
+    ItemService itemService;
 
 //    @Test
 //    void addOrder(){
@@ -34,13 +37,6 @@ public class OrderServiceImplTest {
         System.out.println("orders = " + orders);
     }
 
-//    @Test
-//    void hyh(){
-//        Order order = new Order();
-//        orderService.addOrder(order);
-//        List<OrderDTO>orders = orderService.findAllOrderDTOs();
-//        System.out.println("orders = " + orders);
-//    }
 
 //    @Test
 //    void updateOrderItems(){
@@ -49,11 +45,22 @@ public class OrderServiceImplTest {
 //        List<Item> list = new ArrayList<>();
 //        Item item1 = new Item("qwe", new BigDecimal("123"));
 //        Item item2 = new Item("qwe1", new BigDecimal("124"));
-//        item1.setItemId(2);
-//        item2.setItemId(3);
+//        item1.setItemId(1);
+//        item2.setItemId(2);
 //        list.add(item1);
 //        list.add(item2);
 //        order.setItemsList(list);
+//        //проблема в том, что итемы добавлены в лист, а ид в свой лист нет
 //        orderService.updateOrder(order);
+//
+//        List<Item> newList = itemService.itemsList(order.getOrderId());
+//        assertEquals(item1.getItemId(), newList.get(0).getItemId());
+//        assertEquals(item2.getItemId(), newList.get(1).getItemId());
 //    }
+
+    @Test
+    void findAllDtos(){
+        List<OrderDTO> orders = orderService.findAllOrderDTOs();
+        assertNotNull(orders);
+    }
 }

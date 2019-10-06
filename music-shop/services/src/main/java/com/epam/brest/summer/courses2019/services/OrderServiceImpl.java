@@ -37,9 +37,8 @@ public class OrderServiceImpl implements OrderService {
         LOGGER.debug("Add order:  {}", order);
 
         order.setOrderDate(LocalDate.now());
-        System.out.println("test date" + order.getOrderDate());
         orderDao.addOrder(order);
-        updateOrderItems(order);
+//        updateOrderItems(order);
         return order;
     }
 
@@ -49,17 +48,21 @@ public class OrderServiceImpl implements OrderService {
         LOGGER.debug("Update order:  {}", order);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("order_id", order.getOrderId());
+        parameters.addValue("orderId", order.getOrderId());
 
         order.getItemsIds().
                 forEach(item-> {
-                    parameters.addValue("item_id", item);
+                    parameters.addValue("itemId", item);
+                    itemDao.changeItemStatus(Integer.valueOf(item), true);
                     itemDao.insertItem(parameters); });
     }
 
     @Override
     public void updateOrder(Order order) {
         LOGGER.debug("update order:  {}", order);
+
+        List<Item> items = itemDao.itemsListFromOrder(order.getOrderId());
+        items.forEach(item->itemDao.changeItemStatus(item.getItemId(),false));
 
         itemDao.deleteItemsList(order.getOrderId());
         updateOrderItems(order);

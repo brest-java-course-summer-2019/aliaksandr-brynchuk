@@ -42,6 +42,9 @@ public class ItemDaoJdbcImpl implements ItemDao {
     @Value("${item.deleteItemsFromOrder}")
     private String deleteItemsFromOrder;
 
+    @Value("${item.changeItemStatus}")
+    private String changeItemStatus;
+
 
 
     private static final String ITEM_ID = "itemId";
@@ -130,5 +133,14 @@ public class ItemDaoJdbcImpl implements ItemDao {
     public void deleteItemsList(Integer orderId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
         namedParameterJdbcTemplate.update(deleteItemsFromOrder, parameters);
+    }
+
+    @Override
+    public void changeItemStatus(Integer itemId, boolean status){
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(ITEM_ID, itemId);
+        parameters.addValue(ITEM_STATUS, status);
+
+        namedParameterJdbcTemplate.update(changeItemStatus,parameters);
     }
 }

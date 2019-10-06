@@ -44,6 +44,14 @@ public class ItemServiceImplTest {
        assertEquals("Gibson Les Paul", item.get().getItemName());
     }
 
+//    @Test
+//    void itemsList(){
+//        int id = 1;
+//        List<Item> items = itemService.itemsList(id);
+//        assertNotNull(items);
+//        assertEquals(items.size(), 3);
+//    }
+
 
     @Test
     void addItem(){
@@ -56,28 +64,21 @@ public class ItemServiceImplTest {
 
     @Test
     void updateItem(){
-        int id = 2;
         Item item = create();
-        item.setItemId(id);
         itemService.updateItem(item);
-        Optional<Item>item1 = itemService.findItemById(id);
+        Optional<Item>item1 = itemService.findItemById(item.getItemId());
         assertNotNull(item1);
         assertEquals("Guitar", item1.get().getItemName());
     }
 
     @Test
     void deleteItem(){
-        int id = 13;
         Item item = create();
-        item.setItemId(id);
         itemService.addItem(item);
         int countBefore = itemService.findAllItems().size();
-        itemService.deleteItem(id);
-        int countAfter = itemService.findAllItems().size();
+        itemService.deleteItem(item.getItemId());
 
-        assertEquals(countBefore-1, countAfter);
-
-
+        assertEquals(countBefore-1, itemService.findAllItems().size());
     }
 
 
