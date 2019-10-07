@@ -2,13 +2,10 @@ package com.epam.brest.summer.courses2019;
 
 
 import com.epam.brest.summer.courses2019.services.ItemServiceImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class ItemServiceImplMockTest {
+class ItemServiceImplMockTest {
 
     @Mock
     private ItemDao itemDao;
@@ -29,7 +26,7 @@ public class ItemServiceImplMockTest {
     ArgumentCaptor<Item> captor;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         initMocks(this);
         itemService = new ItemServiceImpl(itemDao);
     }
@@ -97,7 +94,6 @@ public class ItemServiceImplMockTest {
     private static Item createItem() {
         Item item = new Item();
         item.setItemName("Item");
-//        item.setItemPrice(new BigDecimal(itemId+0.5));
         return item;
     }
 

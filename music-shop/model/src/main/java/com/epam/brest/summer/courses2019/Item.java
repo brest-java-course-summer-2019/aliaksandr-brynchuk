@@ -62,11 +62,11 @@ public class Item {
         this.itemPrice = itemPrice;
     }
 
-    public boolean isReserved() {
+    public boolean getIsReserved() {
         return isReserved;
     }
 
-    public void setReserved(boolean reserved) {
+    public void setIsReserved(boolean reserved) {
         isReserved = reserved;
     }
 
@@ -75,7 +75,7 @@ public class Item {
         if (this == o) return true;
         if (!(o instanceof Item)) return false;
         Item item = (Item) o;
-        return isReserved() == item.isReserved() &&
+        return getIsReserved() == item.getIsReserved() &&
                 getItemId().equals(item.getItemId()) &&
                 getItemName().equals(item.getItemName()) &&
                 getItemPrice().equals(item.getItemPrice());
@@ -83,7 +83,7 @@ public class Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getItemId(), getItemName(), getItemPrice(), isReserved());
+        return Objects.hash(getItemId(), getItemName(), getItemPrice(), getIsReserved());
     }
 
     @Override
@@ -92,6 +92,7 @@ public class Item {
                 "itemId=" + itemId +
                 ", itemName='" + itemName + '\'' +
                 ", itemPrice=" + itemPrice +
+                ", isReserved=" + isReserved +
                 '}';
     }
 }

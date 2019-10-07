@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderDate(LocalDate.now());
         orderDao.addOrder(order);
-//        updateOrderItems(order);
+        updateOrderItems(order);
         return order;
     }
 
