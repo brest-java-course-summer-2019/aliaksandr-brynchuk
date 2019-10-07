@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class ItemServiceImplMockTest {
+class ItemServiceImplMockTest {
 
     @Mock
     private ItemDao itemDao;
