@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
 @Rollback
-public class OrderDaoJdbcImplTest {
+class OrderDaoJdbcImplTest {
 
     @Autowired
     OrderDao orderDao;
@@ -21,7 +21,7 @@ public class OrderDaoJdbcImplTest {
     OrderDTODao orderDto;
 
     @Test
-    public void addOrder() {
+    void addOrder() {
         Order order = new Order();
         int sizeBefore = orderDto.findAllOrderDTOs().size();
         orderDao.addOrder(order);
@@ -30,7 +30,7 @@ public class OrderDaoJdbcImplTest {
 
 
     @Test
-    public void deleteOrder() {
+    void deleteOrder() {
         Order order = new Order();
         orderDao.addOrder(order);
         int sizeBefore = orderDto.findAllOrderDTOs().size();
@@ -40,7 +40,7 @@ public class OrderDaoJdbcImplTest {
     }
 
     @Test
-    public void findOrderById(){
+    void findOrderById(){
         assertNotNull(orderDao);
         Integer id = 1;
         Order order = orderDao.findOrderById(id);

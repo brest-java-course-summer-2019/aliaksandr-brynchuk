@@ -44,7 +44,8 @@ class ItemDaoJdbcImplTest {
 
     @Test
     void itemsListFromOrder(){
-//        List<Item> items = itemDao.itemsListFromOrder(1);
+//        int id = 1;
+//        List<Item> items = itemDao.itemsListFromOrder(id);
 //        assertNotNull(items);
 //        assertEquals(items.size(), 3);
     }
@@ -107,5 +108,15 @@ class ItemDaoJdbcImplTest {
 
         itemDao.deleteItemsList(id);
         assertTrue(itemDao.itemsListFromOrder(id).isEmpty());
+    }
+
+    @Test
+    void changeItemStatus(){
+        int id = 1;
+
+        Item item = itemDao.findItemById(id).get();
+        itemDao.changeItemStatus(id, false);
+        Item newItem = itemDao.findItemById(id).get();
+        assertNotEquals(item.getIsReserved(), newItem.getIsReserved());
     }
 }

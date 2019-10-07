@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-services.xml"})
 @Rollback
-public class ItemServiceImplTest {
+class ItemServiceImplTest {
 
     @Autowired
     private ItemService itemService;
@@ -44,13 +44,13 @@ public class ItemServiceImplTest {
        assertEquals("Gibson Les Paul", item.get().getItemName());
     }
 
-//    @Test
-//    void itemsList(){
-//        int id = 1;
-//        List<Item> items = itemService.itemsList(id);
-//        assertNotNull(items);
-//        assertEquals(items.size(), 3);
-//    }
+    @Test
+    void itemsList(){
+        int id = 1;
+        List<Item> items = itemService.itemsList(id);
+        assertNotNull(items);
+        assertEquals(3, items.size());
+    }
 
 
     @Test

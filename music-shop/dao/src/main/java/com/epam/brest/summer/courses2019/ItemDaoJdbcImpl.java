@@ -58,7 +58,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
-    public boolean succesfullyUpdated(int numRowsUpdated) {
+    private boolean succesfullyUpdated(int numRowsUpdated) {
         return numRowsUpdated > 0;
     }
 
@@ -99,7 +99,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(ITEM_NAME, item.getItemName());
         parameters.addValue(ITEM_PRICE, item.getItemPrice());
-        parameters.addValue(ITEM_STATUS, item.isReserved());
+        parameters.addValue(ITEM_STATUS, item.getIsReserved());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
