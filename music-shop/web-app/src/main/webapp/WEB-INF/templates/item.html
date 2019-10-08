@@ -73,6 +73,11 @@
                               th:object="${item}"
                               th:action="${isNew} ? @{/item} : @{/item/${item.itemId}}"
                               th:method="@{post}">
+
+                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                                <p>Please fix errors below:</p>
+                            </div>
+
                             <input id="itemId"
                                    type="hidden"
                                    th:field="*{itemId}"/>
@@ -81,18 +86,26 @@
                                 <label class="form-control-label"
                                        for="item_name">Name</label>
                                 <input class="form-control"
+                                       th:class="${#fields.hasErrors('itemName')} ? 'form-control is-invalid' : 'form-control'"
                                        id="item_name"
                                        type="text"
                                        th:field="*{itemName}"/>
+                                <div th:if="${#fields.hasErrors('itemName')}"
+                                     class="invalid-feedback"
+                                     th:errors="*{itemName}">[errors]</div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-control-label"
                                        for="item_price">Price</label>
                                 <input class="form-control"
+                                       th:class="${#fields.hasErrors('itemPrice')} ? 'form-control is-invalid' : 'form-control'"
                                        id="item_price"
                                        type="text"
                                        th:field="*{itemPrice}"/>
+                                <div th:if="${#fields.hasErrors('itemPrice')}"
+                                     class="invalid-feedback"
+                                     th:errors="*{itemPrice}">[errors]</div>
                             </div>
                         </form>
                     </div>

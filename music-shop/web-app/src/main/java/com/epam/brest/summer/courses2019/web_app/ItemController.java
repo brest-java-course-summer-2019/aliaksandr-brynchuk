@@ -2,14 +2,17 @@ package com.epam.brest.summer.courses2019.web_app;
 
 import com.epam.brest.summer.courses2019.Item;
 import com.epam.brest.summer.courses2019.ItemService;
+import com.epam.brest.summer.courses2019.web_app.validators.ItemValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 @Controller
 public class ItemController {
@@ -18,6 +21,9 @@ public class ItemController {
 
     @Autowired
     ItemService itemService;
+
+    @Autowired
+    ItemValidator validator;
 
     @GetMapping(value="/assortment")
     public final String allItems(Model model){
@@ -37,10 +43,16 @@ public class ItemController {
     }
 
     @PostMapping(value = "/item")
-    public final String addItem(Item item){
-        LOGGER.debug("add item ({})", item);
-        this.itemService.addItem(item);
-        return "redirect:/assortment";
+    public final String addItem(@Valid Item item, BindingResult result){
+        LOGGER.debug("add item ({}, {})", item, result);
+
+        validator.validate(item, result);
+        if(result.hasErrors()){
+            return "item";
+        }else{
+            this.itemService.addItem(item);
+            return "redirect:/assortment";
+        }
     }
 
     @GetMapping(value = "/item/{id}")
@@ -48,16 +60,22 @@ public class ItemController {
         LOGGER.debug("Edit item ({}, {})", id, model);
 
         Optional<Item> item = itemService.findItemById(id);
+        model.addAttribute("isNew", false);
         model.addAttribute("item", item);
         return "item";
     }
 
     @PostMapping(value = "/item/{id}")
-    public final String updateItem(Item item){
-        LOGGER.debug("update item, ({})", item);
+    public final String updateItem(@Valid Item item, BindingResult result){
+        LOGGER.debug("update item, ({}, {})", item, result);
 
-        this.itemService.updateItem(item);
-        return "redirect:/assortment";
+        validator.validate(item, result);
+        if(result.hasErrors()){
+            return "item";
+        }else {
+            this.itemService.updateItem(item);
+            return "redirect:/assortment";
+        }
     }
 
     @GetMapping(value = "/item/{id}/delete")

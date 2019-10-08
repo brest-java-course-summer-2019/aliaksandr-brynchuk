@@ -18,8 +18,8 @@ public class ItemValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        ValidationUtils.rejectIfEmpty(errors, "itemName", "itemName.isEmpty");
-        ValidationUtils.rejectIfEmpty(errors, "itemPrice", "itemPrice.isEmpty");
+        ValidationUtils.rejectIfEmpty(errors, "itemName", "itemName.empty");
+        ValidationUtils.rejectIfEmpty(errors, "itemPrice", "itemPrice.empty");
         Item item = (Item)target;
         if(StringUtils.hasLength(item.getItemName()) && item.getItemName().length()>ITEM_NAME_MAX_SIZE){
             errors.rejectValue("itemName", "itemName.maxSize255");
