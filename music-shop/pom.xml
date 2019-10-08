@@ -57,6 +57,7 @@
         <checkstyle.version>8.22</checkstyle.version>
         <jacoco.version>0.8.2</jacoco.version>
         <jacoco.bundle.coveredratio.minimum>0%</jacoco.bundle.coveredratio.minimum>
+        <validation-api.version>2.0.1.Final</validation-api.version>
 
         <thymeleaf-spring5.version>3.0.11.RELEASE</thymeleaf-spring5.version>
     </properties>
@@ -192,6 +193,12 @@
                 <artifactId>mockito-junit-jupiter</artifactId>
                 <version>${mockito.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
             </dependency>
 
             <dependency>
