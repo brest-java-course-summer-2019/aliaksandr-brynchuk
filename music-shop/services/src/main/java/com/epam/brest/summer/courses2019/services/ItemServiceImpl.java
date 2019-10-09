@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -49,13 +48,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Optional<Item> findItemById(Integer itemId) {
+    public Item findItemById(Integer itemId) {
         LOGGER.debug("Find item by id {}", itemId);
-        return dao.findItemById(itemId);
-    }
-
-    @Override
-    public List<Item> itemsList(Integer id) {
-        return dao.itemsListFromOrder(id);
+        return dao.findItemById(itemId).orElseThrow(()-> new RuntimeException("Failed to get item from DB"));
     }
 }

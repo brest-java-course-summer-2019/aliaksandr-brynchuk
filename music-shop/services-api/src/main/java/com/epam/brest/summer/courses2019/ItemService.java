@@ -2,7 +2,6 @@ package com.epam.brest.summer.courses2019;
 
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ItemService {
     Item addItem(Item item);
@@ -13,7 +12,5 @@ public interface ItemService {
 
     List<Item>findAllItems();
 
-    Optional<Item> findItemById(Integer itemId);
-
-    List<Item> itemsList(Integer id);
+    Item findItemById(Integer itemId);
 }
