@@ -3,7 +3,6 @@ package com.epam.brest.summer.courses2019.web_app.consumers;
 
 import com.epam.brest.summer.courses2019.Item;
 import com.epam.brest.summer.courses2019.ItemService;
-import com.epam.brest.summer.courses2019.web_app.ItemController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class ItemRestConsumer implements ItemService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ItemController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemRestConsumer.class);
     private String url;
     private RestTemplate restTemplate;
 
