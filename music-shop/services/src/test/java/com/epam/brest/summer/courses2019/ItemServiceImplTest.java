@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +19,9 @@ class ItemServiceImplTest {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private ItemDao itemDao;
 
     private Item create(){
         Item item = new Item();
@@ -38,20 +40,19 @@ class ItemServiceImplTest {
     @Test
     void findItemById(){
        int id = 1;
-       Optional<Item> item = itemService.findItemById(id);
+       Item item = itemService.findItemById(id);
 
        assertNotNull(item);
-       assertEquals("Gibson Les Paul", item.get().getItemName());
+       assertEquals("Gibson Les Paul", item.getItemName());
     }
 
     @Test
     void itemsList(){
         int id = 1;
-        List<Item> items = itemService.itemsList(id);
+        List<Item> items = itemDao.itemsListFromOrder(id);
         assertNotNull(items);
         assertEquals(3, items.size());
     }
-
 
     @Test
     void addItem(){
@@ -66,9 +67,9 @@ class ItemServiceImplTest {
     void updateItem(){
         Item item = create();
         itemService.updateItem(item);
-        Optional<Item>item1 = itemService.findItemById(item.getItemId());
+        Item item1 = itemService.findItemById(item.getItemId());
         assertNotNull(item1);
-        assertEquals("Guitar", item1.get().getItemName());
+        assertEquals("Guitar", item1.getItemName());
     }
 
     @Test

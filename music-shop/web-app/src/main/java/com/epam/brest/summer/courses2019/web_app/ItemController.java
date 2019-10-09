@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -59,7 +58,7 @@ public class ItemController {
     public final String goToEditItemPage(@PathVariable Integer id, Model model){
         LOGGER.debug("Edit item ({}, {})", id, model);
 
-        Optional<Item> item = itemService.findItemById(id);
+        Item item = itemService.findItemById(id);
         model.addAttribute("isNew", false);
         model.addAttribute("item", item);
         return "item";
@@ -78,12 +77,11 @@ public class ItemController {
         }
     }
 
-    @GetMapping(value = "/item/{id}/delete")
+    @DeleteMapping(value = "/item/{id}")
     public final String deleteItem(@PathVariable Integer id){
         LOGGER.debug("delete item, ({})", id);
 
         this.itemService.deleteItem(id);
         return "redirect:/assortment";
     }
-
 }

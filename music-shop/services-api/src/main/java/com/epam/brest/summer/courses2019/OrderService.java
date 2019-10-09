@@ -20,5 +20,4 @@ public interface OrderService {
 
     List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to);
 
-
 }

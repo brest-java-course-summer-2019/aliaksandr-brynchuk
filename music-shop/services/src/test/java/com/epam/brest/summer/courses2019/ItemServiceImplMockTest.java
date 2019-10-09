@@ -52,9 +52,9 @@ class ItemServiceImplMockTest {
 
         Mockito.when(itemDao.findItemById(id)).thenReturn(Optional.of(createItem()));
 
-        Optional<Item> item = itemService.findItemById(id);
+        Item item = itemService.findItemById(id);
 
-        assertEquals("Item", item.get().getItemName());
+        assertEquals("Item", item.getItemName());
 
         Mockito.verify(itemDao).findItemById(id);
 

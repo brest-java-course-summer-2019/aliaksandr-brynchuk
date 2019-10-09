@@ -25,6 +25,8 @@ class OrderServiceImplTest {
     OrderService orderService;
     @Autowired
     ItemService itemService;
+    @Autowired
+    ItemDao itemDao;
 
     @Test
     void addOrder(){
@@ -61,7 +63,7 @@ class OrderServiceImplTest {
 
         orderService.addOrder(order);
 
-        List<Item> newList = itemService.itemsList(order.getOrderId());
+        List<Item> newList = itemDao.itemsListFromOrder(order.getOrderId());
         assertEquals(item1.getItemId(), newList.get(0).getItemId());
         assertEquals(item2.getItemId(), newList.get(1).getItemId());
     }
