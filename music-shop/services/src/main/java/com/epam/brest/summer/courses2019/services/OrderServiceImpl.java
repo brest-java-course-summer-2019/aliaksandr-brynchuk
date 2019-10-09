@@ -43,8 +43,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    @Override
-    public void updateOrderItems(Order order) {
+    private void updateOrderItems(Order order) {
         LOGGER.debug("Update order:  {}", order);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
