@@ -12,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+@RequestMapping("/outer")
 @Controller
 public class ItemController {
 
@@ -26,7 +26,7 @@ public class ItemController {
 
     @GetMapping(value="/assortment")
     public final String allItems(Model model){
-        LOGGER.debug("Find all items{()}", model);
+        LOGGER.debug("Find all items({})", itemService);
 
         model.addAttribute("assortment", itemService.findAllItems());
         return "assortment";
@@ -34,11 +34,11 @@ public class ItemController {
 
     @GetMapping(value = "/item")
     public final String goToAddItemPage(Model model){
-        LOGGER.debug("gotoAddItemPage({})", model);
+        LOGGER.debug("gotoAddItemPage({})", model.toString());
         Item item = new Item();
         model.addAttribute("isNew", true);
         model.addAttribute("item", item);
-        return "item";
+        return "isNew";
     }
 
     @PostMapping(value = "/item")

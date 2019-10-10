@@ -10,8 +10,6 @@ public interface OrderService {
 
     void updateOrder(Order order);
 
-    void updateOrderItems(Order order);
-
     void deleteOrder(Integer orderId);
 
     Order findOrderById(Integer orderId);
