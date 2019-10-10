@@ -5,6 +5,7 @@ import com.epam.brest.summer.courses2019.ItemDao;
 import com.epam.brest.summer.courses2019.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,9 @@ import java.util.List;
 @Transactional
 public class ItemServiceImpl implements ItemService {
 
+    @Autowired
     private ItemDao dao;
+
 
     public ItemServiceImpl(ItemDao dao){
          this.dao = dao;
@@ -43,7 +46,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> findAllItems() {
-        LOGGER.debug("Find all items");
+        LOGGER.debug("ItemServiceImpl Find all items DAO - {}", dao);
+
         return dao.findAllItems();
     }
 

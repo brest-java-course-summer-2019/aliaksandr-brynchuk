@@ -1,5 +1,6 @@
 package com.epam.brest.summer.courses2019;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
@@ -8,12 +9,14 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 public class ItemDaoJdbcImpl implements ItemDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -54,6 +57,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
     private static final String ITEM_STATUS = "isReserved";
 
 
+    @Autowired
     public ItemDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }

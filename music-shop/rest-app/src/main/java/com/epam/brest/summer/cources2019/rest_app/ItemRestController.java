@@ -10,17 +10,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
+@RequestMapping("/inner")
 public class ItemRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemRestController.class);
 
-    @Autowired
-    ItemService itemService;
+    //    @Autowired
+    private ItemService itemService;
 
-    @GetMapping(value = "/assortment")
+    @Autowired
+    public ItemRestController(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+
+    @GetMapping(value = "/item/assortment")
     public List<Item> findAllItems(){
-        LOGGER.debug("ItemRestController: findAllItems");
+        LOGGER.debug("ItemRestController: findAllItems ItemService - {}", itemService);
 
         return itemService.findAllItems();
     }
@@ -55,3 +63,4 @@ public class ItemRestController {
         itemService.deleteItem(itemId);
     }
 }
+
