@@ -16,6 +16,6 @@ public interface OrderService {
 
     List<OrderDTO> findAllOrderDTOs();
 
-    List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to);
+//    List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to);
 
 }

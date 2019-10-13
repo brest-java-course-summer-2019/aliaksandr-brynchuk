@@ -25,7 +25,7 @@ public class OrderRestConsumer implements OrderService {
     @Override
     public List<OrderDTO> findAllOrderDTOs() {
         LOGGER.debug("OrderRestConsumer: findAllOrderDTOs");
-        return restTemplate.getForEntity(url, List.class).getBody();
+        return restTemplate.getForObject(url +"/orders", List.class);
     }
 
     @Override
@@ -56,8 +56,9 @@ public class OrderRestConsumer implements OrderService {
         restTemplate.delete(url+"/"+orderId);
     }
 
-    @Override
-    public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
-        return null;
-    }
+//    @Override
+//    public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
+//
+//        return restTemplate.getForObject(url + "/orders", List.class);
+//    }
 }

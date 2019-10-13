@@ -12,17 +12,22 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-@RequestMapping("/outer")
+
 @Controller
+@RequestMapping("/outer/item")
 public class ItemController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemController.class);
 
-    @Autowired
     ItemService itemService;
 
     @Autowired
     ItemValidator validator;
+
+    @Autowired
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @GetMapping(value="/assortment")
     public final String allItems(Model model){
@@ -32,16 +37,16 @@ public class ItemController {
         return "assortment";
     }
 
-    @GetMapping(value = "/item")
+    @GetMapping
     public final String goToAddItemPage(Model model){
         LOGGER.debug("gotoAddItemPage({})", model.toString());
         Item item = new Item();
         model.addAttribute("isNew", true);
         model.addAttribute("item", item);
-        return "isNew";
+        return "item";
     }
 
-    @PostMapping(value = "/item")
+    @PostMapping
     public final String addItem(@Valid Item item, BindingResult result){
         LOGGER.debug("add item ({}, {})", item, result);
 
@@ -50,11 +55,11 @@ public class ItemController {
             return "item";
         }else{
             this.itemService.addItem(item);
-            return "redirect:/assortment";
+            return "redirect:/outer/item/assortment";
         }
     }
 
-    @GetMapping(value = "/item/{id}")
+    @GetMapping(value = "/{id}")
     public final String goToEditItemPage(@PathVariable Integer id, Model model){
         LOGGER.debug("Edit item ({}, {})", id, model);
 
@@ -64,7 +69,7 @@ public class ItemController {
         return "item";
     }
 
-    @PostMapping(value = "/item/{id}")
+    @PostMapping(value = "/{id}")
     public final String updateItem(@Valid Item item, BindingResult result){
         LOGGER.debug("update item, ({}, {})", item, result);
 
@@ -73,15 +78,15 @@ public class ItemController {
             return "item";
         }else {
             this.itemService.updateItem(item);
-            return "redirect:/assortment";
+            return "redirect:/outer/item/assortment";
         }
     }
 
-    @DeleteMapping(value = "/item/{id}")
+    @DeleteMapping(value = "/{id}")
     public final String deleteItem(@PathVariable Integer id){
         LOGGER.debug("delete item, ({})", id);
 
         this.itemService.deleteItem(id);
-        return "redirect:/assortment";
+        return "redirect:/outer/item/assortment";
     }
 }

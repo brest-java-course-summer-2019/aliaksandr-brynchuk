@@ -1,4 +1,4 @@
-package com.epam.brest.summer.cources2019.rest_app;
+package com.epam.brest.summer.courses2019.rest_app;
 
 import com.epam.brest.summer.courses2019.Item;
 import com.epam.brest.summer.courses2019.ItemService;
@@ -12,12 +12,12 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/inner")
+@RequestMapping("/inner/item")
 public class ItemRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemRestController.class);
 
-    //    @Autowired
+
     private ItemService itemService;
 
     @Autowired
@@ -26,14 +26,14 @@ public class ItemRestController {
     }
 
 
-    @GetMapping(value = "/item/assortment")
+    @GetMapping(value = "/assortment")
     public List<Item> findAllItems(){
         LOGGER.debug("ItemRestController: findAllItems ItemService - {}", itemService);
 
         return itemService.findAllItems();
     }
 
-    @GetMapping(value = "/item/{itemId}")
+    @GetMapping(value = "/{itemId}")
     @ResponseStatus(value = HttpStatus.OK)
     public Item findItemById(@PathVariable Integer itemId){
         LOGGER.debug("ItemRestController: findItemById({})", itemId);
@@ -41,14 +41,14 @@ public class ItemRestController {
         return itemService.findItemById(itemId);
     }
 
-    @PostMapping(value = "/item")
+    @PostMapping()
     public void addItem(@RequestBody Item item){
         LOGGER.debug("ItemRestController: addItem({})", item);
 
         itemService.addItem(item);
     }
 
-    @PutMapping(value = "/item/{id}")
+    @PutMapping
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void updateItem(@RequestBody Item item){
         LOGGER.debug("ItemRestController: updateItem({})", item);
@@ -56,7 +56,7 @@ public class ItemRestController {
         itemService.updateItem(item);
     }
 
-    @DeleteMapping(value = "/item/{itemId}")
+    @DeleteMapping(value = "/{itemId}")
     public void deleteItem(@PathVariable Integer itemId){
         LOGGER.debug("ItemRestController: deleteItem({})", itemId);
 

@@ -18,12 +18,18 @@ import java.util.stream.Stream;
 
 
 @Controller
+@RequestMapping("outer/order")
 public class OrderController {
 
-    @Autowired
     OrderService orderService;
-    @Autowired
+
     ItemService itemService;
+
+    @Autowired
+    public OrderController(OrderService orderService, ItemService itemService) {
+        this.orderService = orderService;
+        this.itemService = itemService;
+    }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
@@ -33,15 +39,15 @@ public class OrderController {
         return "orders";
     }
 
-    @GetMapping(value = "/order/{id}/delete")
+    @GetMapping(value = "/{id}/delete")
     public final String deleteOrder(@PathVariable Integer id){
         LOGGER.debug("delete order {}",  id);
 
         this.orderService.deleteOrder(id);
-        return "redirect:/orders";
+        return "redirect:/outer/order/orders";
     }
 
-    @GetMapping(value = "/order")
+    @GetMapping
     public final String goToAddOrderPage(Model model){
         LOGGER.debug("go to add order page {}", model);
 
@@ -53,15 +59,15 @@ public class OrderController {
         return "order";
     }
 
-    @PostMapping(value = "/order")
+    @PostMapping
     public final String addOrder(Order order){
         LOGGER.debug("add order {}", order);
 
         this.orderService.addOrder(order);
-        return "redirect:/orders";
+        return "redirect:/outer/order/orders";
     }
 
-    @GetMapping(value = "/order/{id}")
+    @GetMapping(value = "/{id}")
     public final String goToEditOrderPage(@PathVariable Integer id, Model model){
         LOGGER.debug("goto edit order page {}, {}", id, model);
 
@@ -74,12 +80,12 @@ public class OrderController {
         return "order";
     }
 
-    @PostMapping(value = "/order/{id}")
+    @PostMapping(value = "/{id}")
     public final String updateOrder(Order order){
         LOGGER.debug("update order {}", order);
 
         this.orderService.updateOrder(order);
-        return "redirect:/orders";
+        return "redirect:/outer/order/orders";
     }
 
     @GetMapping(value = "/orderview/{id}")

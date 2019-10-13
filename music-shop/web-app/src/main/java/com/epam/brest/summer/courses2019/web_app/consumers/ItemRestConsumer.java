@@ -5,21 +5,13 @@ import com.epam.brest.summer.courses2019.Item;
 import com.epam.brest.summer.courses2019.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ItemRestConsumer implements ItemService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemRestConsumer.class);
-    private static final ParameterizedTypeReference<List<Item>> ITEM_TYPE =
-            new ParameterizedTypeReference<List<Item>>(){};
 
     private String url;
     private RestTemplate restTemplate;
@@ -39,19 +31,10 @@ public class ItemRestConsumer implements ItemService {
     @Override
     public List<Item> findAllItems() {
         LOGGER.debug("ItemRestConsumer: findAllItems {}", url);
-//        return Collections.emptyList();
-        List<Item> exchange = restTemplate.getForObject(url + "/assortment", List.class);
-       LOGGER.debug("exchange {}", exchange);
-        return exchange;
 
+        return restTemplate.getForObject(url + "/assortment", List.class);
     }
 
-    private HttpEntity createHttpEntity() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_HTML);
-
-        return new HttpEntity(headers);
-    }
 
     @Override
     public Item addItem(Item item) {

@@ -29,10 +29,10 @@
             <ul class="navbar-nav">
                 <a class="nav-item nav-link"
                    href="orders.html"
-                   th:href="@{/orders}">Orders</a>
+                   th:href="@{/outer/order/orders}">Orders</a>
                 <a class="nav-item nav-link active"
                    href="assortment.html"
-                   th:href="@{/assortment}">Assortment</a>
+                   th:href="@{/outer/item/assortment}">Assortment</a>
             </ul>
         </div>
     </nav>
@@ -42,7 +42,7 @@
         <ul class="navbar-nav float-right">
             <li class="nav-item">
                 <a href="item.html"
-                   th:href="@{/item}"
+                   th:href="@{/outer/item}"
                    class="btn btn-light"
                    title="Add item"
                    data-toggle="tooltip"
@@ -73,7 +73,7 @@
                             <td th:text="${item.itemPrice}">1000</td>
                             <td class="text-right">
                                 <a href="#"
-                                   th:href="@{|/item/${item.itemId}|}"
+                                   th:href="@{|/outer/item/${item.itemId}|}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit item"
                                    data-toggle="tooltip"
@@ -82,7 +82,7 @@
                                         class="d-none d-md-inline">Edit</span></a>
                                 <span data-toggle="modal" data-target="#deleteDialog"
                                       th:attr="data-id=${item.itemId}, data-name=${item.itemName}">
-                                <a th:href="@{|/item/${item.itemId}/delete|}" class="btn-sm btn-outline-secondary"
+                                <a th:href="@{|/outer/item/${item.itemId}/delete|}" class="btn-sm btn-outline-secondary"
                                    title="Delete item"
                                    data-toggle="tooltip"
                                    data-placement="top">

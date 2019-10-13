@@ -29,10 +29,10 @@
             <ul class="navbar-nav">
                 <a class="nav-item nav-link active"
                    href="#"
-                   th:href="@{/orders}">Orders</a>
+                   th:href="@{/outer/order/orders}">Orders</a>
                 <a class="nav-item nav-link"
                    href="#"
-                   th:href="@{/assortment}">Assortment</a>
+                   th:href="@{/outer/item/assortment}">Assortment</a>
             </ul>
         </div>
     </nav>
@@ -42,7 +42,7 @@
         <ul class="navbar-nav float-right">
             <li class="nav-item">
                 <a href="order.html"
-                   th:href="@{/order}"
+                   th:href="@{/outer/order}"
                    class="btn btn-light"
                    title="New order"
                    data-toggle="tooltip"
@@ -73,7 +73,7 @@
                         <tr th:each="order : ${orders}">
 
                             <td> <a href="orderview.html"
-                                    th:href="@{|/orderview/${order.orderId}|}"
+                                    th:href="@{|/outer/order/orderview/${order.orderId}|}"
                                     th:text="${order.orderId}"
                                     class="btn-lg btn-outline-secondary"
                                     title="Order"
@@ -83,7 +83,7 @@
                             <td th:text="${order.orderCost}"></td>
                             <td class="text-right">
                                 <a href="order.html"
-                                   th:href="@{|/order/${order.orderId}|}"
+                                   th:href="@{|/outer/order/${order.orderId}|}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit order"
                                    data-toggle="tooltip"
@@ -93,7 +93,7 @@
                                 <span data-toggle="modal"
                                       data-target="#deleteDialog"
                                       th:attr="data-id=${order.orderId},data-name=${order.orderId}">
-                                <a th:href="@{|/order/${order.orderId}/delete|}" class="btn-sm btn-outline-secondary"
+                                <a th:href="@{|/outer/order/${order.orderId}/delete|}" class="btn-sm btn-outline-secondary"
                                    title="delete order"
                                    data-toggle="tooltip"
                                    data-placement="top">
