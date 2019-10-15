@@ -5,6 +5,8 @@ import com.epam.brest.summer.courses2019.OrderDTO;
 import com.epam.brest.summer.courses2019.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
@@ -25,7 +27,12 @@ public class OrderRestConsumer implements OrderService {
     @Override
     public List<OrderDTO> findAllOrderDTOs() {
         LOGGER.debug("OrderRestConsumer: findAllOrderDTOs");
-        return restTemplate.getForObject(url +"/orders", List.class);
+
+        return restTemplate.exchange(url +"/orders",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<OrderDTO>>(){})
+                .getBody();
     }
 
     @Override
@@ -58,7 +65,12 @@ public class OrderRestConsumer implements OrderService {
 
     @Override
     public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
+        LOGGER.debug("OrderRestConsumer: findOrdersByDates({}, {})", from, to);
 
-        return restTemplate.getForObject(url + "/orders" +"/"+from+"/"+to, List.class);
+        return restTemplate.exchange(url  + "/orders" +"/"+from+"/"+to,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<OrderDTO>>(){})
+                .getBody();
     }
 }

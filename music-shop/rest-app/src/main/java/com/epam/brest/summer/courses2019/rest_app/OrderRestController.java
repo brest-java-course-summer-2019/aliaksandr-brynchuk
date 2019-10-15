@@ -17,7 +17,7 @@ import java.util.List;
 public class OrderRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderRestController.class);
 
-    OrderService orderService;
+    private OrderService orderService;
 
     @Autowired
     public OrderRestController(OrderService orderService) {

@@ -22,9 +22,9 @@ import java.util.stream.Stream;
 @RequestMapping("outer/order")
 public class OrderController {
 
-    OrderService orderService;
+    private OrderService orderService;
 
-    ItemService itemService;
+    private ItemService itemService;
 
     @Autowired
     public OrderController(OrderService orderService, ItemService itemService) {

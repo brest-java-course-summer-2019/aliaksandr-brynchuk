@@ -19,10 +19,10 @@ public class ItemController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemController.class);
 
-    ItemService itemService;
+    private ItemService itemService;
 
     @Autowired
-    ItemValidator validator;
+    private ItemValidator validator;
 
     @Autowired
     public ItemController(ItemService itemService) {
