@@ -21,17 +21,17 @@ public class ItemController {
 
     private ItemService itemService;
 
-    @Autowired
     private ItemValidator validator;
 
     @Autowired
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, ItemValidator validator) {
         this.itemService = itemService;
+        this.validator = validator;
     }
 
     @GetMapping(value="/assortment")
     public final String allItems(Model model){
-        LOGGER.debug("Find all items({})", itemService);
+        LOGGER.debug("ItemController: find all items({})", itemService);
 
         model.addAttribute("assortment", itemService.findAllItems());
         return "assortment";
@@ -39,7 +39,7 @@ public class ItemController {
 
     @GetMapping
     public final String goToAddItemPage(Model model){
-        LOGGER.debug("gotoAddItemPage({})", model.toString());
+        LOGGER.debug("ItemController: gotoAddItemPage({})", model);
         Item item = new Item();
         model.addAttribute("isNew", true);
         model.addAttribute("item", item);
@@ -48,7 +48,7 @@ public class ItemController {
 
     @PostMapping
     public final String addItem(@Valid Item item, BindingResult result){
-        LOGGER.debug("add item ({}, {})", item, result);
+        LOGGER.debug("ItemController: add item ({}, {}, {})", item, itemService, result);
 
         validator.validate(item, result);
         if(result.hasErrors()){
@@ -61,7 +61,7 @@ public class ItemController {
 
     @GetMapping(value = "/{id}")
     public final String goToEditItemPage(@PathVariable Integer id, Model model){
-        LOGGER.debug("Edit item ({}, {})", id, model);
+        LOGGER.debug("ItemController: edit item ({}, {}, {})", id, itemService, model);
 
         Item item = itemService.findItemById(id);
         model.addAttribute("isNew", false);
@@ -71,7 +71,7 @@ public class ItemController {
 
     @PostMapping(value = "/{id}")
     public final String updateItem(@Valid Item item, BindingResult result){
-        LOGGER.debug("update item, ({}, {})", item, result);
+        LOGGER.debug("ItemController: update item, ({}, {}, {})", item, itemService, result);
 
         validator.validate(item, result);
         if(result.hasErrors()){
@@ -82,9 +82,9 @@ public class ItemController {
         }
     }
 
-    @DeleteMapping(value = "/{id}")
+    @GetMapping(value = "/{id}/delete")
     public final String deleteItem(@PathVariable Integer id){
-        LOGGER.debug("delete item, ({})", id);
+        LOGGER.debug("ItemController: delete item, ({}, {})", id, itemService);
 
         this.itemService.deleteItem(id);
         return "redirect:/outer/item/assortment";

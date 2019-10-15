@@ -64,7 +64,7 @@ public class OrderRestController {
 
     @GetMapping(value = "/orders/{from}/{to}")
     public List<OrderDTO> findOrdersByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo) {
-        LOGGER.debug("filterDeviceByDate({} - {})", dateFrom, dateTo);
+        LOGGER.debug("OrderRestController: findOrdersByDates({} - {})", dateFrom, dateTo);
 
         LocalDate from = LocalDate.parse(dateFrom);
         LocalDate to = LocalDate.parse(dateTo);

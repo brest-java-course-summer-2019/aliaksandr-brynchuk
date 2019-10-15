@@ -36,13 +36,15 @@ public class OrderController {
 
     @GetMapping(value = "/orders")
     public final String orders(Model model){
+        LOGGER.debug("OrderController: find all orders()");
+
         model.addAttribute("orders", orderService.findAllOrderDTOs());
         return "orders";
     }
 
     @GetMapping(value = "/{id}/delete")
     public final String deleteOrder(@PathVariable Integer id){
-        LOGGER.debug("delete order {}",  id);
+        LOGGER.debug("OrderController: delete order {}",  id);
 
         this.orderService.deleteOrder(id);
         return "redirect:/outer/order/orders";
@@ -50,7 +52,7 @@ public class OrderController {
 
     @GetMapping
     public final String goToAddOrderPage(Model model){
-        LOGGER.debug("go to add order page {}", model);
+        LOGGER.debug("OrderController: go to add order page {}", model);
 
         Order order = new Order();
         List<Item> items = itemService.findAllItems();
@@ -62,7 +64,7 @@ public class OrderController {
 
     @PostMapping
     public final String addOrder(Order order){
-        LOGGER.debug("add order {}", order);
+        LOGGER.debug("OrderController: add order {}", order);
 
         this.orderService.addOrder(order);
         return "redirect:/outer/order/orders";
@@ -70,7 +72,7 @@ public class OrderController {
 
     @GetMapping(value = "/{id}")
     public final String goToEditOrderPage(@PathVariable Integer id, Model model){
-        LOGGER.debug("goto edit order page {}, {}", id, model);
+        LOGGER.debug("OrderController: goto edit order page {}, {}", id, model);
 
         Order order = orderService.findOrderById(id);
         List<Item> items = Stream.of(itemService.findAllItems(), order.getItemsList()).
@@ -83,7 +85,7 @@ public class OrderController {
 
     @PostMapping(value = "/{id}")
     public final String updateOrder(Order order){
-        LOGGER.debug("update order {}", order);
+        LOGGER.debug("OrderController: update order {}", order);
 
         this.orderService.updateOrder(order);
         return "redirect:/outer/order/orders";
@@ -91,7 +93,7 @@ public class OrderController {
 
     @GetMapping(value = "/orderview/{id}")
     public final String orderView(@PathVariable Integer id, Model model){
-        LOGGER.debug("goto order page {}, {}", id, model);
+        LOGGER.debug("OrderController: goto order page {}, {}", id, model);
 
         Order order = orderService.findOrderById(id);
         List<Item> items = order.getItemsList();
@@ -103,7 +105,7 @@ public class OrderController {
 
     @GetMapping(value = "/orders/{from}/{to}")
     public String filterByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo, Model model) {
-        LOGGER.debug("filterByDates({} - {})", dateFrom, dateTo);
+        LOGGER.debug("OrderController: filterByDates({} - {})", dateFrom, dateTo);
 
         LocalDate from = LocalDate.parse(dateFrom);
         LocalDate to = LocalDate.parse(dateTo);

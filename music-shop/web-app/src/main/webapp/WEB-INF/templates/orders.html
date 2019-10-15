@@ -182,6 +182,7 @@
         });
         $('input[name="date"]').on('apply.daterangepicker', function (ev, picker) {
             window.location.href = '/outer/order/orders/' + picker.startDate.format('YYYY-MM-DD') + '/' + picker.endDate.format('YYYY-MM-DD');
+
         });
         $('input[name="date"]').on('cancel.daterangepicker', function () {
             $(this).val('');
