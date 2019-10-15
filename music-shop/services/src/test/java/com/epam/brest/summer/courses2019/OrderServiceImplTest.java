@@ -74,15 +74,15 @@ class OrderServiceImplTest {
         assertNotNull(orders);
     }
 
-    @Test
-    void findDTOsByDates(){
-        Order order = new Order();
-        List<String> ids = new ArrayList<>();
-        itemService.findAllItems().forEach(item->ids.add(item.getItemId().toString()));
-        order.setItemsIds(ids);
-        orderService.addOrder(order);
-
-        List<OrderDTO> orders = orderService.findOrdersByDates(LocalDate.now(), LocalDate.now());
-        assertEquals(1, orders.size());
-    }
+//    @Test
+//    void findDTOsByDates(){
+//        Order order = new Order();
+//        List<String> ids = new ArrayList<>();
+//        itemService.findAllItems().forEach(item->ids.add(item.getItemId().toString()));
+//        order.setItemsIds(ids);
+//        orderService.addOrder(order);
+//
+//        List<OrderDTO> orders = orderService.findOrdersByDates(LocalDate.now(), LocalDate.now());
+//        assertEquals(1, orders.size());
+//    }
 }

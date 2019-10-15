@@ -60,9 +60,10 @@
         <validation-api.version>2.0.1.Final</validation-api.version>
 
         <thymeleaf-spring5.version>3.0.11.RELEASE</thymeleaf-spring5.version>
-        <jackson-core.version>2.9.8</jackson-core.version>
-        <jackson-databind.version>2.9.8</jackson-databind.version>
-        <jackson-datatype-jsr310.version>2.9.8</jackson-datatype-jsr310.version>
+        <jackson-core.version>2.9.10</jackson-core.version>
+        <jackson-datatype-jsr310.version>2.9.10</jackson-datatype-jsr310.version>
+        <jackson-datatype-jdk8.version>2.9.10</jackson-datatype-jdk8.version>
+        <jackson-databind.version>2.9.10</jackson-databind.version>
     </properties>
 
     <dependencyManagement>
@@ -235,28 +236,25 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>com.jayway.jsonpath</groupId>
-                <artifactId>json-path</artifactId>
-                <version>2.0.0</version>
-                <scope>test</scope>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.10.0</version>
             </dependency>
-
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson-databind.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson-core.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${jackson-datatype-jsr310.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jdk8</artifactId>
+                <version>${jackson-datatype-jdk8.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

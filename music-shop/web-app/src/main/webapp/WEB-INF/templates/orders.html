@@ -13,6 +13,9 @@
     <link rel="stylesheet"
           href="../../resources/static/css/style.css"
           th:href="@{/resources/static/css/style.css}">
+    <link rel="stylesheet"
+          href="../../resources/static/css/daterangepicker.css"
+          th:href="@{/resources/static/css/daterangepicker.css}">
     <title>Orders List</title>
 </head>
 <body>
@@ -29,10 +32,10 @@
             <ul class="navbar-nav">
                 <a class="nav-item nav-link active"
                    href="#"
-                   th:href="@{/orders}">Orders</a>
+                   th:href="@{/outer/order/orders}">Orders</a>
                 <a class="nav-item nav-link"
                    href="#"
-                   th:href="@{/assortment}">Assortment</a>
+                   th:href="@{/outer/item/assortment}">Assortment</a>
             </ul>
         </div>
     </nav>
@@ -42,7 +45,7 @@
         <ul class="navbar-nav float-right">
             <li class="nav-item">
                 <a href="order.html"
-                   th:href="@{/order}"
+                   th:href="@{/outer/order}"
                    class="btn btn-light"
                    title="New order"
                    data-toggle="tooltip"
@@ -72,18 +75,18 @@
                         <tbody>
                         <tr th:each="order : ${orders}">
 
-                            <td> <a href="orderview.html"
-                                    th:href="@{|/orderview/${order.orderId}|}"
-                                    th:text="${order.orderId}"
-                                    class="btn-lg btn-outline-secondary"
-                                    title="Order"
-                                    data-toggle="tooltip"
-                                    data-placement="top"></a></td>
+                            <td><a href="orderview.html"
+                                   th:href="@{|/outer/order/orderview/${order.orderId}|}"
+                                   th:text="${order.orderId}"
+                                   class="btn-lg btn-outline-secondary"
+                                   title="Order"
+                                   data-toggle="tooltip"
+                                   data-placement="top"></a></td>
                             <td th:text="${order.orderDate}"></td>
                             <td th:text="${order.orderCost}"></td>
                             <td class="text-right">
                                 <a href="order.html"
-                                   th:href="@{|/order/${order.orderId}|}"
+                                   th:href="@{|/outer/order/${order.orderId}|}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit order"
                                    data-toggle="tooltip"
@@ -93,13 +96,25 @@
                                 <span data-toggle="modal"
                                       data-target="#deleteDialog"
                                       th:attr="data-id=${order.orderId},data-name=${order.orderId}">
-                                <a th:href="@{|/order/${order.orderId}/delete|}" class="btn-sm btn-outline-secondary"
+                                <a th:href="@{|/outer/order/${order.orderId}/delete|}"
+                                   class="btn-sm btn-outline-secondary"
                                    title="delete order"
                                    data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>
                                 </span>
                             </td>
+                        </tr>
+                        <tr>
+                            <div class="container content">
+                                <div class="form-group">
+                                    <label for="date" class="col-sm-2 control-label">Select dates: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="date" name="date"
+                                               placeholder="Dates" required>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                         </tbody>
                     </table>
@@ -143,15 +158,36 @@
         th:src="@{/resources/static/js/popper.min.js}"></script>
 <script src="../../resources/static/js/bootstrap.min.js"
         th:src="@{/resources/static/js/bootstrap.min.js}"></script>
+<script src="../../resources/static/js/moment.min.js"
+        th:src="@{/resources/static/js/moment.min.js}"></script>
+<script src="../../resources/static/js/daterangepicker.js"
+        th:src="@{/resources/static/js/daterangepicker.js}"></script>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-    })
+    });
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
-        $(this).find('.modal-body').text('Please confirm delete departmeтt: "' + target.data('name') + '"')
-        document.getElementById('deleteUrl').href = '/department/' + target.data('id') + '/delete';
+        $(this).find('.modal-body').text('Please confirm delete order: "' + target.data('name') + '"')
+        document.getElementById('deleteUrl').href = '/order/' + target.data('id') + '/delete';
     })
+</script>
+
+<script>
+    $(function () {
+        $('input[name="date"]').daterangepicker({
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
+        $('input[name="date"]').on('apply.daterangepicker', function (ev, picker) {
+            window.location.href = '/outer/order/orders/' + picker.startDate.format('YYYY-MM-DD') + '/' + picker.endDate.format('YYYY-MM-DD');
+
+        });
+        $('input[name="date"]').on('cancel.daterangepicker', function () {
+            $(this).val('');
+        });
+    });
 </script>
 </body>
 </html>

@@ -27,12 +27,12 @@
                                               height="32" width="32" alt="HR"></a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <a class="nav-order nav-link"
-                   href="orders.html"
-                   th:href="@{/orders}">Orders</a>
                 <a class="nav-order nav-link active"
+                   href="orders.html"
+                   th:href="@{/outer/order/orders}">Orders</a>
+                <a class="nav-order nav-link"
                    href="assortment.html"
-                   th:href="@{/assortment}">Assortment</a>
+                   th:href="@{/outer/item/assortment}">Assortment</a>
             </ul>
         </div>
     </nav>
@@ -44,7 +44,7 @@
                 title="Back to list"
                 data-toggle="tooltip"
                 data-placement="bottom"><a href="#"
-                                           th:href="@{/assortment}"
+                                           th:href="@{/outer/item/assortment}"
                                            class="btn btn-light btn-block"><i
                     class="fa fa-arrow-left"></i></a></li>
         </ul>
@@ -53,7 +53,7 @@
         <ul class="navbar-nav">
             <li class="nav-order"><a href="#"
                                     th:onclick="@{document.forms['orderForm'].submit(); return false;}"
-                                    th:href="@{/orders}"
+                                    th:href="@{/outer/order/orders}"
                                     class="btn btn-light"
                                     title="Save order"
                                     data-toggle="tooltip"
@@ -92,7 +92,7 @@
                         <tbody>
                         <form id="orderForm"
                               th:object="${order}"
-                              th:action="${isNew} ? @{/order} : @{/order/${order.orderId}}"
+                              th:action="${isNew} ? @{/outer/order} : @{/outer/order/${order.orderId}}"
                               th:method="@{post}">
                         <tr th:each="item: ${items}">
                             <td th:text="${item.itemName}">Guitar 1</td>

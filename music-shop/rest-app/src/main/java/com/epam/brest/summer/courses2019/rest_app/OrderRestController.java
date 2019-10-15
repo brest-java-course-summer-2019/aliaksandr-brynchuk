@@ -1,4 +1,4 @@
-package com.epam.brest.summer.cources2019.rest_app;
+package com.epam.brest.summer.courses2019.rest_app;
 
 import com.epam.brest.summer.courses2019.Order;
 import com.epam.brest.summer.courses2019.OrderDTO;
@@ -13,11 +13,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@RequestMapping("inner/order")
 public class OrderRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderRestController.class);
 
+    private OrderService orderService;
+
     @Autowired
-    OrderService orderService;
+    public OrderRestController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
 
     @GetMapping(value = "/orders")
     public List<OrderDTO> findAllOrderDTOs(){
@@ -26,7 +32,7 @@ public class OrderRestController {
         return orderService.findAllOrderDTOs();
     }
 
-    @GetMapping(value = "/order/{id}")
+    @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Order findOrderById(@PathVariable Integer id){
         LOGGER.debug("OrderRestController: findOrderById({id})", id);
@@ -34,14 +40,14 @@ public class OrderRestController {
         return orderService.findOrderById(id);
     }
 
-    @PostMapping(value = "/order")
+    @PostMapping
     public void addOrder(@RequestBody Order order){
         LOGGER.debug("OrderRestController: addOrder({order})", order);
 
         orderService.addOrder(order);
     }
 
-    @PutMapping(value = "/order/{id}")
+    @PutMapping
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void updateOrder(@RequestBody Order order){
         LOGGER.debug("OrderRestController: updateOrder({order})", order);
@@ -49,18 +55,20 @@ public class OrderRestController {
         orderService.updateOrder(order);
     }
 
-    @DeleteMapping(value = "order/{id}")
+    @DeleteMapping(value = "/{id}")
     public void deleteOrder(@PathVariable Integer id){
         LOGGER.debug("OrderRestController: deleteOrder({id})", id);
 
         orderService.deleteOrder(id);
     }
 
-    @GetMapping(value = "/orders")
-    public List<OrderDTO> findOrderDTOsByDates(LocalDate from, LocalDate to){
-        LOGGER.debug("OrderRestController: findOrderDTOsByDates");
+    @GetMapping(value = "/orders/{from}/{to}")
+    public List<OrderDTO> findOrdersByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo) {
+        LOGGER.debug("OrderRestController: findOrdersByDates({} - {})", dateFrom, dateTo);
+
+        LocalDate from = LocalDate.parse(dateFrom);
+        LocalDate to = LocalDate.parse(dateTo);
 
         return orderService.findOrdersByDates(from, to);
     }
-
 }

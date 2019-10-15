@@ -57,7 +57,7 @@
     <!--</bean>-->
 
     <bean id="orderService" class="com.epam.brest.summer.courses2019.web_app.consumers.OrderRestConsumer">
-        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.order}"/>
+        <constructor-arg index="0" value="${protocol}://${host}:${port}/inner/${point.order}"/>
         <constructor-arg index="1" ref="restTemplate"/>
     </bean>
 

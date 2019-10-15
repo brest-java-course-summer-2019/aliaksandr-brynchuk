@@ -12,38 +12,47 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
 @Controller
+@RequestMapping("outer/order")
 public class OrderController {
 
+    private OrderService orderService;
+
+    private ItemService itemService;
+
     @Autowired
-    OrderService orderService;
-    @Autowired
-    ItemService itemService;
+    public OrderController(OrderService orderService, ItemService itemService) {
+        this.orderService = orderService;
+        this.itemService = itemService;
+    }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
     @GetMapping(value = "/orders")
     public final String orders(Model model){
+        LOGGER.debug("OrderController: find all orders()");
+
         model.addAttribute("orders", orderService.findAllOrderDTOs());
         return "orders";
     }
 
-    @GetMapping(value = "/order/{id}/delete")
+    @GetMapping(value = "/{id}/delete")
     public final String deleteOrder(@PathVariable Integer id){
-        LOGGER.debug("delete order {}",  id);
+        LOGGER.debug("OrderController: delete order {}",  id);
 
         this.orderService.deleteOrder(id);
-        return "redirect:/orders";
+        return "redirect:/outer/order/orders";
     }
 
-    @GetMapping(value = "/order")
+    @GetMapping
     public final String goToAddOrderPage(Model model){
-        LOGGER.debug("go to add order page {}", model);
+        LOGGER.debug("OrderController: go to add order page {}", model);
 
         Order order = new Order();
         List<Item> items = itemService.findAllItems();
@@ -53,17 +62,17 @@ public class OrderController {
         return "order";
     }
 
-    @PostMapping(value = "/order")
+    @PostMapping
     public final String addOrder(Order order){
-        LOGGER.debug("add order {}", order);
+        LOGGER.debug("OrderController: add order {}", order);
 
         this.orderService.addOrder(order);
-        return "redirect:/orders";
+        return "redirect:/outer/order/orders";
     }
 
-    @GetMapping(value = "/order/{id}")
+    @GetMapping(value = "/{id}")
     public final String goToEditOrderPage(@PathVariable Integer id, Model model){
-        LOGGER.debug("goto edit order page {}, {}", id, model);
+        LOGGER.debug("OrderController: goto edit order page {}, {}", id, model);
 
         Order order = orderService.findOrderById(id);
         List<Item> items = Stream.of(itemService.findAllItems(), order.getItemsList()).
@@ -74,17 +83,17 @@ public class OrderController {
         return "order";
     }
 
-    @PostMapping(value = "/order/{id}")
+    @PostMapping(value = "/{id}")
     public final String updateOrder(Order order){
-        LOGGER.debug("update order {}", order);
+        LOGGER.debug("OrderController: update order {}", order);
 
         this.orderService.updateOrder(order);
-        return "redirect:/orders";
+        return "redirect:/outer/order/orders";
     }
 
     @GetMapping(value = "/orderview/{id}")
     public final String orderView(@PathVariable Integer id, Model model){
-        LOGGER.debug("goto order page {}, {}", id, model);
+        LOGGER.debug("OrderController: goto order page {}, {}", id, model);
 
         Order order = orderService.findOrderById(id);
         List<Item> items = order.getItemsList();
@@ -92,5 +101,17 @@ public class OrderController {
         model.addAttribute("order", order);
         model.addAttribute("items", items);
         return "orderview";
+    }
+
+    @GetMapping(value = "/orders/{from}/{to}")
+    public String filterByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo, Model model) {
+        LOGGER.debug("OrderController: filterByDates({} - {})", dateFrom, dateTo);
+
+        LocalDate from = LocalDate.parse(dateFrom);
+        LocalDate to = LocalDate.parse(dateTo);
+
+
+        model.addAttribute("orders", orderService.findOrdersByDates(from, to));
+        return "orders";
     }
 }
