@@ -56,9 +56,9 @@ public class OrderRestConsumer implements OrderService {
         restTemplate.delete(url+"/"+orderId);
     }
 
-//    @Override
-//    public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
-//
-//        return restTemplate.getForObject(url + "/orders", List.class);
-//    }
+    @Override
+    public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
+
+        return restTemplate.getForObject(url + "/orders" +"/"+from+"/"+to, List.class);
+    }
 }

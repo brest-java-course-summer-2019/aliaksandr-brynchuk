@@ -62,11 +62,13 @@ public class OrderRestController {
         orderService.deleteOrder(id);
     }
 
-//    @GetMapping(value = "/orders")
-//    public List<OrderDTO> findOrderDTOsByDates(LocalDate from, LocalDate to){
-//        LOGGER.debug("OrderRestController: findOrderDTOsByDates");
-//
-//        return orderService.findOrdersByDates(from, to);
-//    }
+    @GetMapping(value = "/orders/{from}/{to}")
+    public List<OrderDTO> findOrdersByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo) {
+        LOGGER.debug("filterDeviceByDate({} - {})", dateFrom, dateTo);
 
+        LocalDate from = LocalDate.parse(dateFrom);
+        LocalDate to = LocalDate.parse(dateTo);
+
+        return orderService.findOrdersByDates(from, to);
+    }
 }

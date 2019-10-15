@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -98,5 +99,17 @@ public class OrderController {
         model.addAttribute("order", order);
         model.addAttribute("items", items);
         return "orderview";
+    }
+
+    @GetMapping(value = "/orders/{from}/{to}")
+    public String filterByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo, Model model) {
+        LOGGER.debug("filterByDates({} - {})", dateFrom, dateTo);
+
+        LocalDate from = LocalDate.parse(dateFrom);
+        LocalDate to = LocalDate.parse(dateTo);
+
+
+        model.addAttribute("orders", orderService.findOrdersByDates(from, to));
+        return "orders";
     }
 }
