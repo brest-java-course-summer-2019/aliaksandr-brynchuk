@@ -79,7 +79,7 @@ class ItemControllerTest {
     @Test
     void goToEditItemPage() throws Exception{
         int id = 1;
-        Mockito.when(service.findItemById(Mockito.anyInt())).thenReturn(createItem(id));
+        Mockito.when(service.findItemById(anyInt())).thenReturn(createItem(id));
 
         mock.perform(MockMvcRequestBuilders.get("/outer/item/1"))
                 .andDo(MockMvcResultHandlers.print())
@@ -92,7 +92,6 @@ class ItemControllerTest {
     @Test
     void updateItem() throws Exception{
         mock.perform(MockMvcRequestBuilders.post("/outer/item/1")
-                .param("itemId", "1")
                 .param("itemName", "Item")
                 .param("itemPrice", "42"))
                 .andDo(MockMvcResultHandlers.print())
