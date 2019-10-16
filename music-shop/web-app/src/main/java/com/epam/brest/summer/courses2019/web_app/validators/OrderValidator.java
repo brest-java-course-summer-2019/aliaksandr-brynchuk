@@ -1,10 +1,12 @@
 package com.epam.brest.summer.courses2019.web_app.validators;
 
 import com.epam.brest.summer.courses2019.Order;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+@Component
 public class OrderValidator implements Validator {
 
     @Override

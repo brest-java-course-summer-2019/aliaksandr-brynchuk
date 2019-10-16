@@ -5,13 +5,16 @@ import com.epam.brest.summer.courses2019.ItemService;
 import com.epam.brest.summer.courses2019.Order;
 import com.epam.brest.summer.courses2019.OrderService;
 
+import com.epam.brest.summer.courses2019.web_app.validators.OrderValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +28,9 @@ public class OrderController {
     private OrderService orderService;
 
     private ItemService itemService;
+
+    @Autowired
+    OrderValidator validator;
 
     @Autowired
     public OrderController(OrderService orderService, ItemService itemService) {
@@ -63,11 +69,16 @@ public class OrderController {
     }
 
     @PostMapping
-    public final String addOrder(Order order){
-        LOGGER.debug("OrderController: add order {}", order);
+    public final String addOrder(@Valid Order order, BindingResult result) {
+        LOGGER.debug("OrderController: add order {}, {}", order, result);
 
-        this.orderService.addOrder(order);
-        return "redirect:/outer/order/orders";
+        validator.validate(order, result);
+        if (result.hasErrors()) {
+            return "order";
+        } else {
+            this.orderService.addOrder(order);
+            return "redirect:/outer/order/orders";
+        }
     }
 
     @GetMapping(value = "/{id}")
@@ -84,11 +95,16 @@ public class OrderController {
     }
 
     @PostMapping(value = "/{id}")
-    public final String updateOrder(Order order){
-        LOGGER.debug("OrderController: update order {}", order);
+    public final String updateOrder(@Valid Order order, BindingResult result) {
+        LOGGER.debug("OrderController: update order {}, {}", order, result);
 
-        this.orderService.updateOrder(order);
-        return "redirect:/outer/order/orders";
+        validator.validate(order, result);
+        if (result.hasErrors()) {
+            return "order";
+        } else {
+            this.orderService.updateOrder(order);
+            return "redirect:/outer/order/orders";
+        }
     }
 
     @GetMapping(value = "/orderview/{id}")

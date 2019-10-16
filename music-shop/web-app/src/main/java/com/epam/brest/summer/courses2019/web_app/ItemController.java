@@ -21,12 +21,12 @@ public class ItemController {
 
     private ItemService itemService;
 
+    @Autowired
     private ItemValidator validator;
 
     @Autowired
-    public ItemController(ItemService itemService, ItemValidator validator) {
+    public ItemController(ItemService itemService) {
         this.itemService = itemService;
-        this.validator = validator;
     }
 
     @GetMapping(value="/assortment")
