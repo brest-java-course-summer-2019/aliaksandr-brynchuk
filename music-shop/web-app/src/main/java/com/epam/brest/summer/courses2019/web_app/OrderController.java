@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,13 +30,13 @@ public class OrderController {
 
     private ItemService itemService;
 
-    @Autowired
-    OrderValidator validator;
+    private OrderValidator validator;
 
     @Autowired
-    public OrderController(OrderService orderService, ItemService itemService) {
+    public OrderController(OrderService orderService, ItemService itemService, OrderValidator validator) {
         this.orderService = orderService;
         this.itemService = itemService;
+        this.validator = validator;
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
@@ -58,7 +59,7 @@ public class OrderController {
 
     @GetMapping
     public final String goToAddOrderPage(Model model){
-        LOGGER.debug("OrderController: go to add order page {}", model);
+        LOGGER.debug("OrderController: go to add order page");
 
         Order order = new Order();
         List<Item> items = itemService.findAllItems();
@@ -87,7 +88,7 @@ public class OrderController {
 
         Order order = orderService.findOrderById(id);
         List<Item> items = Stream.of(itemService.findAllItems(), order.getItemsList()).
-                flatMap(x ->x.stream())
+                flatMap(Collection::stream)
                 .collect(Collectors.toList());
         model.addAttribute("order", order);
         model.addAttribute("items", items);
@@ -109,7 +110,7 @@ public class OrderController {
 
     @GetMapping(value = "/orderview/{id}")
     public final String orderView(@PathVariable Integer id, Model model){
-        LOGGER.debug("OrderController: goto order page {}, {}", id, model);
+        LOGGER.debug("OrderController: goto order page {}", id);
 
         Order order = orderService.findOrderById(id);
         List<Item> items = order.getItemsList();
@@ -125,7 +126,6 @@ public class OrderController {
 
         LocalDate from = LocalDate.parse(dateFrom);
         LocalDate to = LocalDate.parse(dateTo);
-
 
         model.addAttribute("orders", orderService.findOrdersByDates(from, to));
         return "orders";

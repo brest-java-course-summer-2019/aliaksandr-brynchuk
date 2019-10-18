@@ -13,7 +13,7 @@ INSERT INTO items (item_id, item_name, item_price, is_reserved) VALUES(8, 'Pics'
 INSERT INTO items (item_id, item_name, item_price, is_reserved) VALUES(9, 'Drum Kit', 30, true);
 INSERT INTO items (item_id, item_name, item_price, is_reserved) VALUES(10, 'smth0', 30, false);
 INSERT INTO items (item_id, item_name, item_price, is_reserved) VALUES(11, 'smth1', 31, false);
-INSERT INTO items (item_id, item_name, item_price, is_reserved) VALUES(12, 'smth3', 32, false);
+INSERT INTO items (item_id, item_name, item_price, is_reserved) VALUES(12, 'smth2', 32, false);
 INSERT INTO items (item_id, item_name, item_price, is_reserved) VALUES(13, 'smth3', 33, false);
 INSERT INTO items (item_id, item_name, item_price, is_reserved) VALUES(14, 'smth4', 34, false);
 INSERT INTO items (item_id, item_name, item_price, is_reserved) VALUES(15, 'smth5', 35, false);

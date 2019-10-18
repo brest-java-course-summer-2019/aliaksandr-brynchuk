@@ -34,13 +34,12 @@ public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public Order findOrderById(Integer orderId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
-        Order order = namedParameterJdbcTemplate.queryForObject(findById, parameters, BeanPropertyRowMapper.newInstance(Order.class));
-        return order;
+        return namedParameterJdbcTemplate.queryForObject(findById, parameters, BeanPropertyRowMapper.newInstance(Order.class));
     }
 
 
     @Override
-    public Order addOrder(Order order) {
+    public void addOrder(Order order) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(ORDER_DATE, order.getOrderDate());
 
@@ -48,8 +47,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
         namedParameterJdbcTemplate.update(addOrder, parameters, generatedKeyHolder);
         order.setOrderId(generatedKeyHolder.getKey().intValue());
-
-        return order;
     }
 
     @Override

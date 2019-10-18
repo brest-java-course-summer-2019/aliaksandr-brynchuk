@@ -11,10 +11,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <!-- Use @MVC annotations -->
     <mvc:annotation-driven/>
 
-    <!-- Component scan -->
     <context:component-scan base-package="com.epam.brest.summer.courses2019"/>
 
     <import resource="classpath*:test-db.xml"/>

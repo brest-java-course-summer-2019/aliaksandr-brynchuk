@@ -30,7 +30,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:app-context-test.xml"})
-public class OrderControllerTest {
+class OrderControllerTest {
 
     @Autowired
     private WebApplicationContext wac;
@@ -47,6 +47,9 @@ public class OrderControllerTest {
     void setup() {
         mock = MockMvcBuilders.webAppContextSetup(wac).build();
     }
+
+    private final static LocalDate FROM = LocalDate.of(2019, 10, 18);
+    private final static LocalDate TO = LocalDate.of(2019, 10, 18);
 
     @Test
     void orders() throws Exception{
@@ -120,13 +123,13 @@ public class OrderControllerTest {
 
     @Test
     void findOrdersByDates() throws Exception{
-        mock.perform(MockMvcRequestBuilders.get("/outer/order/orders/2019-10-16/2019-10-16"))
+        mock.perform(MockMvcRequestBuilders.get("/outer/order/orders/{from}/{to}", FROM, TO))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=utf-8"))
                 .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("orders")));
 
-        Mockito.verify(orderService, Mockito.times(1)).findOrdersByDates(LocalDate.now(), LocalDate.now());
+        Mockito.verify(orderService, Mockito.times(1)).findOrdersByDates(FROM, TO);
     }
 
     @AfterEach

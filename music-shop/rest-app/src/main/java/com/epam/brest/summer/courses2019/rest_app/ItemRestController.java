@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/inner/item")
 public class ItemRestController {
@@ -56,7 +55,7 @@ public class ItemRestController {
         itemService.updateItem(item);
     }
 
-    @DeleteMapping(value = "/{itemId}")
+    @DeleteMapping(value = "/{itemId}/delete")
     public void deleteItem(@PathVariable Integer itemId){
         LOGGER.debug("ItemRestController: deleteItem({})", itemId);
 
