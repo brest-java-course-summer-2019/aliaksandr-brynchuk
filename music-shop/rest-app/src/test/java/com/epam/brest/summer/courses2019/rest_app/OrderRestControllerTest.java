@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -54,9 +55,13 @@ class OrderRestControllerTest {
         Mockito.reset(service);
     }
 
+    private final static LocalDate FROM = LocalDate.of(2019, 10, 18);
+    private final static LocalDate TO = LocalDate.of(2019, 10, 18);
+
     @Test
     void findAllOrders() throws Exception{
         Mockito.when(service.findAllOrderDTOs()).thenReturn(Arrays.asList(createDto(1), createDto(2)));
+
         mock.perform(MockMvcRequestBuilders.get("/inner/order/orders")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -64,6 +69,19 @@ class OrderRestControllerTest {
                 .andExpect(jsonPath("$[1].orderId", Matchers.is(2)));
 
         Mockito.verify(service, times(1)).findAllOrderDTOs();
+    }
+
+    @Test
+    void findOrdersByDates() throws Exception{
+        Mockito.when(service.findOrdersByDates(FROM, TO)).thenReturn(Arrays.asList(createDto(1), createDto(2)));
+
+        mock.perform(MockMvcRequestBuilders.get("/inner/order/orders/{FROM}/{TO}", FROM, TO)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].orderId", Matchers.is(1)))
+                .andExpect(jsonPath("$[1].orderId", Matchers.is(2)));
+
+        Mockito.verify(service, times(1)).findOrdersByDates(FROM, TO);
     }
 
     @Test
