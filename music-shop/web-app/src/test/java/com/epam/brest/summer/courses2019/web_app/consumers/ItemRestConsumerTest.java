@@ -34,7 +34,7 @@ class ItemRestConsumerTest {
     }
 
     @Test
-    void findAllItems() throws Exception {
+    void findAllItems(){
         List<Item> items = Arrays.asList(createItem(1), createItem(2));
 
         Mockito.when(restTemplate.exchange("url/assortment",
