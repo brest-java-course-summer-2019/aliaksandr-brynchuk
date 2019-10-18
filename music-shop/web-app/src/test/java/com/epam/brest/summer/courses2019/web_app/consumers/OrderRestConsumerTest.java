@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,8 +33,28 @@ class OrderRestConsumerTest {
         consumer = new OrderRestConsumer("url", restTemplate);
     }
 
+    private final static LocalDate FROM = LocalDate.of(2019, 10, 18);
+    private final static LocalDate TO = LocalDate.of(2019, 10, 18);
+
     @Test
-    void findAllDto(){
+    void findOrdersByDates(){
+        List<OrderDTO> orders = Arrays.asList(createDto(1), createDto(2));
+
+        Mockito.when(restTemplate.exchange("url/orders/"+FROM+"/"+TO,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<OrderDTO>>() {}))
+                .thenReturn(new ResponseEntity<>(Arrays.asList(createDto(1), createDto(2)), HttpStatus.OK));
+
+        List<OrderDTO> result = consumer.findOrdersByDates(FROM, TO);
+
+        assertNotNull(result);
+
+        assertEquals(orders, result);
+    }
+
+    @Test
+    void findAllOrders(){
         List<OrderDTO> orders = Arrays.asList(createDto(1), createDto(2));
 
         Mockito.when(restTemplate.exchange("url/orders",
