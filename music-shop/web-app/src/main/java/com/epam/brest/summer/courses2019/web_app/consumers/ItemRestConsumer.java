@@ -5,6 +5,8 @@ import com.epam.brest.summer.courses2019.Item;
 import com.epam.brest.summer.courses2019.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -32,15 +34,18 @@ public class ItemRestConsumer implements ItemService {
     public List<Item> findAllItems() {
         LOGGER.debug("ItemRestConsumer: findAllItems {}", url);
 
-        return restTemplate.getForObject(url + "/assortment", List.class);
+        return restTemplate.exchange(url + "/assortment",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Item>>(){}).getBody();
     }
 
 
     @Override
-    public Item addItem(Item item) {
+    public void addItem(Item item) {
         LOGGER.debug("ItemRestConsumer: addItem({})", item);
 
-        return restTemplate.postForEntity(url, item, Item.class).getBody();
+        restTemplate.postForEntity(url, item, Item.class).getBody();
     }
 
     @Override
@@ -54,6 +59,6 @@ public class ItemRestConsumer implements ItemService {
     public void deleteItem(Integer itemId) {
         LOGGER.debug("ItemRestConsumer: deleteItem({})", itemId);
 
-        restTemplate.delete(url+"/"+itemId);
+        restTemplate.delete(url+"/"+itemId+"/delete");
     }
 }

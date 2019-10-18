@@ -43,10 +43,10 @@ public class OrderRestConsumer implements OrderService {
     }
 
     @Override
-    public Order addOrder(Order order) {
+    public void addOrder(Order order) {
         LOGGER.debug("OrderRestConsumer: addOrder({})", order);
 
-        return restTemplate.postForEntity(url, order, Order.class).getBody();
+        restTemplate.postForEntity(url, order, Order.class).getBody();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class OrderRestConsumer implements OrderService {
     public void deleteOrder(Integer orderId) {
         LOGGER.debug("OrderRestConsumer: deleteOrder({})", orderId);
 
-        restTemplate.delete(url+"/"+orderId);
+        restTemplate.delete(url+"/"+orderId+"/delete");
     }
 
     @Override

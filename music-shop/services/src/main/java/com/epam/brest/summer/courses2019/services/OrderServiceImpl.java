@@ -33,13 +33,12 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Order addOrder(Order order) {
+    public void addOrder(Order order) {
         LOGGER.debug("Add order:  {}", order);
 
         order.setOrderDate(LocalDate.now());
         orderDao.addOrder(order);
         updateOrderItems(order);
-        return order;
     }
 
 
@@ -85,8 +84,7 @@ public class OrderServiceImpl implements OrderService {
 
 
         Order orderById = orderDao.findOrderById(orderId);
-        List<Item> items= itemDao.itemsListFromOrder(orderId);
-        orderById.setItemsList(items);
+        orderById.setItemsList(itemDao.itemsListFromOrder(orderId));
         return orderById;
     }
 

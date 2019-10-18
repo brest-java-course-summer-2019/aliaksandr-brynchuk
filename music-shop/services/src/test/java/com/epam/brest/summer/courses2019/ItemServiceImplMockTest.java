@@ -42,9 +42,7 @@ class ItemServiceImplMockTest {
 
         Mockito.verify(itemDao).findAllItems();
     }
-
-//    @Test
-//    void itemsListFromOrder
+    
 
     @Test
     void findById(){

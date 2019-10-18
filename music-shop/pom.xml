@@ -255,6 +255,12 @@
                 <artifactId>jackson-datatype-jdk8</artifactId>
                 <version>${jackson-datatype-jdk8.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>2.0.0</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

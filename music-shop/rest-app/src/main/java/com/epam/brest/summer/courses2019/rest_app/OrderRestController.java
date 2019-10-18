@@ -41,6 +41,7 @@ public class OrderRestController {
     }
 
     @PostMapping
+    @ResponseStatus(value = HttpStatus.CREATED)
     public void addOrder(@RequestBody Order order){
         LOGGER.debug("OrderRestController: addOrder({order})", order);
 
@@ -55,7 +56,7 @@ public class OrderRestController {
         orderService.updateOrder(order);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{id}/delete")
     public void deleteOrder(@PathVariable Integer id){
         LOGGER.debug("OrderRestController: deleteOrder({id})", id);
 

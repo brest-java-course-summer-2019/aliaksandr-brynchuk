@@ -68,8 +68,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
 
     @Override
     public List<Item> findAllItems() {
-        List<Item> items = namedParameterJdbcTemplate.query(findAll, BeanPropertyRowMapper.newInstance(Item.class));
-        return items;
+        return namedParameterJdbcTemplate.query(findAll, BeanPropertyRowMapper.newInstance(Item.class));
     }
 
     @Override
@@ -83,19 +82,17 @@ public class ItemDaoJdbcImpl implements ItemDao {
     @Override
     public List<Item> itemsListFromOrder(Integer orderId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
-        List<Item> orderItemsList= itemsList(selectItemsFromOrder, parameters);
-        return orderItemsList;
+        return itemsList(selectItemsFromOrder, parameters);
     }
 
 
     private List<Item> itemsList(final String sqlRequest, MapSqlParameterSource parameters){
         List<Integer> itemIds = namedParameterJdbcTemplate.queryForList(sqlRequest, parameters, Integer.class);
-        List<Item> items = itemIds.stream()
+        return itemIds.stream()
                 .map(this::findItemById)
                 .map(optional -> optional.orElse(null))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        return items;
     }
 
     @Override

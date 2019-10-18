@@ -4,7 +4,7 @@ package com.epam.brest.summer.courses2019;
 import java.util.List;
 
 public interface ItemService {
-    Item addItem(Item item);
+    void addItem(Item item);
 
     void updateItem(Item item);
 

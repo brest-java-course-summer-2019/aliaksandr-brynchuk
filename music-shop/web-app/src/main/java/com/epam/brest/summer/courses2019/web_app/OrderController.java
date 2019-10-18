@@ -5,14 +5,18 @@ import com.epam.brest.summer.courses2019.ItemService;
 import com.epam.brest.summer.courses2019.Order;
 import com.epam.brest.summer.courses2019.OrderService;
 
+import com.epam.brest.summer.courses2019.web_app.validators.OrderValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,10 +30,13 @@ public class OrderController {
 
     private ItemService itemService;
 
+    private OrderValidator validator;
+
     @Autowired
-    public OrderController(OrderService orderService, ItemService itemService) {
+    public OrderController(OrderService orderService, ItemService itemService, OrderValidator validator) {
         this.orderService = orderService;
         this.itemService = itemService;
+        this.validator = validator;
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
@@ -52,7 +59,7 @@ public class OrderController {
 
     @GetMapping
     public final String goToAddOrderPage(Model model){
-        LOGGER.debug("OrderController: go to add order page {}", model);
+        LOGGER.debug("OrderController: go to add order page");
 
         Order order = new Order();
         List<Item> items = itemService.findAllItems();
@@ -63,11 +70,16 @@ public class OrderController {
     }
 
     @PostMapping
-    public final String addOrder(Order order){
-        LOGGER.debug("OrderController: add order {}", order);
+    public final String addOrder(@Valid Order order, BindingResult result) {
+        LOGGER.debug("OrderController: add order {}, {}", order, result);
 
-        this.orderService.addOrder(order);
-        return "redirect:/outer/order/orders";
+        validator.validate(order, result);
+        if (result.hasErrors()) {
+            return "order";
+        } else {
+            this.orderService.addOrder(order);
+            return "redirect:/outer/order/orders";
+        }
     }
 
     @GetMapping(value = "/{id}")
@@ -76,7 +88,7 @@ public class OrderController {
 
         Order order = orderService.findOrderById(id);
         List<Item> items = Stream.of(itemService.findAllItems(), order.getItemsList()).
-                flatMap(x ->x.stream())
+                flatMap(Collection::stream)
                 .collect(Collectors.toList());
         model.addAttribute("order", order);
         model.addAttribute("items", items);
@@ -84,16 +96,21 @@ public class OrderController {
     }
 
     @PostMapping(value = "/{id}")
-    public final String updateOrder(Order order){
-        LOGGER.debug("OrderController: update order {}", order);
+    public final String updateOrder(@Valid Order order, BindingResult result) {
+        LOGGER.debug("OrderController: update order {}, {}", order, result);
 
-        this.orderService.updateOrder(order);
-        return "redirect:/outer/order/orders";
+        validator.validate(order, result);
+        if (result.hasErrors()) {
+            return "order";
+        } else {
+            this.orderService.updateOrder(order);
+            return "redirect:/outer/order/orders";
+        }
     }
 
     @GetMapping(value = "/orderview/{id}")
     public final String orderView(@PathVariable Integer id, Model model){
-        LOGGER.debug("OrderController: goto order page {}, {}", id, model);
+        LOGGER.debug("OrderController: goto order page {}", id);
 
         Order order = orderService.findOrderById(id);
         List<Item> items = order.getItemsList();
@@ -109,7 +126,6 @@ public class OrderController {
 
         LocalDate from = LocalDate.parse(dateFrom);
         LocalDate to = LocalDate.parse(dateTo);
-
 
         model.addAttribute("orders", orderService.findOrdersByDates(from, to));
         return "orders";

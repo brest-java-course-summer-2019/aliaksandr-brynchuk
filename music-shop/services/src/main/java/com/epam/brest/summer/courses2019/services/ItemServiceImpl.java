@@ -27,9 +27,9 @@ public class ItemServiceImpl implements ItemService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemServiceImpl.class);
 
     @Override
-    public Item addItem(Item item) {
+    public void addItem(Item item) {
         LOGGER.debug("Add item: {}", item);
-        return dao.addItem(item);
+        dao.addItem(item);
     }
 
     @Override

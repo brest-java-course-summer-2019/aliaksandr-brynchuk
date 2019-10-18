@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * POJO Order for model
@@ -88,5 +89,22 @@ public class Order {
                 ", itemsIds=" + itemsIds +
                 ", orderCost=" + orderCost +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+        Order order = (Order) o;
+        return Objects.equals(getOrderId(), order.getOrderId()) &&
+                Objects.equals(getOrderDate(), order.getOrderDate()) &&
+                Objects.equals(getItemsList(), order.getItemsList()) &&
+                Objects.equals(getItemsIds(), order.getItemsIds()) &&
+                Objects.equals(getOrderCost(), order.getOrderCost());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOrderId(), getOrderDate(), getItemsList(), getItemsIds(), getOrderCost());
     }
 }
