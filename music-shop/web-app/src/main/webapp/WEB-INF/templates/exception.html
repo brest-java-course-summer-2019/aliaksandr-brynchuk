@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<h1>Oops, an error has occurred</h1>
+<h1 th:text="${message}"></h1>
 <a href="orders.html"
    th:href="@{/outer/order/orders}">Back to orders</a>
 </body>
