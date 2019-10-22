@@ -4,12 +4,15 @@ import com.epam.brest.summer.courses2019.services.OrderServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 class OrderServiceImplMockTest {
@@ -25,21 +28,25 @@ class OrderServiceImplMockTest {
     @InjectMocks
     OrderServiceImpl orderService;
 
-    @Captor
-    ArgumentCaptor<Order> captor;
-
     @BeforeEach
     void setUp(){
         initMocks(this);
         orderService = new OrderServiceImpl(orderDao, itemDao, orderDTODao);
     }
 
+    private final static LocalDate FROM = LocalDate.of(2019, 10, 18);
+    private final static LocalDate TO = LocalDate.of(2019, 10, 18);
+
     @Test
     void findAllDTOs(){
         Mockito.when(orderDTODao.findAllOrderDTOs()).thenReturn(Collections.singletonList(createDto()));
+
         List<OrderDTO> orders = orderService.findAllOrderDTOs();
+
         assertNotNull(orders);
         assertEquals(1, orders.size());
+
+        Mockito.verify(orderDTODao, Mockito.times(1)).findAllOrderDTOs();
     }
 
     @Test
@@ -50,29 +57,48 @@ class OrderServiceImplMockTest {
         Order order = orderService.findOrderById(id);
 
         assertTrue(order.getOrderId().equals(1));
-        Mockito.verify(orderDao).findOrderById(id);
+
+        Mockito.verify(orderDao, Mockito.times(1)).findOrderById(id);
     }
 
-//    @Test
-//    void findOrdersByDates(){
-//        Mockito.when(orderDTODao.findOrdersByDates(LocalDate.now(), LocalDate.now()))
-//                .thenReturn(Collections.singletonList(createDto()));
-//
-//        List<OrderDTO> orders = orderService.findOrdersByDates(LocalDate.now(), LocalDate.now());
-//        assertEquals(1, orders.size());
-//
-//        Mockito.verify(orderDTODao).findOrdersByDates(LocalDate.now(), LocalDate.now());
-//    }
+    @Test
+    void findOrdersByDates(){
+        Mockito.when(orderDTODao.findOrdersByDates(FROM, TO))
+                .thenReturn(Collections.singletonList(createDto()));
+
+        List<OrderDTO> orders = orderService.findOrdersByDates(FROM, TO);
+        assertEquals(1, orders.size());
+
+        Mockito.verify(orderDTODao, Mockito.times(1)).findOrdersByDates(FROM, TO);
+    }
 
     @Test
     void addOrder(){
-//        Order order = create();
-//        Mockito.when(orderDao.addOrder(order), itemDao.)
+        Order order = create();
+        Mockito.doNothing().when(orderDao).addOrder(order);
+
+        order.setItemsIds(Arrays.asList());
+
+        orderService.addOrder(order);
+
+        Mockito.verify(orderDao, Mockito.times(1)).addOrder(order);
+
     }
 
     @Test
     void updateOrder(){
+        Order order = create();
+
+        order.setItemsIds(Arrays.asList("1"));
+
+        orderService.updateOrder(order);
+
+        Mockito.verify(itemDao, Mockito.times(1)).deleteItemsList(order.getOrderId());
+        Mockito.verify(itemDao, Mockito.times(1)).changeItemStatus(1, true);
+        Mockito.verify(itemDao, Mockito.times(1))
+                .insertItem(any(MapSqlParameterSource.class));
     }
+
 
     @Test
     void deleteOrder(){
