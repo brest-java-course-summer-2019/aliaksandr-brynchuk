@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/beans
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="classpath*:test-db.xml"/>
@@ -17,10 +14,6 @@
         </property>
     </bean>
 
-    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-    <tx:annotation-driven transaction-manager="txManager" />
 
     <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSource"/>

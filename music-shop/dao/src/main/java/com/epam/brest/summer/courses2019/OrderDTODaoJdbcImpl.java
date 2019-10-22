@@ -29,8 +29,7 @@ public class OrderDTODaoJdbcImpl implements OrderDTODao {
 
     @Override
     public List<OrderDTO> findAllOrderDTOs() {
-        List<OrderDTO>orders = namedParameterJdbcTemplate.query(findAll, BeanPropertyRowMapper.newInstance(OrderDTO.class));
-        return orders;
+        return namedParameterJdbcTemplate.query(findAll, BeanPropertyRowMapper.newInstance(OrderDTO.class));
     }
 
     @Override
@@ -39,8 +38,7 @@ public class OrderDTODaoJdbcImpl implements OrderDTODao {
         parameters.addValue(DATE_FROM, from);
         parameters.addValue(DATE_TO, to);
 
-        List<OrderDTO> orders = namedParameterJdbcTemplate.query(findByDates, parameters, BeanPropertyRowMapper.newInstance(OrderDTO.class));
-        return orders;
+        return namedParameterJdbcTemplate.query(findByDates, parameters, BeanPropertyRowMapper.newInstance(OrderDTO.class));
     }
 
 }

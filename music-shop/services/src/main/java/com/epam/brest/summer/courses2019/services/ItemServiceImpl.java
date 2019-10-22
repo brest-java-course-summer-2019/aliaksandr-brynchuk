@@ -15,10 +15,9 @@ import java.util.List;
 @Transactional
 public class ItemServiceImpl implements ItemService {
 
-    @Autowired
     private ItemDao dao;
 
-
+    @Autowired
     public ItemServiceImpl(ItemDao dao){
          this.dao = dao;
     }

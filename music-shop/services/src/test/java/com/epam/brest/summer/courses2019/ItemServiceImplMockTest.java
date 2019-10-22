@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 class ItemServiceImplMockTest {
@@ -61,7 +60,8 @@ class ItemServiceImplMockTest {
     @Test
     void addItem(){
         Item item = createItem();
-        Mockito.when(itemDao.addItem(any(Item.class))).thenReturn(item);
+
+        Mockito.when(itemDao.addItem(item)).thenReturn(item);
 
         itemService.addItem(item);
 

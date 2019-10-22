@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 
-public class OrderTest {
+class OrderTest {
 
     private Order order = new Order();
 

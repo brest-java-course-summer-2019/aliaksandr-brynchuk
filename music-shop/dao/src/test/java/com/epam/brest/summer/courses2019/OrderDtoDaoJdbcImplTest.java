@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
 @Rollback
-public class OrderDtoDaoJdbcImplTest {
+class OrderDtoDaoJdbcImplTest {
 
     @Autowired
     OrderDTODao orderDTODao;
 
     @Test
-    public void findAllOrderDTOs(){
+    void findAllOrderDTOs(){
         assertNotNull(orderDTODao);
         List<OrderDTO> orders = orderDTODao.findAllOrderDTOs();
         assertNotNull(orders);
@@ -29,7 +29,7 @@ public class OrderDtoDaoJdbcImplTest {
     }
 
     @Test
-    public void findOrdersByDates() {
+    void findOrdersByDates() {
         LocalDate from = LocalDate.of(2019, 8,1);
         LocalDate to = LocalDate.of(2019, 8,2);
 
