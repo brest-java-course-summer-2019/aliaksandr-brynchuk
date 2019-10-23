@@ -1,7 +1,7 @@
 package com.epam.brest.summer.courses2019;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -18,46 +18,75 @@ public class OrderDTO {
         /**
          * Order date
          */
-        private Date orderDate;
+        private LocalDate orderDate;
 
         /**
          * Order cost
          */
         private BigDecimal orderCost;
 
+    /**
+     * get Order DTO id
+     *
+     * @return Order DTO id
+     */
+    public Integer getOrderId() {
+        return orderId;
+    }
 
-        public Integer getOrderId() {
-            return orderId;
-        }
+    /**
+     * set Order DTO id
+     *
+     * @param orderId Order DTO id
+     */
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
-        public void setOrderId(Integer orderId) {
-            this.orderId = orderId;
-        }
+    /**
+     * get Order DTO date
+     *
+     * @return Order DTO date
+     */
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
 
-        public Date getOrderDate() {
-            return orderDate;
-        }
+    /**
+     * set Order DTO date
+     *
+     * @param orderDate Order DTO date
+     */
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
 
-        public void setOrderDate(Date orderDate) {
-            this.orderDate = orderDate;
-        }
+    /**
+     * get Order DTO cost
+     *
+     * @return Order DTO cost
+     */
+    public BigDecimal getOrderCost() {
+        return orderCost;
+    }
 
-        public BigDecimal getOrderCost() {
-            return orderCost;
-        }
+    /**
+     * set Order cost
+     *
+     * @param orderCost order cost
+     */
+    public void setOrderCost(BigDecimal orderCost) {
+        this.orderCost = orderCost;
+    }
 
-        public void setOrderCost(BigDecimal orderCost) {
-            this.orderCost = orderCost;
-        }
-
-        @Override
-        public String toString() {
-            return "Order{" +
-                    "orderId=" + orderId +
-                    ", orderDate=" + orderDate +
-                    ", orderCost=" + orderCost +
-                    '}';
-        }
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", orderDate=" + orderDate +
+                ", orderCost=" + orderCost +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

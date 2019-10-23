@@ -38,43 +38,92 @@ public class Order {
      */
     private BigDecimal orderCost;
 
-
+    /**
+     * get Order id
+     *
+     * @return Order id
+     */
     public Integer getOrderId() {
         return orderId;
     }
 
+    /**
+     * set Order id
+     *
+     * @param orderId Order id
+     */
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
+    /**
+     * get Order date
+     *
+     * @return Order Date
+     */
     public LocalDate getOrderDate() {
         return orderDate;
     }
 
+    /**
+     * set Order Date
+     *
+     * @param orderDate Order Date
+     */
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
+    /**
+     * get Items list
+     *
+     * @return Items List
+     */
     public List<Item> getItemsList() {
         return itemsList;
     }
 
+    /**
+     * set Items list
+     *
+     * @param itemsList Items List
+     */
     public void setItemsList(List<Item> itemsList) {
         this.itemsList = itemsList;
     }
 
+    /**
+     * get Order cost
+     *
+     * @return Order Cost
+     */
     public BigDecimal getOrderCost() {
         return orderCost;
     }
 
+    /**
+     * set Order cost
+     *
+     * @param orderCost Order Cost
+     */
     public void setOrderCost(BigDecimal orderCost) {
         this.orderCost = orderCost;
     }
 
+    /**
+     * get IDs of items from items list
+     *
+     * @return Items Ids
+     */
     public List<String> getItemsIds() {
         return itemsIds;
     }
 
+    /**
+     * set IDs of items from items list
+     *
+     * @param itemsIds Items IDs
+     */
     public void setItemsIds(List<String> itemsIds) {
         this.itemsIds = itemsIds;
     }
