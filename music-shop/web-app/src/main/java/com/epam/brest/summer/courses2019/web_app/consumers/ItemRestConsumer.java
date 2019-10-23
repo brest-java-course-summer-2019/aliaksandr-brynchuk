@@ -11,18 +11,43 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+/**
+ * Item rest consumer
+ */
 public class ItemRestConsumer implements ItemService {
 
+    /**
+     * Logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemRestConsumer.class);
 
+    /**
+     * Request URL
+     */
     private String url;
+
+    /**
+     * Rest template field
+     */
     private RestTemplate restTemplate;
 
+    /**
+     * Constructor
+     *
+     * @param url Request URL
+     * @param restTemplate Rest template
+     */
     public ItemRestConsumer(String url, RestTemplate restTemplate){
         this.url = url;
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Find item by ID
+     *
+     * @param itemId Item Id
+     * @return Item
+     */
     @Override
     public Item findItemById(Integer itemId) {
         LOGGER.debug("ItemRestConsumer: findItemById {}", itemId);
@@ -30,6 +55,11 @@ public class ItemRestConsumer implements ItemService {
         return restTemplate.getForEntity(url+"/"+itemId, Item.class).getBody();
     }
 
+    /**
+     * Find all items
+     *
+     * @return Items list
+     */
     @Override
     public List<Item> findAllItems() {
         LOGGER.debug("ItemRestConsumer: findAllItems {}", url);
@@ -41,6 +71,11 @@ public class ItemRestConsumer implements ItemService {
     }
 
 
+    /**
+     * Add item
+     *
+     * @param item Item
+     */
     @Override
     public void addItem(Item item) {
         LOGGER.debug("ItemRestConsumer: addItem({})", item);
@@ -48,6 +83,11 @@ public class ItemRestConsumer implements ItemService {
         restTemplate.postForEntity(url, item, Item.class).getBody();
     }
 
+    /**
+     * Update item
+     *
+     * @param item Item
+     */
     @Override
     public void updateItem(Item item) {
         LOGGER.debug("ItemRestConsumer: updateItem({})", item);
@@ -55,6 +95,11 @@ public class ItemRestConsumer implements ItemService {
         restTemplate.put(url, item);
     }
 
+    /**
+     * Delete item
+     *
+     * @param itemId Item Id
+     */
     @Override
     public void deleteItem(Integer itemId) {
         LOGGER.debug("ItemRestConsumer: deleteItem({})", itemId);
