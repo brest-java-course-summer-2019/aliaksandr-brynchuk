@@ -61,6 +61,8 @@ public class OrderDTODaoJdbcImpl implements OrderDTODao {
      */
     @Override
     public List<OrderDTO> findAllOrderDTOs() {
+        LOGGER.debug("Order DTO DAO: find all orderDTOs");
+
         return namedParameterJdbcTemplate.query(findAll, BeanPropertyRowMapper.newInstance(OrderDTO.class));
     }
 
@@ -73,6 +75,8 @@ public class OrderDTODaoJdbcImpl implements OrderDTODao {
      */
     @Override
     public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
+        LOGGER.debug("Order DTO DAO: find orderDTOs by dates({}, {})", from, to);
+
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(DATE_FROM, from);
         parameters.addValue(DATE_TO, to);
