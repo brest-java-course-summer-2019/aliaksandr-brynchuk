@@ -12,18 +12,42 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Order REST consumer
+ */
 public class OrderRestConsumer implements OrderService {
 
+    /**
+     * Logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderRestConsumer.class);
 
+    /**
+     * Request URL
+     */
     private String url;
+
+    /**
+     * Rest template field
+     */
     private RestTemplate restTemplate;
 
+    /**
+     * Constructor
+     *
+     * @param url Request URL
+     * @param restTemplate Rest template
+     */
     public OrderRestConsumer(String url, RestTemplate restTemplate){
         this.url = url;
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Find all orderDTOs
+     *
+     * @return Response entity body(OrderDTOs list)
+     */
     @Override
     public List<OrderDTO> findAllOrderDTOs() {
         LOGGER.debug("OrderRestConsumer: findAllOrderDTOs");
@@ -35,6 +59,12 @@ public class OrderRestConsumer implements OrderService {
                 .getBody();
     }
 
+    /**
+     * Find order by ID
+     *
+     * @param orderId Order ID
+     * @return response entity body(order)
+     */
     @Override
     public Order findOrderById(Integer orderId) {
         LOGGER.debug("OrderRestConsumer: findOrderById {}", orderId);
@@ -42,6 +72,11 @@ public class OrderRestConsumer implements OrderService {
         return restTemplate.getForEntity(url +"/"+orderId, Order.class).getBody();
     }
 
+    /**
+     * Add order
+     *
+     * @param order Order
+     */
     @Override
     public void addOrder(Order order) {
         LOGGER.debug("OrderRestConsumer: addOrder({})", order);
@@ -49,6 +84,11 @@ public class OrderRestConsumer implements OrderService {
         restTemplate.postForEntity(url, order, Order.class).getBody();
     }
 
+    /**
+     * Update order
+     *
+     * @param order Order
+     */
     @Override
     public void updateOrder(Order order) {
         LOGGER.debug("OrderRestConsumer: updateOrder({})", order);
@@ -56,6 +96,11 @@ public class OrderRestConsumer implements OrderService {
         restTemplate.put(url, order);
     }
 
+    /**
+     * Delete order
+     *
+     * @param orderId Order ID
+     */
     @Override
     public void deleteOrder(Integer orderId) {
         LOGGER.debug("OrderRestConsumer: deleteOrder({})", orderId);
@@ -63,6 +108,13 @@ public class OrderRestConsumer implements OrderService {
         restTemplate.delete(url+"/"+orderId+"/delete");
     }
 
+    /**
+     * Find orderDTOs by dates
+     *
+     * @param from Date from
+     * @param to Date to
+     * @return response entity body(OrderDTOs List)
+     */
     @Override
     public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
         LOGGER.debug("OrderRestConsumer: findOrdersByDates({}, {})", from, to);

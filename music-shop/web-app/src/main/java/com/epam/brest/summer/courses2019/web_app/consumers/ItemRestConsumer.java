@@ -58,7 +58,7 @@ public class ItemRestConsumer implements ItemService {
     /**
      * Find all items
      *
-     * @return Items list
+     * @return response entity body (Items list)
      */
     @Override
     public List<Item> findAllItems() {
@@ -74,7 +74,7 @@ public class ItemRestConsumer implements ItemService {
     /**
      * Add item
      *
-     * @param item Item
+     * @param item response entity body(Item)
      */
     @Override
     public void addItem(Item item) {
