@@ -12,18 +12,40 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-
+/**
+ * Order Service implementation
+ */
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
 
+    /**
+     * Logger
+     */
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 
+    /**
+     * Item DAO field
+     */
     private ItemDao itemDao;
+
+    /**
+     * Order DAO field
+     */
     private OrderDao orderDao;
+
+    /**
+     * OrderDTO DAO field
+     */
     private OrderDTODao orderDTODao;
 
-
+    /**
+     * Constructor, injection order dao, item dao, orderDTO beans
+     *
+     * @param orderDao Order DAO
+     * @param itemDao Item DAO
+     * @param orderDTODao OrderDTO DAO
+     */
     @Autowired
     public OrderServiceImpl(OrderDao orderDao, ItemDao itemDao, OrderDTODao orderDTODao) {
         this.orderDao = orderDao;
@@ -31,19 +53,31 @@ public class OrderServiceImpl implements OrderService {
         this.orderDTODao = orderDTODao;
     }
 
-
+    /**
+     * Add order
+     * Set order date
+     * add items to order
+     *
+     * @param order Order
+     */
     @Override
     public void addOrder(Order order) {
-        LOGGER.debug("Add order:  {}", order);
+        LOGGER.debug("Order service: add order:  {}", order);
 
         order.setOrderDate(LocalDate.now());
         orderDao.addOrder(order);
         updateOrderItems(order);
     }
 
-
+    /**
+     * Update order items list
+     * this private method is used in addOrder and updateOrder methods
+     * Items add by id, item status changes to the "true" value cuz item will be added to order
+     *
+     * @param order Order
+     */
     private void updateOrderItems(Order order) {
-        LOGGER.debug("Update order:  {}", order);
+        LOGGER.debug("Order service: update order items {}", order);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("orderId", order.getOrderId());
@@ -51,13 +85,18 @@ public class OrderServiceImpl implements OrderService {
         order.getItemsIds().
                 forEach(item-> {
                     parameters.addValue("itemId", item);
-                    itemDao.changeItemStatus(Integer.valueOf(item), true);
-                    itemDao.insertItem(parameters); });
+                    itemDao.insertItem(parameters);
+                    itemDao.changeItemStatus(Integer.valueOf(item), true); });
     }
 
+    /**
+     * Update order
+     *
+     * @param order Order
+     */
     @Override
     public void updateOrder(Order order) {
-        LOGGER.debug("update order:  {}", order);
+        LOGGER.debug("Order service: update order: {}", order);
 
         List<Item> items = itemDao.itemsListFromOrder(order.getOrderId());
         items.forEach(item->itemDao.changeItemStatus(item.getItemId(),false));
@@ -66,31 +105,56 @@ public class OrderServiceImpl implements OrderService {
         updateOrderItems(order);
     }
 
+    /**
+     * Delete order
+     *
+     * @param orderId Order ID
+     */
     @Override
     public void deleteOrder(Integer orderId) {
-        LOGGER.debug("Delete order:  {}", orderId);
+        LOGGER.debug("Order service: delete order:  {}", orderId);
+
         orderDao.deleteOrder(orderId);
     }
 
+    /**
+     * Find all orderDTOs
+     *
+     * @return OrderDTOs List
+     */
     @Override
     public List<OrderDTO> findAllOrderDTOs() {
-        LOGGER.debug("Find all orders");
+        LOGGER.debug("Order service: find all orders");
+
         return orderDTODao.findAllOrderDTOs();
     }
 
+    /**
+     * Find order by ID
+     *
+     * @param orderId Order ID
+     * @return Order
+     */
     @Override
     public Order findOrderById(Integer orderId) {
-        LOGGER.debug("Find order:  {}", orderId);
-
+        LOGGER.debug("Order service: find order by id({})", orderId);
 
         Order orderById = orderDao.findOrderById(orderId);
         orderById.setItemsList(itemDao.itemsListFromOrder(orderId));
         return orderById;
     }
 
+    /**
+     * Find orderDTOs by dates
+     *
+     * @param from Date from
+     * @param to Date to
+     * @return OrderDTOs List
+     */
     @Override
     public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
-        LOGGER.debug("Find orders by dates: {}", from,to);
+        LOGGER.debug("Order service: find orders by dates {} - {}", from,to);
+
         return orderDTODao.findOrdersByDates(from, to);
     }
 
