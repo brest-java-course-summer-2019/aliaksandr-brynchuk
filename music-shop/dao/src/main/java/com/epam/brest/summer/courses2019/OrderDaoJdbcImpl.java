@@ -67,6 +67,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
      */
     @Override
     public Order findOrderById(Integer orderId) {
+        LOGGER.debug("Order DAO: find order by id({})", orderId);
+
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
         return namedParameterJdbcTemplate.queryForObject(findById, parameters, BeanPropertyRowMapper.newInstance(Order.class));
     }
@@ -78,6 +80,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
      */
     @Override
     public void addOrder(Order order) {
+        LOGGER.debug("Order DAO:add order ({})", order);
+
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(ORDER_DATE, order.getOrderDate());
 
@@ -94,6 +98,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
      */
     @Override
     public void deleteOrder(Integer orderId) {
+        LOGGER.debug("Order DAO: delete order ({})", orderId);
+
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(ORDER_ID, orderId);
 

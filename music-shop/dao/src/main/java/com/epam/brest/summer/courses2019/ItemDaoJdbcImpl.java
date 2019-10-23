@@ -117,6 +117,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
     @Override
     public List<Item> findAllItems() {
         LOGGER.debug("Item DAO: find all items");
+
         return namedParameterJdbcTemplate.query(findAll, BeanPropertyRowMapper.newInstance(Item.class));
     }
 
