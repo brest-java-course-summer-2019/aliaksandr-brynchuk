@@ -36,7 +36,7 @@ public class ItemController {
     private ItemValidator validator;
 
     /**
-     * Constructor, inject item service and item validator beans
+     * Constructor, injection item service and item validator beans
      *
      * @param itemService item service
      * @param validator item validator
