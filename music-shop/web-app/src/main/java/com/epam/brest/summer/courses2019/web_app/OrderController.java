@@ -137,7 +137,7 @@ public class OrderController {
      */
     @GetMapping(value = "/{id}")
     public final String goToEditOrderPage(@PathVariable Integer id, Model model){
-        LOGGER.debug("OrderController: goto edit order page {}, {}", id, model);
+        LOGGER.debug("OrderController: goto edit order page {}", id);
 
         Order order = orderService.findOrderById(id);
         List<Item> items = Stream.of(itemService.findAllItems(), order.getItemsList()).
