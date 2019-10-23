@@ -44,7 +44,7 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     public void addItem(Item item) {
-        LOGGER.debug("Add item: {}", item);
+        LOGGER.debug("Item service: add item: {}", item);
         dao.addItem(item);
     }
 
@@ -55,7 +55,7 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     public void updateItem(Item item) {
-        LOGGER.debug("Update item: {}", item);
+        LOGGER.debug("Item service: update item: {}", item);
         dao.updateItem(item);
     }
 
@@ -66,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     public void deleteItem(Integer itemId) {
-        LOGGER.debug("Delete item {}", itemId);
+        LOGGER.debug("Item service: delete item {}", itemId);
         dao.deleteItem(itemId);
     }
 
@@ -77,7 +77,7 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     public List<Item> findAllItems() {
-        LOGGER.debug("ItemServiceImpl Find all items DAO - {}", dao);
+        LOGGER.debug("ItemService: find all items");
 
         return dao.findAllItems();
     }
@@ -90,7 +90,8 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     public Item findItemById(Integer itemId) {
-        LOGGER.debug("Find item by id {}", itemId);
+        LOGGER.debug("Item service: find item by id {}", itemId);
+
         return dao.findItemById(itemId).orElseThrow(()-> new RuntimeException("Failed to get item from DB"));
     }
 }
