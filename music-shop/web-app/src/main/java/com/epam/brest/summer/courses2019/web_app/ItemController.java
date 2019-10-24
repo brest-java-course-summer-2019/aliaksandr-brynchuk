@@ -36,7 +36,7 @@ public class ItemController {
     private ItemValidator validator;
 
     /**
-     * Constructor, inject item service and item validator beans
+     * Constructor, injection item service and item validator beans
      *
      * @param itemService item service
      * @param validator item validator
@@ -56,7 +56,7 @@ public class ItemController {
      */
     @GetMapping(value="/assortment")
     public final String allItems(Model model){
-        LOGGER.debug("ItemController: find all items({})", itemService);
+        LOGGER.debug("ItemController: find all items");
 
         model.addAttribute("assortment", itemService.findAllItems());
         return "assortment";
@@ -70,7 +70,7 @@ public class ItemController {
      */
     @GetMapping
     public final String goToAddItemPage(Model model){
-        LOGGER.debug("ItemController: gotoAddItemPage()");
+        LOGGER.debug("ItemController: gotoAddItemPage");
         Item item = new Item();
         model.addAttribute("isNew", true);
         model.addAttribute("item", item);
