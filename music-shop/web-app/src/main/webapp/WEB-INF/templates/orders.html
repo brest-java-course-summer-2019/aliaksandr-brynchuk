@@ -93,8 +93,7 @@
                                 <span data-toggle="modal"
                                       data-target="#deleteDialog"
                                       th:attr="data-id=${order.orderId},data-name=${order.orderId}">
-                                <a th:href="@{|/outer/order/${order.orderId}/delete|}"
-                                   class="btn-sm btn-outline-secondary"
+                                <a href="#" class="btn-sm btn-outline-secondary"
                                    title="delete order"
                                    data-toggle="tooltip"
                                    data-placement="top">
@@ -148,13 +147,14 @@
         </div>
     </div>
 </div>
-
+</body>
+<footer>
 <script src="../../resources/static/js/jquery.min.js"
         th:src="@{/resources/static/js/jquery.min.js}"></script>
 <script src="../../resources/static/js/popper.min.js"
         th:src="@{/resources/static/js/popper.min.js}"></script>
-<script src="../../resources/static/js/bootstrap.min.js"
-        th:src="@{/resources/static/js/bootstrap.min.js}"></script>
+<script src="../../resources/static/js/bootstrap.js"
+        th:src="@{/resources/static/js/bootstrap.js}"></script>
 <script src="../../resources/static/js/moment.min.js"
         th:src="@{/resources/static/js/moment.min.js}"></script>
 <script src="../../resources/static/js/daterangepicker.js"
@@ -166,7 +166,7 @@
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
         $(this).find('.modal-body').text('Please confirm delete order: "' + target.data('name') + '"')
-        document.getElementById('deleteUrl').href = '/order/' + target.data('id') + '/delete';
+        document.getElementById('deleteUrl').href = '/outer/order/' + target.data('id') + '/delete';
     })
 </script>
 
@@ -186,5 +186,5 @@
         });
     });
 </script>
-</body>
+</footer>
 </html>

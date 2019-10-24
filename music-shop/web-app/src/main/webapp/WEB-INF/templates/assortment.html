@@ -79,7 +79,7 @@
                                         class="d-none d-md-inline">Edit</span></a>
                                 <span data-toggle="modal" data-target="#deleteDialog"
                                       th:attr="data-id=${item.itemId}, data-name=${item.itemName}">
-                                <a th:href="@{|/outer/item/${item.itemId}/delete|}" class="btn-sm btn-outline-secondary"
+                                <a href="#" class="btn-sm btn-outline-secondary"
                                    title="Delete item"
                                    data-toggle="tooltip"
                                    data-placement="top">
@@ -100,7 +100,6 @@
     <p class="text-center">&copy; 2019</p>
 </footer>
 
-<!-- Confirm delete Modal -->
 <div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -124,10 +123,10 @@
 
 <script src="../../resources/static/js/jquery.min.js"
         th:src="@{/resources/static/js/jquery.min.js}"></script>
+<script src="../../resources/static/js/bootstrap.js"
+        th:src="@{/resources/static/js/bootstrap.js}"></script>
 <script src="../../resources/static/js/popper.min.js"
         th:src="@{/resources/static/js/popper.min.js}"></script>
-<script src="../../resources/static/js/bootstrap.min.js"
-        th:src="@{/resources/static/js/bootstrap.min.js}"></script>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -135,7 +134,7 @@
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
         $(this).find('.modal-body').text('Please confirm delete item: "' + target.data('name') + '"')
-        document.getElementById('deleteUrl').href = '/assortment/' + target.data('id') + '/delete';
+        document.getElementById('deleteUrl').href = '/outer/item/' + target.data('id') + '/delete';
     })
 </script>
 </body>
