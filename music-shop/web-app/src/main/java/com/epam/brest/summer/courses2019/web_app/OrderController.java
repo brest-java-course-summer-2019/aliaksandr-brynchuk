@@ -115,12 +115,14 @@ public class OrderController {
      * @param result Binding result
      * @return redirect to orders template
      */
+
     @PostMapping
-    public final String addOrder(@Valid Order order, BindingResult result) {
+    public final String addOrder(@Valid Order order, BindingResult result, Model model) {
         LOGGER.debug("OrderController: add order {}, {}", order, result);
 
         validator.validate(order, result);
         if (result.hasErrors()) {
+            model.addAttribute("isNew", true);
             return "order";
         } else {
             this.orderService.addOrder(order);
@@ -133,7 +135,7 @@ public class OrderController {
      *
      * @param id Order ID
      * @param model Order and non-in-order items + items from order for update order items list
-     * @return
+     * @return order template
      */
     @GetMapping(value = "/{id}")
     public final String goToEditOrderPage(@PathVariable Integer id, Model model){
