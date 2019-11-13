@@ -63,7 +63,7 @@
         <jackson-core.version>2.9.10</jackson-core.version>
         <jackson-datatype-jsr310.version>2.9.10</jackson-datatype-jsr310.version>
         <jackson-datatype-jdk8.version>2.9.10</jackson-datatype-jdk8.version>
-        <jackson-databind.version>2.9.10</jackson-databind.version>
+        <jackson-databind.version>2.9.10.1</jackson-databind.version>
     </properties>
 
     <dependencyManagement>
