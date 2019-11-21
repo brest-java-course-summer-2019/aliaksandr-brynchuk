@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'idea'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+subprojects {
+    group 'com.example'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'java-library'
+    apply plugin: 'idea'
+
+    dependencies {
+        api 'org.springframework:spring-context:5.1.4.RELEASE'
+        api 'org.springframework:spring-core:5.1.4.RELEASE'
+        api 'org.springframework:spring-beans:5.1.4.RELEASE'
+        api 'org.springframework:spring-test:5.1.4.RELEASE'
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

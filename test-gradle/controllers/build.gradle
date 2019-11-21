@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.gretty' version '2.2.0'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+//gretty {
+//    port = 8080
+//    contextPath = '/'
+//    servletContainer = 'jetty9'
+//}
+
+dependencies {
+    implementation project(':service-api')
+    implementation project(':model')
+
+    providedCompile "javax.servlet:servlet-api:2.5"
+
+    api 'org.springframework:spring-web:5.1.4.RELEASE'
+    api 'org.springframework:spring-webmvc:5.1.4.RELEASE'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
