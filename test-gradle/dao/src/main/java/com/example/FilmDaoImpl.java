@@ -6,9 +6,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Component
 public class FilmDaoImpl implements FilmDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -24,7 +25,6 @@ public class FilmDaoImpl implements FilmDao {
     private static final String FILM_GENRE = "genre";
 
     private static final String FILM_DIRECTOR = "director";
-
 
     @Value("${film.addFilm}")
     private String addFilm;

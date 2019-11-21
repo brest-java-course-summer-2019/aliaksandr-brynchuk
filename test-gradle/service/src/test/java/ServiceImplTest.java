@@ -1,25 +1,25 @@
-package com.example;
-
+import com.example.Film;
+import com.example.FilmService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
-class FilmDaoImplTest {
+
+class ServiceImplTest {
 
     @Autowired
-    private FilmDao filmDao;
+    private FilmService filmService;
 
     @Test
     void findById(){
-        Film film = filmDao.findById(1);
+        int id = 1;
+        Film film = filmService.findFilmById(id);
 
-        assertEquals("aaaa", film.getName());
+        System.out.println(film);
     }
+
 }

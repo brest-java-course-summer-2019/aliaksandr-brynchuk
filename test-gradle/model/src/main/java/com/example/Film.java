@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.Objects;
-
 public class Film {
 
     private Integer id;
