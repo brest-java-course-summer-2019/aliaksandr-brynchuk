@@ -5,17 +5,17 @@ plugins {
 group 'com.example'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
-    api project(':service-api')
-    api project(':model')
-    api project(':dao-api')
-    api project(':test-db')
+    implementation project(':service-api')
+    implementation project(':model')
+    implementation project(':dao-api')
+    implementation project(':test-db')
 
     api 'com.h2database:h2:1.3.148'
 
