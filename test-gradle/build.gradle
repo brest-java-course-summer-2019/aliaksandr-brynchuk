@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'java-library'
     id 'idea'
-    id "com.github.kt3k.coveralls" version "2.8.4"
+    id 'com.github.kt3k.coveralls' version '2.8.4'
 }
 
 group 'com.example'
@@ -18,6 +18,7 @@ subprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'idea'
+    apply plugin: 'com.github.kt3k.coveralls'
 
     dependencies {
         api 'org.springframework:spring-context:5.1.4.RELEASE'
