@@ -11,16 +11,31 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    implementation project(':service-api')
-    implementation project(':model')
+    api project(':service-api')
+    api project(':model')
 
     providedCompile "javax.servlet:servlet-api:2.5"
 
     api 'org.springframework:spring-web:5.1.4.RELEASE'
     api 'org.springframework:spring-webmvc:5.1.4.RELEASE'
 
+    api group: 'org.gretty', name: 'gretty', version: '2.2.0'
+
+    api group: 'org.gretty', name: 'gretty-runner-jetty9', version: '2.2.0'
+
+
     testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+gretty {
+    httpPort = 8080
+    contextPath = '/com.example'
+    servletContainer = 'jetty9'
+}
+war {
+    archiveName 'controllersr'
 }

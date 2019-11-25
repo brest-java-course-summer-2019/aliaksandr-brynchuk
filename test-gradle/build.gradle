@@ -25,6 +25,7 @@ subprojects {
         api 'org.springframework:spring-core:5.1.4.RELEASE'
         api 'org.springframework:spring-beans:5.1.4.RELEASE'
         api 'org.springframework:spring-test:5.1.4.RELEASE'
+        api 'org.springframework:spring-jdbc:5.1.4.RELEASE'
     }
 }
 

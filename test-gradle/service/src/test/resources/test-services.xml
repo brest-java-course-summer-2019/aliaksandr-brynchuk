@@ -23,7 +23,7 @@
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
-    <bean id="filmService" class="com.exampleFilmServiceImpl">
+    <bean id="filmService" class="com.example.FilmServiceImpl">
         <constructor-arg ref="filmDao"/>
     </bean>
 
