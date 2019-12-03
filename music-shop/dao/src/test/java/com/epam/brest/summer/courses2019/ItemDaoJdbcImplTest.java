@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ItemDaoJdbcImplTest {
 
     @Autowired
-    ItemDao itemDao;
+    private ItemDao itemDao;
 
     private final static String ORDER_ID ="orderId";
     private final static String ITEM_ID ="itemId";

@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-services.xml"})
+
 @Rollback
 class ItemServiceImplTest {
 
