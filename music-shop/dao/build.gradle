@@ -17,7 +17,7 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnit()
 }
 
 description = 'Music Shop DAO'
