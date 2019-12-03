@@ -1,9 +1,0 @@
-rootProject.name = 'test-gradle'
-include 'dao'
-include 'service'
-include 'controllers'
-include 'dao-api'
-include 'model'
-include 'service-api'
-include 'test-db'
-
