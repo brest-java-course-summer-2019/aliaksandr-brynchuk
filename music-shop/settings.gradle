@@ -1,0 +1,9 @@
+rootProject.name = 'music-shop'
+include(':model')
+include(':dao')
+include(':test-db')
+include(':web-app')
+include(':services')
+include(':rest-app')
+include(':dao-api')
+include(':services-api')

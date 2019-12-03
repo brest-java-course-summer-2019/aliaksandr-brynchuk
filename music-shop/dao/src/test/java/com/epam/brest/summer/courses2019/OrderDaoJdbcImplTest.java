@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderDaoJdbcImplTest {
 
     @Autowired
-    OrderDao orderDao;
+    private OrderDao orderDao;
     @Autowired
-    OrderDTODao orderDto;
+    private OrderDTODao orderDto;
 
     @Test
     void addOrder() {

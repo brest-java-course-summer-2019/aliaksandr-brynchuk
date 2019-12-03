@@ -22,11 +22,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderServiceImplTest {
 
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
     @Autowired
-    ItemService itemService;
+    private ItemService itemService;
     @Autowired
-    ItemDao itemDao;
+    private ItemDao itemDao;
 
     private final static LocalDate FROM = LocalDate.of(2019, 8, 1);
     private final static LocalDate TO = LocalDate.of(2019, 8, 1);
