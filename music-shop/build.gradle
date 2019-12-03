@@ -3,6 +3,7 @@ plugins {
     id 'java-library'
     id 'idea'
     id 'com.github.kt3k.coveralls' version '2.8.4'
+    id 'jacoco'
 }
 
 allprojects {
