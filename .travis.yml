@@ -2,6 +2,6 @@ language: java
 dist: trusty
 jdk:
   - openjdk8
-before_script: cd test-gradle/
+before_script: cd music-shop/
 script:
   - gradle clean build
