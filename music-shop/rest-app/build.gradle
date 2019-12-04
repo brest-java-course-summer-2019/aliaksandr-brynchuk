@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation project(':services-api')
+    implementation project(':services')
     implementation project(':model')
     implementation project(':dao')
     implementation 'org.springframework:spring-context:5.1.4.RELEASE'
@@ -36,6 +37,6 @@ dependencies {
 tomcat {
     httpProtocol = 'org.apache.coyote.http11.Http11Nio2Protocol'
     ajpProtocol = 'org.apache.coyote.ajp.AjpNio2Protocol'
-    contextPath = 'films'
+    contextPath = '/films'
     httpPort = 8082
 }
