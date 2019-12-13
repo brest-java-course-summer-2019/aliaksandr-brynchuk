@@ -16,7 +16,7 @@ import java.util.List;
  * Item REST controller
  */
 @RestController
-@RequestMapping("inner/order")
+@RequestMapping("/order")
 public class OrderRestController {
 
     /**
@@ -59,7 +59,7 @@ public class OrderRestController {
     @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Order findOrderById(@PathVariable Integer id){
-        LOGGER.debug("OrderRestController: findOrderById({id})", id);
+        LOGGER.debug("OrderRestController: findOrderById( {id})", id);
 
         return orderService.findOrderById(id);
     }

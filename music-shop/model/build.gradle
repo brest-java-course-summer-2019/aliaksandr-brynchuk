@@ -1,7 +1,14 @@
+//plugins{
+//
+//    id 'org.springframework.boot'
+//}
+bootJar {
+    enabled = false
+}
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.0'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.0'
+//    testImplementation 'junit:junit:4.12'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
 }
 
 test {

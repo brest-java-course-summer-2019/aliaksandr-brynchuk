@@ -17,7 +17,7 @@ import javax.validation.Valid;
  * Item controller
  */
 @Controller
-@RequestMapping("/outer/item")
+@RequestMapping("/item")
 public class ItemController {
 
     /**

@@ -1,14 +1,28 @@
+buildscript {
+    ext {
+        springBootVersion = '2.2.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    }
+}
+
 plugins {
     id 'java'
     id 'java-library'
     id 'idea'
     id 'com.github.kt3k.coveralls' version '2.8.4'
     id 'jacoco'
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
 }
 
 allprojects {
     group = 'com.epam.brest.summer.courses2019'
     version = '1.0-SNAPSHOT'
+    sourceCompatibility = JavaVersion.VERSION_11
 }
 
 subprojects {
@@ -16,6 +30,8 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'idea'
     apply plugin: 'maven-publish'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
 
     repositories {
         mavenLocal()
@@ -23,6 +39,18 @@ subprojects {
         maven {
             url = 'http://repo.maven.apache.org/maven2'
         }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+        }
+    }
+
+    dependencies {
+        implementation ('org.springframework.boot:spring-boot-starter')
+        implementation ('org.springframework.boot:spring-boot-starter-jdbc')
+        testImplementation('org.springframework.boot:spring-boot-starter-test')
     }
 
     sourceCompatibility = '1.8'

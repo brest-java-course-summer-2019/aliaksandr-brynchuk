@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  * Order controller
  */
 @Controller
-@RequestMapping("outer/order")
+@RequestMapping("/order")
 public class OrderController {
 
     /**
