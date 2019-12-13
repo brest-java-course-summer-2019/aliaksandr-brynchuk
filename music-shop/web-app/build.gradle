@@ -7,14 +7,14 @@ springBoot{
 }
 
 dependencies {
-    implementation project(':model')
-    implementation project(':services-api')
-
     implementation 'org.thymeleaf:thymeleaf-spring5:3.0.11.RELEASE'
     implementation 'ch.qos.logback:logback-core:1.2.3'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'javax.validation:validation-api:2.0.1.Final'
-    implementation ('org.springframework.boot:spring-boot-starter-web')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation project(':model')
+    implementation project(':services-api')
 
     testImplementation 'org.mockito:mockito-core:2.23.4'
     testImplementation 'org.hamcrest:hamcrest-all:1.3'

@@ -18,10 +18,10 @@
     <context:property-placeholder location="classpath:application.properties"/>
 
     <bean id="itemService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="com.epam.brest.summer.courses2019.ItemService"/>
+        <constructor-arg value="com.epam.brest.summer.courses2019.web_app.services.ItemService"/>
     </bean>
     <bean id="orderService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="com.epam.brest.summer.courses2019.OrderService"/>
+        <constructor-arg value="com.epam.brest.summer.courses2019.services.OrderService"/>
     </bean>
 
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">

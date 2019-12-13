@@ -1,9 +1,15 @@
-package com.epam.brest.summer.courses2019;
+package com.epam.brest.summer.courses2019.services;
 
-import com.epam.brest.summer.courses2019.services.OrderServiceImpl;
+import com.epam.brest.summer.courses2019.dao.ItemDao;
+import com.epam.brest.summer.courses2019.dao.OrderDTODao;
+import com.epam.brest.summer.courses2019.dao.OrderDao;
+import com.epam.brest.summer.courses2019.model.Order;
+import com.epam.brest.summer.courses2019.model.OrderDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import java.time.LocalDate;

@@ -1,4 +1,7 @@
-package com.epam.brest.summer.courses2019;
+package com.epam.brest.summer.courses2019.dao;
+
+import com.epam.brest.summer.courses2019.model.OrderDTO;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -6,6 +9,7 @@ import java.util.List;
 /**
  *Order DTO DAO interface
  */
+@Component
 public interface OrderDTODao {
     /**
      * Find all orderDTOs

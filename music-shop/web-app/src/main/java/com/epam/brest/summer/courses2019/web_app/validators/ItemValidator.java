@@ -1,6 +1,6 @@
 package com.epam.brest.summer.courses2019.web_app.validators;
 
-import com.epam.brest.summer.courses2019.Item;
+import com.epam.brest.summer.courses2019.model.Item;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;

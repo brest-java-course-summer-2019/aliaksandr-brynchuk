@@ -1,13 +1,16 @@
 package com.epam.brest.summer.courses2019.services;
 
-import com.epam.brest.summer.courses2019.*;
+import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.model.Order;
+import com.epam.brest.summer.courses2019.model.OrderDTO;
+import com.epam.brest.summer.courses2019.dao.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.time.LocalDate;
 import java.util.List;

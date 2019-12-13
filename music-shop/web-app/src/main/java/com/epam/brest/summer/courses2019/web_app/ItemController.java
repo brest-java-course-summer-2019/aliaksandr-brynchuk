@@ -1,7 +1,7 @@
 package com.epam.brest.summer.courses2019.web_app;
 
-import com.epam.brest.summer.courses2019.Item;
-import com.epam.brest.summer.courses2019.ItemService;
+import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.services.ItemService;
 import com.epam.brest.summer.courses2019.web_app.validators.ItemValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

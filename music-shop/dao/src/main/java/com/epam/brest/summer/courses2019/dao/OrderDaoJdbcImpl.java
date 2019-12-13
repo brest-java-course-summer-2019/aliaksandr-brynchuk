@@ -1,5 +1,6 @@
-package com.epam.brest.summer.courses2019;
+package com.epam.brest.summer.courses2019.dao;
 
+import com.epam.brest.summer.courses2019.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

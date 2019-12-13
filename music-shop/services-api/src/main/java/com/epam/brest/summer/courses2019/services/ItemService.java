@@ -1,4 +1,6 @@
-package com.epam.brest.summer.courses2019;
+package com.epam.brest.summer.courses2019.services;
+
+import com.epam.brest.summer.courses2019.model.Item;
 
 import java.util.List;
 

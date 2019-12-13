@@ -1,6 +1,7 @@
-package com.epam.brest.summer.courses2019;
+package com.epam.brest.summer.courses2019.model;
 
 
+import com.epam.brest.summer.courses2019.model.Item;
 import org.junit.Assert;
 import org.junit.Test;
 

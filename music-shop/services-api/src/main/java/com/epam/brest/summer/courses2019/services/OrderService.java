@@ -1,5 +1,8 @@
-package com.epam.brest.summer.courses2019;
+package com.epam.brest.summer.courses2019.services;
 
+
+import com.epam.brest.summer.courses2019.model.Order;
+import com.epam.brest.summer.courses2019.model.OrderDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -7,6 +10,7 @@ import java.util.List;
 /**
  * Item service interface
  */
+
 public interface OrderService {
 
     /**

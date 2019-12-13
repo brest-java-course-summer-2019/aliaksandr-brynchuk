@@ -1,5 +1,9 @@
-package com.epam.brest.summer.courses2019;
+package com.epam.brest.summer.courses2019.services;
 
+import com.epam.brest.summer.courses2019.dao.ItemDao;
+import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.model.Order;
+import com.epam.brest.summer.courses2019.model.OrderDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +15,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 

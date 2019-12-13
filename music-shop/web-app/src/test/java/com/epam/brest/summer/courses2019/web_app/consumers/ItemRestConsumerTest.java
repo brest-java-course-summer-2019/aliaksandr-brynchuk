@@ -1,7 +1,7 @@
 package com.epam.brest.summer.courses2019.web_app.consumers;
 
 
-import com.epam.brest.summer.courses2019.Item;
+import com.epam.brest.summer.courses2019.model.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

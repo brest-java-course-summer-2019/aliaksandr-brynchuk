@@ -1,8 +1,8 @@
 package com.epam.brest.summer.courses2019.rest_app;
 
-import com.epam.brest.summer.courses2019.Order;
-import com.epam.brest.summer.courses2019.OrderDTO;
-import com.epam.brest.summer.courses2019.OrderService;
+import com.epam.brest.summer.courses2019.model.Order;
+import com.epam.brest.summer.courses2019.model.OrderDTO;
+import com.epam.brest.summer.courses2019.services.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;

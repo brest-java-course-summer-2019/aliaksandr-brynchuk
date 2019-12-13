@@ -1,5 +1,6 @@
-package com.epam.brest.summer.courses2019;
+package com.epam.brest.summer.courses2019.dao;
 
+import com.epam.brest.summer.courses2019.model.Item;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

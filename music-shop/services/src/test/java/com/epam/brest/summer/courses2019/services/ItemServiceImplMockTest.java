@@ -1,7 +1,8 @@
-package com.epam.brest.summer.courses2019;
+package com.epam.brest.summer.courses2019.services;
 
 
-import com.epam.brest.summer.courses2019.services.ItemServiceImpl;
+import com.epam.brest.summer.courses2019.dao.ItemDao;
+import com.epam.brest.summer.courses2019.model.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -10,7 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 class ItemServiceImplMockTest {
