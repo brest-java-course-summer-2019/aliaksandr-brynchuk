@@ -48,19 +48,19 @@ subprojects {
     }
 
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter'
-        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
+        compile 'org.springframework.boot:spring-boot-starter'
+        compile 'org.springframework.boot:spring-boot-starter-jdbc'
+        compile 'org.springframework.boot:spring-boot-starter-web'
 
-        api 'com.h2database:h2:1.4.199'
+        runtime 'com.h2database:h2:1.4.199'
 
-        implementation 'org.slf4j:slf4j-api:1.7.25'
-        implementation 'ch.qos.logback:logback-core:1.2.3'
-        implementation 'ch.qos.logback:logback-classic:1.2.3'
+        compile 'org.slf4j:slf4j-api:1.7.25'
+        compile 'ch.qos.logback:logback-core:1.2.3'
+        compile 'ch.qos.logback:logback-classic:1.2.3'
 
-        implementation 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider'
+        compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider'
 
-        testImplementation'org.springframework.boot:spring-boot-starter-test'
+        testCompile'org.springframework.boot:spring-boot-starter-test'
     }
 
     publishing {

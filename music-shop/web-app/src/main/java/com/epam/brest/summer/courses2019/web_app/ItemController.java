@@ -17,7 +17,7 @@ import javax.validation.Valid;
  * Item controller
  */
 @Controller
-@RequestMapping("/item")
+@RequestMapping("/items")
 public class ItemController {
 
     /**
@@ -96,7 +96,7 @@ public class ItemController {
             return "item";
         }else{
             this.itemService.addItem(item);
-            return "redirect:/outer/item/assortment";
+            return "redirect:/items/assortment";
         }
     }
 
@@ -133,7 +133,7 @@ public class ItemController {
             return "item";
         }else {
             this.itemService.updateItem(item);
-            return "redirect:/outer/item/assortment";
+            return "redirect:/items/assortment";
         }
     }
 
@@ -148,6 +148,6 @@ public class ItemController {
         LOGGER.debug("ItemController: delete item, ({})", id);
 
         this.itemService.deleteItem(id);
-        return "redirect:/outer/item/assortment";
+        return "redirect:/items/assortment";
     }
 }

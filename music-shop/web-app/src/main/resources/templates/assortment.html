@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet"
-          href="../../resources/static/css/font-awesome.min.css"
-          th:href="@{/resources/static/css/font-awesome.min.css}">
+          th:href="@{/css/font-awesome.min.css}">
     <link rel="stylesheet"
-          href="../../resources/static/css/bootstrap.css"
-          th:href="@{/resources/static/css/bootstrap.css}">
+          th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet"
-          href="../../resources/static/css/style.css"
-          th:href="@{/resources/static/css/style.css}">
+          th:href="@{/css/style.css}">
     <title>Assortment</title>
 </head>
 <body>
@@ -23,10 +20,10 @@
             <ul class="navbar-nav">
                 <a class="nav-item nav-link"
                    href="orders.html"
-                   th:href="@{/outer/order/orders}">Orders</a>
+                   th:href="@{/orders/orders}">Orders</a>
                 <a class="nav-item nav-link active"
                    href="assortment.html"
-                   th:href="@{/outer/item/assortment}">Assortment</a>
+                   th:href="@{/items/assortment}">Assortment</a>
             </ul>
         </div>
     </nav>
@@ -36,7 +33,7 @@
         <ul class="navbar-nav float-right">
             <li class="nav-item">
                 <a href="item.html"
-                   th:href="@{/outer/item}"
+                   th:href="@{/items}"
                    class="btn btn-light"
                    title="Add item"
                    data-toggle="tooltip"
@@ -70,7 +67,7 @@
                                 th:text="${item.itemPrice}"></td>
                             <td class="col-4 text-right">
                                 <a href="#"
-                                   th:href="@{|/outer/item/${item.itemId}|}"
+                                   th:href="@{|/items/${item.itemId}|}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit item"
                                    data-toggle="tooltip"
@@ -121,12 +118,9 @@
     </div>
 </div>
 
-<script src="../../resources/static/js/jquery.min.js"
-        th:src="@{/resources/static/js/jquery.min.js}"></script>
-<script src="../../resources/static/js/bootstrap.js"
-        th:src="@{/resources/static/js/bootstrap.js}"></script>
-<script src="../../resources/static/js/popper.min.js"
-        th:src="@{/resources/static/js/popper.min.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -134,7 +128,7 @@
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
         $(this).find('.modal-body').text('Please confirm delete item: "' + target.data('name') + '"')
-        document.getElementById('deleteUrl').href = '/outer/item/' + target.data('id') + '/delete';
+        document.getElementById('deleteUrl').href = '/outer/items/' + target.data('id') + '/delete';
     })
 </script>
 </body>

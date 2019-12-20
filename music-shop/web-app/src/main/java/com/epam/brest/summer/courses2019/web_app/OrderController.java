@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  * Order controller
  */
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     /**
@@ -87,7 +87,7 @@ public class OrderController {
         LOGGER.debug("OrderController: delete order {}",  id);
 
         this.orderService.deleteOrder(id);
-        return "redirect:/outer/order/orders";
+        return "redirect:/orders/orders";
     }
 
     /**
@@ -126,7 +126,7 @@ public class OrderController {
             return "order";
         } else {
             this.orderService.addOrder(order);
-            return "redirect:/outer/order/orders";
+            return "redirect:/orders/orders";
         }
     }
 
@@ -166,7 +166,7 @@ public class OrderController {
             return "order";
         } else {
             this.orderService.updateOrder(order);
-            return "redirect:/outer/order/orders";
+            return "redirect:/orders/orders";
         }
     }
 

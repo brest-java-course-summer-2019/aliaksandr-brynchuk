@@ -7,9 +7,9 @@
 //}
 
 dependencies {
-    implementation project(':model')
-    implementation project(':dao-api')
-    implementation project(':test-db')
+    compile project(':model')
+    compile project(':dao-api')
+//    compile project(':test-db')
 }
 
 description = 'Music Shop DAO'

@@ -9,7 +9,7 @@
 dependencies {
     compile project(':services-api')
     compile project(':dao')
-    compile project(':test-db')
+//    compile project(':test-db')
 
     testCompile 'org.mockito:mockito-core:2.23.4'
 }

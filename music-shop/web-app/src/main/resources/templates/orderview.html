@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet"
-          href="../../resources/static/css/font-awesome.min.css"
-          th:href="@{/resources/static/css/font-awesome.min.css}">
+          th:href="@{/css/font-awesome.min.css}">
     <link rel="stylesheet"
-          href="../../resources/static/css/bootstrap.css"
-          th:href="@{/resources/static/css/bootstrap.css}">
+          th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet"
-          href="../../resources/static/css/style.css"
-          th:href="@{/resources/static/css/style.css}">
+          th:href="@{/css/style.css}">
     <title>Edit Order</title>
 </head>
 <body>
@@ -23,10 +20,10 @@
             <ul class="navbar-nav">
                 <a class="nav-order nav-link"
                    href="orders.html"
-                   th:href="@{/outer/order/orders}">Orders</a>
+                   th:href="@{/orders/orders}">Orders</a>
                 <a class="nav-order nav-link active"
                    href="assortment.html"
-                   th:href="@{/outer/item/assortment}">Assortment</a>
+                   th:href="@{/items/assortment}">Assortment</a>
             </ul>
         </div>
     </nav>
@@ -38,7 +35,7 @@
                 title="Back to list"
                 data-toggle="tooltip"
                 data-placement="bottom"><a href="#"
-                                           th:href="@{/outer/order/orders}"
+                                           th:href="@{/orders/orders}"
                                            class="btn btn-light btn-block"><i
                     class="fa fa-arrow-left"></i>
                 <span class="d-none d-sm-inline">Back</span></a></li>
@@ -118,12 +115,9 @@
     <p class="text-center">&copy; 2019</p>
 </footer>
 
-<script src="../../resources/static/js/jquery.min.js"
-        th:src="@{/resources/static/js/jquery.min.js}"></script>
-<script src="../../resources/static/js/popper.min.js"
-        th:src="@{/resources/static/js/popper.min.js}"></script>
-<script src="../../resources/static/js/bootstrap.min.js"
-        th:src="@{/resources/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()

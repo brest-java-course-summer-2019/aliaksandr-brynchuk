@@ -16,7 +16,7 @@ import java.util.List;
  * Item REST controller
  */
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderRestController {
 
     /**
