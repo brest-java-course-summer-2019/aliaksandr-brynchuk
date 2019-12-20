@@ -59,7 +59,7 @@ public class OrderRestController {
     @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Order findOrderById(@PathVariable Integer id){
-        LOGGER.debug("OrderRestController: findOrderById( {id})", id);
+        LOGGER.debug("OrderRestController: findOrderById({})", id);
 
         return orderService.findOrderById(id);
     }
@@ -72,7 +72,7 @@ public class OrderRestController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public void addOrder(@RequestBody Order order){
-        LOGGER.debug("OrderRestController: addOrder({order})", order);
+        LOGGER.debug("OrderRestController: addOrder({})", order);
 
         orderService.addOrder(order);
     }
@@ -85,7 +85,7 @@ public class OrderRestController {
     @PutMapping
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void updateOrder(@RequestBody Order order){
-        LOGGER.debug("OrderRestController: updateOrder({order})", order);
+        LOGGER.debug("OrderRestController: updateOrder({})", order);
 
         orderService.updateOrder(order);
     }
@@ -97,7 +97,7 @@ public class OrderRestController {
      */
     @DeleteMapping(value = "/{id}/delete")
     public void deleteOrder(@PathVariable Integer id){
-        LOGGER.debug("OrderRestController: deleteOrder({id})", id);
+        LOGGER.debug("OrderRestController: deleteOrder({})", id);
 
         orderService.deleteOrder(id);
     }

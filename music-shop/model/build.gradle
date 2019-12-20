@@ -1,12 +1,9 @@
-bootJar {
-    enabled = false
-}
+//bootJar {
+//    enabled = false
+//}
+//
+//jar {
+//    enabled = true
+//}
 
-jar {
-    enabled = true
-}
-
-test {
-    useJUnit()
-}
 description = 'Music Shop Model'

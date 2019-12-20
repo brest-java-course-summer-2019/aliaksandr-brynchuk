@@ -1,13 +1,13 @@
-bootJar {
-    enabled = false
-}
-
-jar {
-    enabled = true
-}
+//bootJar {
+//    enabled = false
+//}
+//
+//jar {
+//    enabled = true
+//}
 
 dependencies {
-    implementation project(':model')
+    compile project(':model')
 }
 
 description = 'Music Shop Services API'

@@ -1,27 +1,21 @@
+//springBoot{
+//    mainClassName = 'com.epam.brest.summer.courses2019.rest-app.RestApplication'
+//}
+
+
 plugins {
-    id 'war'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'java'
 }
-
-springBoot{
-    mainClassName = 'com.epam.brest.summer.courses2019.RestApplication'
-}
-
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.slf4j:slf4j-api:1.7.25'
-    implementation 'ch.qos.logback:logback-core:1.2.3'
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation 'com.h2database:h2:1.4.199'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile project(':services')
 
-    implementation project(':model')
-    implementation project(':services-api')
-    implementation project(':dao-api')
-
-//    providedCompile 'javax.servlet:javax.servlet-api:4.0.0'
-//    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-
-    testImplementation 'org.hamcrest:hamcrest-all:1.3'
-    testImplementation 'org.mockito:mockito-core:2.23.4'
-    testImplementation 'com.jayway.jsonpath:json-path:2.0.0'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+    testCompile 'org.mockito:mockito-core:2.23.4'
+    testCompile 'com.jayway.jsonpath:json-path:2.0.0'
 }
+
+description = 'Music Shop REST Application'

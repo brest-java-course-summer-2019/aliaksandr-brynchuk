@@ -11,28 +11,31 @@ buildscript {
 }
 
 plugins {
-    id 'java'
-    id 'java-library'
-    id 'idea'
-    id 'com.github.kt3k.coveralls' version '2.8.4'
-    id 'jacoco'
-    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+//    id 'com.github.kt3k.coveralls' version '2.8.4'
+//    id 'jacoco'
+//    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+//    id "org.springframework.boot" version "2.2.2.RELEASE"
+//    id 'java'
+//    id 'idea-library'
+//    id 'idea'
 }
 
 allprojects {
     group = 'com.epam.brest.summer.courses2019'
     version = '1.0-SNAPSHOT'
-    sourceCompatibility = JavaVersion.VERSION_11
-//    targetCompatibility = JavaVersion.VERSION_11
 }
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'java-library'
+    apply plugin: 'maven'
     apply plugin: 'idea'
+    apply plugin: 'jacoco'
     apply plugin: 'maven-publish'
     apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
 
     repositories {
         mavenLocal()
@@ -41,14 +44,24 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+            mavenBom "org.springframework.boot:spring-boot-dependencies:2.2.2.RELEASE"
         }
     }
 
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter'
-        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-        testImplementation'org.springframework.boot:spring-boot-starter-test'
+        compile 'org.springframework.boot:spring-boot-starter'
+        compile 'org.springframework.boot:spring-boot-starter-jdbc'
+        compile 'org.springframework.boot:spring-boot-starter-web'
+
+        runtime 'com.h2database:h2:1.4.199'
+
+        compile 'org.slf4j:slf4j-api:1.7.25'
+        compile 'ch.qos.logback:logback-core:1.2.3'
+        compile 'ch.qos.logback:logback-classic:1.2.3'
+
+        compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider'
+
+        testCompile'org.springframework.boot:spring-boot-starter-test'
     }
 
     publishing {

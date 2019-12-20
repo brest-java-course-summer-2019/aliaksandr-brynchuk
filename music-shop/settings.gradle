@@ -6,5 +6,5 @@ include(':test-db')
 include(':services')
 include(':services-api')
 include(':rest-app')
-include(':web-app')
+//include(':web-app')
 

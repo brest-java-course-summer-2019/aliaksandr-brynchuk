@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Item REST controller
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/item")
 public class ItemRestController {

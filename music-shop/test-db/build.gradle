@@ -1,13 +1,13 @@
-bootJar {
-    enabled = false
-}
+//bootJar {
+//    enabled = false
+//}
+//
+//jar {
+//    enabled = true
+//}
 
-jar {
-    enabled = true
-}
-
-dependencies {
-    implementation 'com.h2database:h2:1.4.199'
-}
+//dependencies {
+//    compile 'com.h2database:h2:1.4.199'
+//}
 
 description = 'Music Shop Test DB Module'
