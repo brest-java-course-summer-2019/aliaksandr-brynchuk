@@ -1,7 +1,7 @@
 package com.epam.brest.summer.courses2019.rest_app;
 
-import com.epam.brest.summer.courses2019.Item;
-import com.epam.brest.summer.courses2019.ItemService;
+import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.services.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,9 @@ import java.util.List;
 /**
  * Item REST controller
  */
+@CrossOrigin
 @RestController
-@RequestMapping("/inner/item")
+@RequestMapping("/items")
 public class ItemRestController {
 
     /**
@@ -31,6 +32,7 @@ public class ItemRestController {
      * Constructor, injection item service bean
      * @param itemService Item Service
      */
+
     @Autowired
     public ItemRestController(ItemService itemService) {
         this.itemService = itemService;

@@ -1,9 +1,11 @@
 plugins {
-    id 'java'
-    id 'java-library'
-    id 'idea'
-    id 'com.github.kt3k.coveralls' version '2.8.4'
-    id 'jacoco'
+//    id 'com.github.kt3k.coveralls' version '2.8.4'
+//    id 'jacoco'
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "org.springframework.boot" version "2.2.2.RELEASE"
+//    id 'java'
+//    id 'java-library'
+//    id 'idea'
 }
 
 allprojects {
@@ -15,17 +17,34 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'java-library'
     apply plugin: 'idea'
+    apply plugin: 'jacoco'
     apply plugin: 'maven-publish'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
 
     repositories {
         mavenLocal()
         jcenter()
-        maven {
-            url = 'http://repo.maven.apache.org/maven2'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:2.2.2.RELEASE"
         }
     }
 
-    sourceCompatibility = '1.8'
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+        runtimeOnly 'com.h2database:h2:1.4.199'
+
+        testImplementation ('org.springframework.boot:spring-boot-starter-test'){
+            exclude group: 'junit'
+        }
+    }
 
     publishing {
         publications {

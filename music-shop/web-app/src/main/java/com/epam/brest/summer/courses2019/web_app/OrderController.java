@@ -1,9 +1,9 @@
 package com.epam.brest.summer.courses2019.web_app;
 
-import com.epam.brest.summer.courses2019.Item;
-import com.epam.brest.summer.courses2019.ItemService;
-import com.epam.brest.summer.courses2019.Order;
-import com.epam.brest.summer.courses2019.OrderService;
+import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.model.Order;
+import com.epam.brest.summer.courses2019.services.ItemService;
+import com.epam.brest.summer.courses2019.services.OrderService;
 
 import com.epam.brest.summer.courses2019.web_app.validators.OrderValidator;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  * Order controller
  */
 @Controller
-@RequestMapping("outer/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     /**
@@ -87,7 +87,7 @@ public class OrderController {
         LOGGER.debug("OrderController: delete order {}",  id);
 
         this.orderService.deleteOrder(id);
-        return "redirect:/outer/order/orders";
+        return "redirect:/orders/orders";
     }
 
     /**
@@ -126,7 +126,7 @@ public class OrderController {
             return "order";
         } else {
             this.orderService.addOrder(order);
-            return "redirect:/outer/order/orders";
+            return "redirect:/orders/orders";
         }
     }
 
@@ -166,7 +166,7 @@ public class OrderController {
             return "order";
         } else {
             this.orderService.updateOrder(order);
-            return "redirect:/outer/order/orders";
+            return "redirect:/orders/orders";
         }
     }
 

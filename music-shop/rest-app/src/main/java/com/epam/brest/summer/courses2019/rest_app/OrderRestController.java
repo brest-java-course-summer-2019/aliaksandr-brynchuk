@@ -1,8 +1,8 @@
 package com.epam.brest.summer.courses2019.rest_app;
 
-import com.epam.brest.summer.courses2019.Order;
-import com.epam.brest.summer.courses2019.OrderDTO;
-import com.epam.brest.summer.courses2019.OrderService;
+import com.epam.brest.summer.courses2019.model.Order;
+import com.epam.brest.summer.courses2019.model.OrderDTO;
+import com.epam.brest.summer.courses2019.services.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
  * Item REST controller
  */
 @RestController
-@RequestMapping("inner/order")
+@RequestMapping("/orders")
 public class OrderRestController {
 
     /**
@@ -59,7 +59,7 @@ public class OrderRestController {
     @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Order findOrderById(@PathVariable Integer id){
-        LOGGER.debug("OrderRestController: findOrderById({id})", id);
+        LOGGER.debug("OrderRestController: findOrderById({})", id);
 
         return orderService.findOrderById(id);
     }
@@ -72,7 +72,7 @@ public class OrderRestController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public void addOrder(@RequestBody Order order){
-        LOGGER.debug("OrderRestController: addOrder({order})", order);
+        LOGGER.debug("OrderRestController: addOrder({})", order);
 
         orderService.addOrder(order);
     }
@@ -85,7 +85,7 @@ public class OrderRestController {
     @PutMapping
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void updateOrder(@RequestBody Order order){
-        LOGGER.debug("OrderRestController: updateOrder({order})", order);
+        LOGGER.debug("OrderRestController: updateOrder({})", order);
 
         orderService.updateOrder(order);
     }
@@ -97,7 +97,7 @@ public class OrderRestController {
      */
     @DeleteMapping(value = "/{id}/delete")
     public void deleteOrder(@PathVariable Integer id){
-        LOGGER.debug("OrderRestController: deleteOrder({id})", id);
+        LOGGER.debug("OrderRestController: deleteOrder({})", id);
 
         orderService.deleteOrder(id);
     }

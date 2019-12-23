@@ -1,13 +1,12 @@
 package com.epam.brest.summer.courses2019.web_app;
 
-import com.epam.brest.summer.courses2019.Item;
-import com.epam.brest.summer.courses2019.ItemService;
+import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.services.ItemService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

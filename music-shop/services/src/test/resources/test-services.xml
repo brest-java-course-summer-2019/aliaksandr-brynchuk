@@ -26,11 +26,11 @@
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="orderDao" class="com.epam.brest.summer.courses2019.OrderDaoJdbcImpl">
+    <bean id="orderDao" class="com.epam.brest.summer.courses2019.dao.OrderDaoJdbcImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
-    <bean id="orderDTODao" class="com.epam.brest.summer.courses2019.OrderDTODaoJdbcImpl">
+    <bean id="orderDTODao" class="com.epam.brest.summer.courses2019.dao.OrderDTODaoJdbcImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
@@ -40,7 +40,7 @@
         <constructor-arg ref="itemDao"/>
     </bean>
 
-    <bean id="itemDao" class="com.epam.brest.summer.courses2019.ItemDaoJdbcImpl">
+    <bean id="itemDao" class="com.epam.brest.summer.courses2019.dao.ItemDaoJdbcImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 

@@ -1,8 +1,8 @@
 package com.epam.brest.summer.courses2019.web_app.consumers;
 
 
-import com.epam.brest.summer.courses2019.Item;
-import com.epam.brest.summer.courses2019.ItemService;
+import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.services.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;

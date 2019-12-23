@@ -1,7 +1,7 @@
 package com.epam.brest.summer.courses2019.web_app;
 
-import com.epam.brest.summer.courses2019.Item;
-import com.epam.brest.summer.courses2019.ItemService;
+import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.services.ItemService;
 import com.epam.brest.summer.courses2019.web_app.validators.ItemValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
  * Item controller
  */
 @Controller
-@RequestMapping("/outer/item")
+@RequestMapping("/items")
 public class ItemController {
 
     /**
@@ -96,7 +96,7 @@ public class ItemController {
             return "item";
         }else{
             this.itemService.addItem(item);
-            return "redirect:/outer/item/assortment";
+            return "redirect:/items/assortment";
         }
     }
 
@@ -133,7 +133,7 @@ public class ItemController {
             return "item";
         }else {
             this.itemService.updateItem(item);
-            return "redirect:/outer/item/assortment";
+            return "redirect:/items/assortment";
         }
     }
 
@@ -148,6 +148,6 @@ public class ItemController {
         LOGGER.debug("ItemController: delete item, ({})", id);
 
         this.itemService.deleteItem(id);
-        return "redirect:/outer/item/assortment";
+        return "redirect:/items/assortment";
     }
 }
