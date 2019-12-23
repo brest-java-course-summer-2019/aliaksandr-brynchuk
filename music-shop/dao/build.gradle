@@ -1,15 +1,8 @@
-//bootJar {
-//    enabled = false
-//}
-//
-//jar {
-//    enabled = true
-//}
+
 
 dependencies {
-    compile project(':model')
-    compile project(':dao-api')
-//    compile project(':test-db')
+    api project(':model')
+    api project(':dao-api')
 }
 
 description = 'Music Shop DAO'

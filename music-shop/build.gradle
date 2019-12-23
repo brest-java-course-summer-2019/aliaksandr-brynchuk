@@ -1,22 +1,10 @@
-//buildscript {
-//    ext {
-//        springBootVersion = '2.2.2.RELEASE'
-//    }
-//    repositories {
-//        mavenCentral()
-//    }
-//    dependencies {
-//        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
-//    }
-//}
-
 plugins {
 //    id 'com.github.kt3k.coveralls' version '2.8.4'
 //    id 'jacoco'
     id "io.spring.dependency-management" version "1.0.8.RELEASE"
     id "org.springframework.boot" version "2.2.2.RELEASE"
 //    id 'java'
-//    id 'idea-library'
+//    id 'java-library'
 //    id 'idea'
 }
 
@@ -48,19 +36,14 @@ subprojects {
     }
 
     dependencies {
-        compile 'org.springframework.boot:spring-boot-starter'
-        compile 'org.springframework.boot:spring-boot-starter-jdbc'
-        compile 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
-        runtime 'com.h2database:h2:1.4.199'
+        runtimeOnly 'com.h2database:h2:1.4.199'
 
-        compile 'org.slf4j:slf4j-api:1.7.25'
-        compile 'ch.qos.logback:logback-core:1.2.3'
-        compile 'ch.qos.logback:logback-classic:1.2.3'
-
-        compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider'
-
-        testCompile'org.springframework.boot:spring-boot-starter-test'
+        testImplementation ('org.springframework.boot:spring-boot-starter-test'){
+            exclude group: 'junit'
+        }
     }
 
     publishing {

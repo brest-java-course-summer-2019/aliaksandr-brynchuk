@@ -1,6 +1,5 @@
 package com.epam.brest.summer.courses2019.model;
 
-import com.epam.brest.summer.courses2019.model.Order;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

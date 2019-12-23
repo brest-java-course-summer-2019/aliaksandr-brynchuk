@@ -1,17 +1,7 @@
-//bootJar {
-//    enabled = false
-//}
-//
-//jar {
-//    enabled = true
-//}
 
 dependencies {
-    compile project(':services-api')
-    compile project(':dao')
-//    compile project(':test-db')
-
-    testCompile 'org.mockito:mockito-core:2.23.4'
+    api project(':services-api')
+    api project(':dao')
 }
 
 test {
