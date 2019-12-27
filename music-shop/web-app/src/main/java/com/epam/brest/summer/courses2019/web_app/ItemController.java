@@ -54,7 +54,7 @@ public class ItemController {
      * @param model Model
      * @return assortment template
      */
-    @GetMapping(value="/assortment")
+    @GetMapping
     public final String allItems(Model model){
         LOGGER.debug("ItemController: find all items");
 
@@ -68,7 +68,7 @@ public class ItemController {
      * @param model Item and isNew flag
      * @return item template
      */
-    @GetMapping
+    @GetMapping("/new")
     public final String goToAddItemPage(Model model){
         LOGGER.debug("ItemController: gotoAddItemPage");
         Item item = new Item();
@@ -86,7 +86,7 @@ public class ItemController {
      *              after entering incorrect data
      * @return redirect to assortment page
      */
-    @PostMapping
+    @PostMapping("/new")
     public final String addItem(@Valid Item item, BindingResult result, Model model){
         LOGGER.debug("ItemController: add item ({}, {})", item, result);
 
@@ -96,7 +96,7 @@ public class ItemController {
             return "item";
         }else{
             this.itemService.addItem(item);
-            return "redirect:/items/assortment";
+            return "redirect:/items";
         }
     }
 
@@ -107,7 +107,7 @@ public class ItemController {
      * @param model "isNew" and Item
      * @return item template
      */
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/edit/{id}")
     public final String goToEditItemPage(@PathVariable Integer id, Model model){
         LOGGER.debug("ItemController: edit item ({})", id);
 
@@ -124,7 +124,7 @@ public class ItemController {
      * @param result Binding result
      * @return item template if incorrect data entered, or redirect to assortment page if data correct
      */
-    @PostMapping(value = "/{id}")
+    @PostMapping(value = "/edit/{id}")
     public final String updateItem(@Valid Item item, BindingResult result){
         LOGGER.debug("ItemController: update item, ({}, {})", item, result);
 
@@ -133,7 +133,7 @@ public class ItemController {
             return "item";
         }else {
             this.itemService.updateItem(item);
-            return "redirect:/items/assortment";
+            return "redirect:/items";
         }
     }
 
@@ -143,11 +143,11 @@ public class ItemController {
      * @param id Item ID
      * @return redirect to assortment page
      */
-    @GetMapping(value = "/{id}/delete")
+    @PostMapping(value = "/{id}")
     public final String deleteItem(@PathVariable Integer id){
         LOGGER.debug("ItemController: delete item, ({})", id);
 
         this.itemService.deleteItem(id);
-        return "redirect:/items/assortment";
+        return "redirect:/items";
     }
 }

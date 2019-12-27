@@ -43,7 +43,7 @@ public class OrderRestController {
      *
      * @return OrderDTOs List
      */
-    @GetMapping(value = "/orders")
+    @GetMapping
     public List<OrderDTO> findAllOrderDTOs(){
         LOGGER.debug("OrderRestController: findAllOrderDTOs");
 
@@ -82,9 +82,9 @@ public class OrderRestController {
      *
      * @param order Order
      */
-    @PutMapping
+    @PutMapping("/{orderId}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public void updateOrder(@RequestBody Order order){
+    public void updateOrder(@PathVariable Integer orderId, @RequestBody Order order){
         LOGGER.debug("OrderRestController: updateOrder({})", order);
 
         orderService.updateOrder(order);
@@ -95,7 +95,7 @@ public class OrderRestController {
      *
      * @param id Order ID
      */
-    @DeleteMapping(value = "/{id}/delete")
+    @DeleteMapping(value = "/{id}")
     public void deleteOrder(@PathVariable Integer id){
         LOGGER.debug("OrderRestController: deleteOrder({})", id);
 
@@ -109,7 +109,7 @@ public class OrderRestController {
      * @param dateTo Date to
      * @return OrderDTOs List
      */
-    @GetMapping(value = "/orders/{from}/{to}")
+    @GetMapping(value = "/{from}/{to}")
     public List<OrderDTO> findOrdersByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo) {
         LOGGER.debug("OrderRestController: findOrdersByDates({} - {})", dateFrom, dateTo);
 
