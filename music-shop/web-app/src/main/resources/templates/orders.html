@@ -22,10 +22,10 @@
             <ul class="navbar-nav">
                 <a class="nav-item nav-link active"
                    href="#"
-                   th:href="@{/orders/orders}">Orders</a>
+                   th:href="@{/orders}">Orders</a>
                 <a class="nav-item nav-link"
                    href="#"
-                   th:href="@{/items/assortment}">Assortment</a>
+                   th:href="@{/items}">Assortment</a>
             </ul>
         </div>
     </nav>
@@ -35,7 +35,7 @@
         <ul class="navbar-nav float-right">
             <li class="nav-item">
                 <a href="order.html"
-                   th:href="@{/orders}"
+                   th:href="@{/orders/new}"
                    class="btn btn-light"
                    title="New order"
                    data-toggle="tooltip"
@@ -79,7 +79,7 @@
                                 th:text="${order.orderCost}"></td>
                             <td class="col-3 text-right">
                                 <a href="order.html"
-                                   th:href="@{|/orders/${order.orderId}|}"
+                                   th:href="@{|/orders/edit/${order.orderId}|}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit order"
                                    data-toggle="tooltip"
@@ -157,7 +157,7 @@
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
         $(this).find('.modal-body').text('Please confirm delete order: "' + target.data('name') + '"')
-        document.getElementById('deleteUrl').href = '/outer/orders/' + target.data('id') + '/delete';
+        document.getElementById('deleteUrl').href = '/outer/orders/' + target.data('id');
     })
 </script>
 
@@ -169,7 +169,7 @@
             }
         });
         $('input[name="date"]').on('apply.daterangepicker', function (ev, picker) {
-            window.location.href = '/outer/orders/orders/' + picker.startDate.format('YYYY-MM-DD') + '/' + picker.endDate.format('YYYY-MM-DD');
+            window.location.href = '/outer/orders' + picker.startDate.format('YYYY-MM-DD') + '/' + picker.endDate.format('YYYY-MM-DD');
 
         });
         $('input[name="date"]').on('cancel.daterangepicker', function () {

@@ -87,7 +87,7 @@ public class OrderController {
         LOGGER.debug("OrderController: delete order {}",  id);
 
         this.orderService.deleteOrder(id);
-        return "redirect:/orders/orders";
+        return "redirect:/orders";
     }
 
     /**
@@ -126,7 +126,7 @@ public class OrderController {
             return "order";
         } else {
             this.orderService.addOrder(order);
-            return "redirect:/orders/orders";
+            return "redirect:/orders";
         }
     }
 
@@ -166,7 +166,7 @@ public class OrderController {
             return "order";
         } else {
             this.orderService.updateOrder(order);
-            return "redirect:/orders/orders";
+            return "redirect:/orders";
         }
     }
 
