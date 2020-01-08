@@ -1,14 +1,14 @@
-//plugins {
-//    id 'org.springframework.boot'
-//    id 'io.spring.dependency-management'
-//    id 'java'
-//}
-
 dependencies {
     api project(':services')
 
     implementation ('org.springframework.boot:spring-boot-starter-web'){
         exclude module: 'org.springframework.boot:spring-boot-starter'
+    }
+}
+
+test{
+    useJUnitPlatform {
+        excludeEngines 'junit-vintage'
     }
 }
 

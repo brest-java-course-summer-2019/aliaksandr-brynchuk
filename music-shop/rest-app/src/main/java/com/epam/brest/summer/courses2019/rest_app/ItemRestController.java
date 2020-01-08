@@ -43,7 +43,7 @@ public class ItemRestController {
      *
      * @return Items list
      */
-    @GetMapping(value = "/assortment")
+    @GetMapping
     public List<Item> findAllItems(){
         LOGGER.debug("ItemRestController: findAllItems");
 
@@ -81,7 +81,7 @@ public class ItemRestController {
      *
      * @param item Item
      */
-    @PutMapping
+    @PutMapping("/{itemId}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void updateItem(@RequestBody Item item){
         LOGGER.debug("ItemRestController: updateItem({})", item);
@@ -94,7 +94,7 @@ public class ItemRestController {
      *
      * @param itemId Item ID
      */
-    @DeleteMapping(value = "/{itemId}/delete")
+    @DeleteMapping(value = "/{itemId}")
     public void deleteItem(@PathVariable Integer itemId){
         LOGGER.debug("ItemRestController: deleteItem({})", itemId);
 

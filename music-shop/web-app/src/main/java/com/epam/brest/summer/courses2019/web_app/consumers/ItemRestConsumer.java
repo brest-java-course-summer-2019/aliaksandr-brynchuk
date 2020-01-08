@@ -64,7 +64,7 @@ public class ItemRestConsumer implements ItemService {
     public List<Item> findAllItems() {
         LOGGER.debug("ItemRestConsumer: findAllItems {}", url);
 
-        return restTemplate.exchange(url + "/assortment",
+        return restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Item>>(){}).getBody();
@@ -92,7 +92,7 @@ public class ItemRestConsumer implements ItemService {
     public void updateItem(Item item) {
         LOGGER.debug("ItemRestConsumer: updateItem({})", item);
 
-        restTemplate.put(url, item);
+        restTemplate.put(url + "/"+ item.getItemId(), item);
     }
 
     /**
@@ -104,6 +104,6 @@ public class ItemRestConsumer implements ItemService {
     public void deleteItem(Integer itemId) {
         LOGGER.debug("ItemRestConsumer: deleteItem({})", itemId);
 
-        restTemplate.delete(url+"/"+itemId+"/delete");
+        restTemplate.delete(url+"/"+itemId);
     }
 }

@@ -68,7 +68,7 @@ public class OrderController {
      * @param model All orders
      * @return Orders template
      */
-    @GetMapping(value = "/orders")
+    @GetMapping
     public final String orders(Model model){
         LOGGER.debug("OrderController: find all orders()");
 
@@ -82,12 +82,12 @@ public class OrderController {
      * @param id Order ID
      * @return redirect to orders template
      */
-    @GetMapping(value = "/{id}/delete")
+    @PostMapping(value = "/{id}")
     public final String deleteOrder(@PathVariable Integer id){
         LOGGER.debug("OrderController: delete order {}",  id);
 
         this.orderService.deleteOrder(id);
-        return "redirect:/orders/orders";
+        return "redirect:/orders";
     }
 
     /**
@@ -96,7 +96,7 @@ public class OrderController {
      * @param model "isNew" flag, order and non-in-order items for create order items list
      * @return order template
      */
-    @GetMapping
+    @GetMapping("/new")
     public final String goToAddOrderPage(Model model){
         LOGGER.debug("OrderController: go to add order page");
 
@@ -116,7 +116,7 @@ public class OrderController {
      * @return redirect to orders template
      */
 
-    @PostMapping
+    @PostMapping("/new")
     public final String addOrder(@Valid Order order, BindingResult result, Model model) {
         LOGGER.debug("OrderController: add order {}, {}", order, result);
 
@@ -126,7 +126,7 @@ public class OrderController {
             return "order";
         } else {
             this.orderService.addOrder(order);
-            return "redirect:/orders/orders";
+            return "redirect:/orders";
         }
     }
 
@@ -137,7 +137,7 @@ public class OrderController {
      * @param model Order and non-in-order items + items from order for update order items list
      * @return order template
      */
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/edit/{id}")
     public final String goToEditOrderPage(@PathVariable Integer id, Model model){
         LOGGER.debug("OrderController: goto edit order page {}", id);
 
@@ -157,7 +157,7 @@ public class OrderController {
      * @param result Binding result
      * @return redirect to orders template
      */
-    @PostMapping(value = "/{id}")
+    @PostMapping(value = "/edit/{id}")
     public final String updateOrder(@Valid Order order, BindingResult result) {
         LOGGER.debug("OrderController: update order {}, {}", order, result);
 
@@ -166,7 +166,7 @@ public class OrderController {
             return "order";
         } else {
             this.orderService.updateOrder(order);
-            return "redirect:/orders/orders";
+            return "redirect:/orders";
         }
     }
 
@@ -197,7 +197,7 @@ public class OrderController {
      * @param model orders list
      * @return Order List
      */
-    @GetMapping(value = "/orders/{from}/{to}")
+    @GetMapping(value = "/{from}/{to}")
     public String filterByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo, Model model) {
         LOGGER.debug("OrderController: filterByDates({} - {})", dateFrom, dateTo);
 

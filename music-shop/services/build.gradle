@@ -2,6 +2,8 @@
 dependencies {
     api project(':services-api')
     api project(':dao')
+
+    testCompile project(':rest-app')
 }
 
 test {

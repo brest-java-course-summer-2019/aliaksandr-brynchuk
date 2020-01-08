@@ -52,7 +52,7 @@ public class OrderRestConsumer implements OrderService {
     public List<OrderDTO> findAllOrderDTOs() {
         LOGGER.debug("OrderRestConsumer: findAllOrderDTOs");
 
-        return restTemplate.exchange(url +"/orders",
+        return restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<OrderDTO>>(){})
@@ -93,7 +93,7 @@ public class OrderRestConsumer implements OrderService {
     public void updateOrder(Order order) {
         LOGGER.debug("OrderRestConsumer: updateOrder({})", order);
 
-        restTemplate.put(url, order);
+        restTemplate.put(url+"/"+order.getOrderId(), order);
     }
 
     /**
@@ -105,7 +105,7 @@ public class OrderRestConsumer implements OrderService {
     public void deleteOrder(Integer orderId) {
         LOGGER.debug("OrderRestConsumer: deleteOrder({})", orderId);
 
-        restTemplate.delete(url+"/"+orderId+"/delete");
+        restTemplate.delete(url+"/"+orderId);
     }
 
     /**
@@ -119,7 +119,7 @@ public class OrderRestConsumer implements OrderService {
     public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
         LOGGER.debug("OrderRestConsumer: findOrdersByDates({}, {})", from, to);
 
-        return restTemplate.exchange(url  + "/orders" +"/"+from+"/"+to,
+        return restTemplate.exchange(url +"/"+from+"/"+to,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<OrderDTO>>(){})

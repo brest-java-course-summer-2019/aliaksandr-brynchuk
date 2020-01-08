@@ -20,10 +20,10 @@
             <ul class="navbar-nav">
                 <a class="nav-item nav-link"
                    href="orders.html"
-                   th:href="@{/orders/orders}">Orders</a>
+                   th:href="@{/orders}">Orders</a>
                 <a class="nav-item nav-link active"
                    href="assortment.html"
-                   th:href="@{/items/assortment}">Assortment</a>
+                   th:href="@{/items}">Assortment</a>
             </ul>
         </div>
     </nav>
@@ -33,7 +33,7 @@
         <ul class="navbar-nav float-right">
             <li class="nav-item">
                 <a href="item.html"
-                   th:href="@{/items}"
+                   th:href="@{/items/new}"
                    class="btn btn-light"
                    title="Add item"
                    data-toggle="tooltip"
@@ -67,7 +67,7 @@
                                 th:text="${item.itemPrice}"></td>
                             <td class="col-4 text-right">
                                 <a href="#"
-                                   th:href="@{|/items/${item.itemId}|}"
+                                   th:href="@{|/items/edit/${item.itemId}|}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit item"
                                    data-toggle="tooltip"
@@ -76,12 +76,17 @@
                                         class="d-none d-md-inline">Edit</span></a>
                                 <span data-toggle="modal" data-target="#deleteDialog"
                                       th:attr="data-id=${item.itemId}, data-name=${item.itemName}">
-                                <a href="#" class="btn-sm btn-outline-secondary"
+                                <a
+                                        href="#" class="btn-sm btn-outline-secondary"
                                    title="Delete item"
                                    data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>
                                 </span>
+                                <form id="deleteForm"
+                                th:action="@{/items/${item.itemId}}"
+                                th:method="post"
+                                ></form>
                             </td>
                         </tr>
                         </tbody>
@@ -128,7 +133,8 @@
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
         $(this).find('.modal-body').text('Please confirm delete item: "' + target.data('name') + '"')
-        document.getElementById('deleteUrl').href = '/outer/items/' + target.data('id') + '/delete';
+
+        document.getElementById('deleteUrl').href = '/outer/items/' + target.data('id');
     })
 </script>
 </body>
