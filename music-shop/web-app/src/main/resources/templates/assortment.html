@@ -76,12 +76,17 @@
                                         class="d-none d-md-inline">Edit</span></a>
                                 <span data-toggle="modal" data-target="#deleteDialog"
                                       th:attr="data-id=${item.itemId}, data-name=${item.itemName}">
-                                <a href="#" class="btn-sm btn-outline-secondary"
+                                <a
+                                        href="#" class="btn-sm btn-outline-secondary"
                                    title="Delete item"
                                    data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>
                                 </span>
+                                <form id="deleteForm"
+                                th:action="@{/items/${item.itemId}}"
+                                th:method="post"
+                                ></form>
                             </td>
                         </tr>
                         </tbody>
@@ -128,7 +133,8 @@
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
         $(this).find('.modal-body').text('Please confirm delete item: "' + target.data('name') + '"')
-        document.getElementById('deleteUrl').href = '/outer/items' + target.data('id');
+
+        document.getElementById('deleteUrl').href = '/outer/items/' + target.data('id');
     })
 </script>
 </body>

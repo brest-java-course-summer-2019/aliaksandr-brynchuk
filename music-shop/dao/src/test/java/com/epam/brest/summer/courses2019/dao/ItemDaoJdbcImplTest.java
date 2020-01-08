@@ -1,12 +1,11 @@
 package com.epam.brest.summer.courses2019.dao;
 
 import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.rest_app.RestApplication;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -14,9 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
-
+@SpringBootTest(classes = RestApplication.class)
 @Transactional
 class ItemDaoJdbcImplTest {
 
