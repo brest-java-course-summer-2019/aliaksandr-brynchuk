@@ -5,20 +5,16 @@ import com.epam.brest.summer.courses2019.model.OrderDTO;
 import com.epam.brest.summer.courses2019.services.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -29,31 +25,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath*:rest-app-test.xml"})
+@WebMvcTest(OrderRestController.class)
 class OrderRestControllerTest {
 
-    @Autowired
-    private OrderRestController controller;
-
-    @Autowired
+    @MockBean
     private OrderService service;
 
+    @Autowired
     private MockMvc mock;
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    @BeforeEach
-    void setUp(){
-        mock = MockMvcBuilders.standaloneSetup(controller)
-                .setMessageConverters(new MappingJackson2HttpMessageConverter())
-                .alwaysDo(MockMvcResultHandlers.print())
-                .build();
-    }
-
-    @AfterEach
-    void reset(){
-        Mockito.reset(service);
-    }
 
     private final static LocalDate FROM = LocalDate.of(2019, 10, 18);
     private final static LocalDate TO = LocalDate.of(2019, 10, 18);
@@ -62,7 +44,7 @@ class OrderRestControllerTest {
     void findAllOrders() throws Exception{
         Mockito.when(service.findAllOrderDTOs()).thenReturn(Arrays.asList(createDto(1), createDto(2)));
 
-        mock.perform(MockMvcRequestBuilders.get("/inner/order/orders")
+        mock.perform(MockMvcRequestBuilders.get("/orders")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].orderId", Matchers.is(1)))
@@ -75,7 +57,7 @@ class OrderRestControllerTest {
     void findOrdersByDates() throws Exception{
         Mockito.when(service.findOrdersByDates(FROM, TO)).thenReturn(Arrays.asList(createDto(1), createDto(2)));
 
-        mock.perform(MockMvcRequestBuilders.get("/inner/order/orders/{FROM}/{TO}", FROM, TO)
+        mock.perform(MockMvcRequestBuilders.get("/orders/{FROM}/{TO}", FROM, TO)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].orderId", Matchers.is(1)))
@@ -89,7 +71,7 @@ class OrderRestControllerTest {
         int id = 1;
         Mockito.when(service.findOrderById(id)).thenReturn(createOrder(id));
 
-        mock.perform(MockMvcRequestBuilders.get("/inner/order/{id}", id)
+        mock.perform(MockMvcRequestBuilders.get("/orders/{id}", id)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.orderId", Matchers.is(1)));
@@ -102,7 +84,7 @@ class OrderRestControllerTest {
         int id = 1;
         Mockito.doNothing().when(service).addOrder(createOrder(id));
 
-        mock.perform(MockMvcRequestBuilders.post("/inner/order")
+        mock.perform(MockMvcRequestBuilders.post("/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(createOrder(id)))
                 .accept(MediaType.APPLICATION_JSON))
@@ -116,7 +98,7 @@ class OrderRestControllerTest {
         int id = 1;
         Mockito.doNothing().when(service).updateOrder(createOrder(id));
 
-        mock.perform(MockMvcRequestBuilders.put("/inner/order")
+        mock.perform(MockMvcRequestBuilders.put("/orders/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(createOrder(id)))
                 .accept(MediaType.APPLICATION_JSON))
@@ -130,7 +112,7 @@ class OrderRestControllerTest {
         int id = 1;
         Mockito.doNothing().when(service).deleteOrder(id);
 
-        mock.perform(MockMvcRequestBuilders.delete("/inner/order/{id}/delete", id))
+        mock.perform(MockMvcRequestBuilders.delete("/orders/{id}", id))
                 .andExpect(status().isOk());
 
         Mockito.verify(service, Mockito.times(1)).deleteOrder(id);
