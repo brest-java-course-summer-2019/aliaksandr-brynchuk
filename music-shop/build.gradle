@@ -3,9 +3,6 @@ plugins {
 //    id 'jacoco'
     id "io.spring.dependency-management" version "1.0.8.RELEASE"
     id "org.springframework.boot" version "2.2.2.RELEASE"
-//    id 'java'
-//    id 'java-library'
-//    id 'idea'
 }
 
 allprojects {
@@ -21,8 +18,8 @@ subprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'io.spring.dependency-management'
 
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
     repositories {
         mavenLocal()
