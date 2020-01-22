@@ -3,11 +3,25 @@ plugins {
 //    id 'jacoco'
     id "io.spring.dependency-management" version "1.0.8.RELEASE"
     id "org.springframework.boot" version "2.2.2.RELEASE"
+//    id 'java'
 }
+
+//bootJar {
+//    enabled = false
+//}
+//
+//jar {
+//    enabled = true
+//}
 
 allprojects {
     group = 'com.epam.brest.summer.courses2019'
     version = '1.0-SNAPSHOT'
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
 }
 
 subprojects {
@@ -20,6 +34,14 @@ subprojects {
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+
+//    task fatJar(type: Jar) {
+//        manifest {
+//            attributes 'Main-Class':'com.epam.brest.summer.courses2019.rest_app.RestApplication'
+//        }
+//        from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+//        with jar
+//    }
 
     repositories {
         mavenLocal()
@@ -55,3 +77,27 @@ subprojects {
         options.encoding = 'UTF-8'
     }
 }
+
+//task customJar(type: Jar) {
+//    manifest {
+//        attributes(
+//                'Main-Class': 'com.epam.brest.summer.courses2019.rest_app.RestApplication',
+//        )
+//    }
+//
+//    from {
+//        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
+
+//subprojects.each { subproject ->
+//    evaluationDependsOn(subproject.path)
+//}
+//task mmJar(type: Jar, dependsOn: subprojects.jar) {
+//    subprojects.each { subproject ->
+//        from subproject.configurations.archives.artifacts.files.collect {
+//            zipTree(it)
+//        }
+//    }
+//}
+//install.dependsOn mmJar

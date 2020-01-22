@@ -1,0 +1,5 @@
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+ARG JAR=/web-app/build/libs/*.jar
+COPY ${JAR} web-app-1.0-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","web-app-1.0-SNAPSHOT.jar"]
