@@ -143,7 +143,7 @@ public class ItemController {
      * @param id Item ID
      * @return redirect to assortment page
      */
-    @PostMapping(value = "/{id}")
+    @GetMapping(value = "/{id}")
     public final String deleteItem(@PathVariable Integer id){
         LOGGER.debug("ItemController: delete item, ({})", id);
 

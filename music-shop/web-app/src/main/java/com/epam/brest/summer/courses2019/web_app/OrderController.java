@@ -82,7 +82,7 @@ public class OrderController {
      * @param id Order ID
      * @return redirect to orders template
      */
-    @PostMapping(value = "/{id}")
+    @GetMapping(value = "/{id}")
     public final String deleteOrder(@PathVariable Integer id){
         LOGGER.debug("OrderController: delete order {}",  id);
 
