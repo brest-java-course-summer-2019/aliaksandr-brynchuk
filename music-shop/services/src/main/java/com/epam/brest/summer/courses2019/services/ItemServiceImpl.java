@@ -91,6 +91,6 @@ public class ItemServiceImpl implements ItemService {
     public Item findItemById(Integer itemId) {
         LOGGER.debug("Item service: find item by id {}", itemId);
 
-        return dao.findItemById(itemId).orElseThrow(()-> new RuntimeException("Failed to get item from DB"));
+        return dao.findItemById(itemId);
     }
 }

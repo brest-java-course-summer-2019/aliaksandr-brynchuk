@@ -1,6 +1,7 @@
 package com.epam.brest.summer.courses2019.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "items")
-public class Item {
+public class Item implements Serializable {
     /**
      * Item id
      */

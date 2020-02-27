@@ -3,10 +3,12 @@ package com.epam.brest.summer.courses2019.dao;
 import com.epam.brest.summer.courses2019.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@Repository
 public class OrderJpaDaoImpl implements OrderDao{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderJpaDaoImpl.class);
@@ -39,6 +41,6 @@ public class OrderJpaDaoImpl implements OrderDao{
     public void updateOrder(Order order) {
         LOGGER.debug("Order JPA DAO: update order {}", order);
 
-        entityManager.persist(order);
+        entityManager.merge(order);
     }
 }

@@ -3,13 +3,14 @@ package com.epam.brest.summer.courses2019.dao;
 import com.epam.brest.summer.courses2019.model.OrderDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Parameter;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 
+@Repository
 public class OrderDTOJpaDaoImpl implements OrderDTODao{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderDTOJpaDaoImpl.class);

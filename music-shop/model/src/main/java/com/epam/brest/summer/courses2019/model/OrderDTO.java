@@ -11,31 +11,19 @@ import java.util.Objects;
 @Entity
 @Table(name = "orders")
 @SqlResultSetMapping(
-        name = "OrderResult",
+        name = "OrderDTOResult",
         classes = {
                 @ConstructorResult(
-                        targetClass = Order.class,
+                        targetClass = OrderDTO.class,
                         columns = {
                                 @ColumnResult(name = "order_id", type = Integer.class),
                                 @ColumnResult(name = "order_date", type = LocalDate.class),
-                                @ColumnResult(name = "orderCost", type = BigDecimal.class),
-
+                                @ColumnResult(name = "orderCost", type = BigDecimal.class)
                         }
                 )
         }
 )
 @NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "getOrdersDTOWithCostByDates",
-
-                query = "select o.order_id, o.order_date, sum(i.item_price) as orderCost " +
-                        "from orders o " +
-                        "left join order_items io on o.order_id = io.order_id " +
-                        "left join items i on i.item_id = io.item_id " +
-                        "group by o.order_id",
-
-                resultSetMapping = "OrderResult"
-        ),
         @NamedNativeQuery(
                 name = "getOrdersDTOWithCost",
 
@@ -43,9 +31,20 @@ import java.util.Objects;
                         "from orders o " +
                         "left join order_items io on o.order_id = io.order_id " +
                         "left join items i on i.item_id = io.item_id " +
+                        "group by o.order_id",
+
+                resultSetMapping = "OrderDTOResult"
+        ),
+        @NamedNativeQuery(
+                name = "getOrdersDTOWithCostByDates",
+
+                query = "select o.order_id, o.order_date, sum(i.item_price) as orderCost " +
+                        "from orders o " +
+                        "left join order_items io on o.order_id = io.order_id " +
+                        "left join items i on i.item_id = io.item_id " +
                         "where order_date between :from and :to group by order_date, o.order_id",
 
-                resultSetMapping = "OrderResult"
+                resultSetMapping = "OrderDTOResult"
         )
 })
 public class OrderDTO {
@@ -71,6 +70,11 @@ public class OrderDTO {
     private BigDecimal orderCost;
 
     public OrderDTO() {
+    }
+
+    public OrderDTO(LocalDate orderDate, BigDecimal orderCost) {
+        this.orderDate = orderDate;
+        this.orderCost = orderCost;
     }
 
     public OrderDTO(Integer orderId, LocalDate orderDate, BigDecimal orderCost) {

@@ -1,14 +1,13 @@
 package com.epam.brest.summer.courses2019.services;
 
-import com.epam.brest.summer.courses2019.model.Item;
+import com.epam.brest.summer.courses2019.dao.ItemDao;
+import com.epam.brest.summer.courses2019.dao.OrderDTODao;
+import com.epam.brest.summer.courses2019.dao.OrderDao;
 import com.epam.brest.summer.courses2019.model.Order;
 import com.epam.brest.summer.courses2019.model.OrderDTO;
-import com.epam.brest.summer.courses2019.dao.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,11 +27,6 @@ public class OrderServiceImpl implements OrderService {
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     /**
-     * Item DAO field
-     */
-    private ItemDao itemDao;
-
-    /**
      * Order DAO field
      */
     private OrderDao orderDao;
@@ -50,9 +44,8 @@ public class OrderServiceImpl implements OrderService {
      * @param orderDTODao OrderDTO DAO
      */
     @Autowired
-    public OrderServiceImpl(OrderDao orderDao, ItemDao itemDao, OrderDTODao orderDTODao) {
+    public OrderServiceImpl(OrderDao orderDao, OrderDTODao orderDTODao) {
         this.orderDao = orderDao;
-        this.itemDao = itemDao;
         this.orderDTODao = orderDTODao;
     }
 
@@ -69,27 +62,7 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderDate(LocalDate.now());
         orderDao.addOrder(order);
-//        updateOrderItems(order);
     }
-
-//    /**
-//     * Update order items list
-//     * this private method is used in addOrder and updateOrder methods
-//     * Items add by id, item status changes to the "true" value cuz item will be added to order
-//     *
-//     * @param order Order
-//     */
-//    private void updateOrderItems(Order order) {
-//        LOGGER.debug("Order service: update order items {}", order);
-//
-//        MapSqlParameterSource parameters = new MapSqlParameterSource();
-//        parameters.addValue("orderId", order.getOrderId());
-//
-//        order.getItemsIds().
-//                forEach(item-> {
-//                    parameters.addValue("itemId", item);
-//                    itemDao.insertItem(parameters); });
-//    }
 
     /**
      * Update order
@@ -100,9 +73,6 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrder(Order order) {
         LOGGER.debug("Order service: update order: {}", order);
 
-//        List<Item> items = itemDao.itemsListFromOrder(order.getOrderId());
-
-//        itemDao.deleteItemsList(order.getOrderId());
         orderDao.updateOrder(order);
     }
 
@@ -140,9 +110,7 @@ public class OrderServiceImpl implements OrderService {
     public Order findOrderById(Integer orderId) {
         LOGGER.debug("Order service: find order by id({})", orderId);
 
-        Order orderById = orderDao.findOrderById(orderId);
-//        orderById.setItemsList(itemDao.itemsListFromOrder(orderId));
-        return orderById;
+        return orderDao.findOrderById(orderId);
     }
 
     /**

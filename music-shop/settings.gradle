@@ -1,6 +1,6 @@
 rootProject.name = 'music-shop'
 include(':model')
-include(':dao')
+//include(':dao')
 include(':dao-api')
 //include(':test-db')
 include(':services')

@@ -3,12 +3,14 @@ package com.epam.brest.summer.courses2019.dao;
 import com.epam.brest.summer.courses2019.model.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class ItemJpaDaoImpl implements ItemDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemJpaDaoImpl.class);
@@ -33,7 +35,7 @@ public class ItemJpaDaoImpl implements ItemDao {
     public void updateItem(Item item) {
         LOGGER.debug("Item  JPA DAO: update item {}", item);
 
-        entityManager.persist(item);
+        entityManager.merge(item);
     }
 
     @Override
@@ -48,7 +50,9 @@ public class ItemJpaDaoImpl implements ItemDao {
     public List<Item> findAllItems() {
         LOGGER.debug("Item  JPA DAO: find not reserved items");
 
-        return entityManager.createNativeQuery(FIND_NOT_RESERVED_ITEMS).getResultList();
+        List<Item> items = entityManager.createNativeQuery(FIND_NOT_RESERVED_ITEMS, Item.class).getResultList();
+
+        return items;
     }
 
     @Override

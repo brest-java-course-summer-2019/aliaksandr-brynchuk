@@ -2,6 +2,7 @@ package com.epam.brest.summer.courses2019.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ import java.util.Objects;
         name="OrderWithCostById",
         query=""
 )
-public class Order {
+public class Order implements Serializable {
     /**
      * Order id
      */

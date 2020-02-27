@@ -49,7 +49,7 @@ class ItemServiceImplMockTest {
     void findById(){
         int id = 1;
 
-        Mockito.when(itemDao.findItemById(id)).thenReturn(Optional.of(createItem()));
+        Mockito.when(itemDao.findItemById(id)).thenReturn(createItem());
 
         Item item = itemService.findItemById(id);
 
