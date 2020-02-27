@@ -28,4 +28,6 @@ public interface OrderDao {
      */
     Order findOrderById(Integer orderId);
 
+    void updateOrder(Order order);
+
 }

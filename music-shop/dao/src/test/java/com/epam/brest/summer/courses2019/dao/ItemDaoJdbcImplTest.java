@@ -40,13 +40,13 @@ class ItemDaoJdbcImplTest {
     }
 
 
-    @Test
-    void itemsListFromOrder(){
-        final int id = 1;
-        List<Item> items = itemDao.itemsListFromOrder(id);
-        assertNotNull(items);
-        assertEquals(3, items.size());
-    }
+//    @Test
+//    void itemsListFromOrder(){
+//        final int id = 1;
+//        List<Item> items = itemDao.itemsListFromOrder(id);
+//        assertNotNull(items);
+//        assertEquals(3, items.size());
+//    }
 
     @Test
     void addItem() {
@@ -83,38 +83,28 @@ class ItemDaoJdbcImplTest {
         assertEquals(sizeBefore-1, itemDao.findAllItems().size());
     }
 
-    @Test
-    void insertItem(){
-        int id = 1;
-        Item item = new Item();
-
-        itemDao.addItem(item);
-        int sizeBefore = itemDao.itemsListFromOrder(id).size();
-
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(ORDER_ID, id);
-        parameters.addValue(ITEM_ID, item.getItemId());
-
-        itemDao.insertItem(parameters);
-
-        assertEquals(sizeBefore+1, itemDao.itemsListFromOrder(id).size());
-    }
-
-    @Test
-    void deleteItemsList(){
-        int id = 1;
-
-        itemDao.deleteItemsList(id);
-        assertTrue(itemDao.itemsListFromOrder(id).isEmpty());
-    }
-
-    @Test
-    void changeItemStatus(){
-        int id = 1;
-
-        Item item = itemDao.findItemById(id).get();
-        itemDao.changeItemStatus(id, false);
-        Item newItem = itemDao.findItemById(id).get();
-        assertNotEquals(item.getIsReserved(), newItem.getIsReserved());
-    }
+//    @Test
+//    void insertItem(){
+//        int id = 1;
+//        Item item = new Item();
+//
+//        itemDao.addItem(item);
+//        int sizeBefore = itemDao.itemsListFromOrder(id).size();
+//
+//        MapSqlParameterSource parameters = new MapSqlParameterSource();
+//        parameters.addValue(ORDER_ID, id);
+//        parameters.addValue(ITEM_ID, item.getItemId());
+//
+//        itemDao.insertItem(parameters);
+//
+//        assertEquals(sizeBefore+1, itemDao.itemsListFromOrder(id).size());
+//    }
+//
+//    @Test
+//    void deleteItemsList(){
+//        int id = 1;
+//
+//        itemDao.deleteItemsList(id);
+//        assertTrue(itemDao.itemsListFromOrder(id).isEmpty());
+//    }
 }

@@ -7,4 +7,5 @@ include(':services')
 include(':services-api')
 include(':rest-app')
 include(':web-app')
+include 'jpa-dao'
 

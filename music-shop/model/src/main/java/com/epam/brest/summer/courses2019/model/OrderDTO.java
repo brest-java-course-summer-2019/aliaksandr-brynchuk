@@ -1,5 +1,6 @@
 package com.epam.brest.summer.courses2019.model;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -7,23 +8,76 @@ import java.util.Objects;
 /**
  * POJO Order for model
  */
+@Entity
+@Table(name = "orders")
+@SqlResultSetMapping(
+        name = "OrderResult",
+        classes = {
+                @ConstructorResult(
+                        targetClass = Order.class,
+                        columns = {
+                                @ColumnResult(name = "order_id", type = Integer.class),
+                                @ColumnResult(name = "order_date", type = LocalDate.class),
+                                @ColumnResult(name = "orderCost", type = BigDecimal.class),
 
+                        }
+                )
+        }
+)
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "getOrdersDTOWithCostByDates",
+
+                query = "select o.order_id, o.order_date, sum(i.item_price) as orderCost " +
+                        "from orders o " +
+                        "left join order_items io on o.order_id = io.order_id " +
+                        "left join items i on i.item_id = io.item_id " +
+                        "group by o.order_id",
+
+                resultSetMapping = "OrderResult"
+        ),
+        @NamedNativeQuery(
+                name = "getOrdersDTOWithCost",
+
+                query = "select o.order_id, o.order_date, sum(i.item_price) as orderCost " +
+                        "from orders o " +
+                        "left join order_items io on o.order_id = io.order_id " +
+                        "left join items i on i.item_id = io.item_id " +
+                        "where order_date between :from and :to group by order_date, o.order_id",
+
+                resultSetMapping = "OrderResult"
+        )
+})
 public class OrderDTO {
 
-        /**
-         * Order id
-         */
-        private Integer orderId;
+    /**
+     * Order id
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
+    private Integer orderId;
 
-        /**
-         * Order date
-         */
-        private LocalDate orderDate;
+    /**
+     * Order date
+     */
+    @Column(name = "order_date")
+    private LocalDate orderDate;
 
-        /**
-         * Order cost
-         */
-        private BigDecimal orderCost;
+    /**
+     * Order cost
+     */
+    @Transient
+    private BigDecimal orderCost;
+
+    public OrderDTO() {
+    }
+
+    public OrderDTO(Integer orderId, LocalDate orderDate, BigDecimal orderCost) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.orderCost = orderCost;
+    }
 
     /**
      * get Order DTO id

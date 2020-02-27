@@ -69,28 +69,27 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderDate(LocalDate.now());
         orderDao.addOrder(order);
-        updateOrderItems(order);
+//        updateOrderItems(order);
     }
 
-    /**
-     * Update order items list
-     * this private method is used in addOrder and updateOrder methods
-     * Items add by id, item status changes to the "true" value cuz item will be added to order
-     *
-     * @param order Order
-     */
-    private void updateOrderItems(Order order) {
-        LOGGER.debug("Order service: update order items {}", order);
-
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("orderId", order.getOrderId());
-
-        order.getItemsIds().
-                forEach(item-> {
-                    parameters.addValue("itemId", item);
-                    itemDao.insertItem(parameters);
-                    itemDao.changeItemStatus(Integer.valueOf(item), true); });
-    }
+//    /**
+//     * Update order items list
+//     * this private method is used in addOrder and updateOrder methods
+//     * Items add by id, item status changes to the "true" value cuz item will be added to order
+//     *
+//     * @param order Order
+//     */
+//    private void updateOrderItems(Order order) {
+//        LOGGER.debug("Order service: update order items {}", order);
+//
+//        MapSqlParameterSource parameters = new MapSqlParameterSource();
+//        parameters.addValue("orderId", order.getOrderId());
+//
+//        order.getItemsIds().
+//                forEach(item-> {
+//                    parameters.addValue("itemId", item);
+//                    itemDao.insertItem(parameters); });
+//    }
 
     /**
      * Update order
@@ -101,11 +100,10 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrder(Order order) {
         LOGGER.debug("Order service: update order: {}", order);
 
-        List<Item> items = itemDao.itemsListFromOrder(order.getOrderId());
-        items.forEach(item->itemDao.changeItemStatus(item.getItemId(),false));
+//        List<Item> items = itemDao.itemsListFromOrder(order.getOrderId());
 
-        itemDao.deleteItemsList(order.getOrderId());
-        updateOrderItems(order);
+//        itemDao.deleteItemsList(order.getOrderId());
+        orderDao.updateOrder(order);
     }
 
     /**
@@ -143,7 +141,7 @@ public class OrderServiceImpl implements OrderService {
         LOGGER.debug("Order service: find order by id({})", orderId);
 
         Order orderById = orderDao.findOrderById(orderId);
-        orderById.setItemsList(itemDao.itemsListFromOrder(orderId));
+//        orderById.setItemsList(itemDao.itemsListFromOrder(orderId));
         return orderById;
     }
 

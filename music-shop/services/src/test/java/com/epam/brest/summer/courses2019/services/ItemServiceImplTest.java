@@ -46,13 +46,13 @@ class ItemServiceImplTest {
        assertEquals("Gibson Les Paul", item.getItemName());
     }
 
-    @Test
-    void itemsList(){
-        int id = 1;
-        List<Item> items = itemDao.itemsListFromOrder(id);
-        assertNotNull(items);
-        assertEquals(3, items.size());
-    }
+//    @Test
+//    void itemsList(){
+//        int id = 1;
+//        List<Item> items = itemDao.itemsListFromOrder(id);
+//        assertNotNull(items);
+//        assertEquals(3, items.size());
+//    }
 
     @Test
     void addItem(){
