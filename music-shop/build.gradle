@@ -42,9 +42,7 @@ subprojects {
 
         runtimeOnly 'com.h2database:h2:1.4.199'
 
-        testImplementation ('org.springframework.boot:spring-boot-starter-test'){
-            exclude group: 'junit'
-        }
+        testImplementation ('org.springframework.boot:spring-boot-starter-test')
     }
 
     publishing {

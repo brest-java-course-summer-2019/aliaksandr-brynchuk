@@ -8,9 +8,17 @@ import java.util.Objects;
 /**
  * POJO Item for model
  */
+
+@NamedNativeQuery(
+        name = "getNotReservedItems",
+        query = "select i.item_id, i.item_name, i.item_price from items i " +
+                "left join order_items io on io.item_id = i.item_id " +
+                "where i.item_id not in (select oi.item_id from order_items oi)",
+        resultClass = Item.class
+)
 @Entity
 @Table(name = "items")
-public class Item implements Serializable {
+public class Item{
     /**
      * Item id
      */

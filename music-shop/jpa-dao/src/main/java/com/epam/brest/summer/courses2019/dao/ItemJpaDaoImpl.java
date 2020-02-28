@@ -50,9 +50,7 @@ public class ItemJpaDaoImpl implements ItemDao {
     public List<Item> findAllItems() {
         LOGGER.debug("Item  JPA DAO: find not reserved items");
 
-        List<Item> items = entityManager.createNativeQuery(FIND_NOT_RESERVED_ITEMS, Item.class).getResultList();
-
-        return items;
+        return entityManager.createNamedQuery("getNotReservedItems", Item.class).getResultList();
     }
 
     @Override

@@ -37,7 +37,7 @@ class OrderServiceImplMockTest {
     @BeforeEach
     void setUp(){
         initMocks(this);
-        orderService = new OrderServiceImpl(orderDao, itemDao, orderDTODao);
+        orderService = new OrderServiceImpl(orderDao, orderDTODao);
     }
 
     private final static LocalDate FROM = LocalDate.of(2019, 10, 18);

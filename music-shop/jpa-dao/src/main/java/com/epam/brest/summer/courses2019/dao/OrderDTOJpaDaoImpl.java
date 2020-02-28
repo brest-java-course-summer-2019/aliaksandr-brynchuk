@@ -4,7 +4,9 @@ import com.epam.brest.summer.courses2019.model.OrderDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.CacheRetrieveMode;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
@@ -19,13 +21,18 @@ public class OrderDTOJpaDaoImpl implements OrderDTODao{
     private EntityManager entityManager;
 
     @Override
+
     public List<OrderDTO> findAllOrderDTOs() {
-        return entityManager.createNamedQuery("getOrdersDTOWithCost", OrderDTO.class).getResultList();
+//        entityManager.flush();
+//        entityManager.clear();
+        return entityManager.createNamedQuery("getOrdersDTOWithCost", OrderDTO.class)
+                .getResultList();
     }
 
     @Override
     public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
         return entityManager.createNamedQuery("getOrdersDTOWithCostByDates", OrderDTO.class)
-                .setParameter("from", from).setParameter("to", to).getResultList();
+                .setParameter("from", from).setParameter("to", to)
+                .getResultList();
     }
 }

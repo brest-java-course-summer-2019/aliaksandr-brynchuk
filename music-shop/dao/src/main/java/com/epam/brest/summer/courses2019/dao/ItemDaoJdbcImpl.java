@@ -64,23 +64,11 @@ public class ItemDaoJdbcImpl implements ItemDao {
     @Value("${item.updateItem}")
     private String updateItem;
 
-//    /**
-//     *SQL from property file. Insert item to order
-//     */
-//    @Value("${item.insertItem}")
-//    private String insertItem;
-
     /**
      *SQL from property file. Find item by id
      */
     @Value("${item.findItemById}")
     private String findItemById;
-
-//    /**
-//     *SQL from property file. Clear items list
-//     */
-//    @Value("${item.deleteItemsFromOrder}")
-//    private String deleteItemsFromOrder;
 
     /**
      *Constant fields for sql requests

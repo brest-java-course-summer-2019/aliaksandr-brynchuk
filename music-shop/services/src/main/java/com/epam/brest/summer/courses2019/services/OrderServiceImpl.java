@@ -94,6 +94,7 @@ public class OrderServiceImpl implements OrderService {
      * @return OrderDTOs List
      */
     @Override
+    @Transactional(readOnly=true)
     public List<OrderDTO> findAllOrderDTOs() {
         LOGGER.debug("Order service: find all orders");
 
@@ -121,6 +122,7 @@ public class OrderServiceImpl implements OrderService {
      * @return OrderDTOs List
      */
     @Override
+    @Transactional(readOnly=true)
     public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
         LOGGER.debug("Order service: find orders by dates {} - {}", from,to);
 

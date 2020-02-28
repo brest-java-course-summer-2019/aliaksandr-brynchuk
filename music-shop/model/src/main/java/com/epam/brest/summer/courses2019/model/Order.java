@@ -14,24 +14,24 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "orders")
-@SqlResultSetMapping(
-        name="OrderResult",
-        entities = {
-                @EntityResult(
-                        entityClass = Order.class,
-                        fields = {
-                                @FieldResult(name = "orderId", column = "order_id"),
-                                @FieldResult(name = "orderDate", column = "order_date"),
-                                @FieldResult(name = "orderCost", column = "order_cost")
-                        }
-                )
-        }
-)
-@NamedNativeQuery(
-        name="OrderWithCostById",
-        query=""
-)
-public class Order implements Serializable {
+//@SqlResultSetMapping(
+//        name="OrderResult",
+//        entities = {
+//                @EntityResult(
+//                        entityClass = Order.class,
+//                        fields = {
+//                                @FieldResult(name = "orderId", column = "order_id"),
+//                                @FieldResult(name = "orderDate", column = "order_date"),
+//                                @FieldResult(name = "orderCost", column = "order_cost")
+//                        }
+//                )
+//        }
+//)
+//@NamedNativeQuery(
+//        name="OrderWithCostById",
+//        query=""
+//)
+public class Order {
     /**
      * Order id
      */
