@@ -53,7 +53,7 @@ public class Order {
             name="order_items",
             joinColumns = @JoinColumn(name="order_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REFRESH)
     private List<Item> itemsList;
 
 

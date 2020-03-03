@@ -5,6 +5,7 @@ import com.epam.brest.summer.courses2019.model.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,16 +21,18 @@ public class ItemServiceImpl implements ItemService {
     /**
      * Item DAO field
      */
+    @Autowired
+    @Qualifier("ItemJpaDao")
     private ItemDao dao;
 
     /**
      * Constructor, injection item dao bean
      * @param dao Item DAO
      */
-    @Autowired
-    public ItemServiceImpl(ItemDao dao){
-         this.dao = dao;
-    }
+//    @Autowired
+//    public ItemServiceImpl(ItemDao dao){
+//         this.dao = dao;
+//    }
 
     /**
      * Logger

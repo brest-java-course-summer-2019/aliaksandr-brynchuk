@@ -2,6 +2,7 @@
 dependencies {
     api project(':services-api')
     api project(':jpa-dao')
+    api project(':dao')
 
     testCompile project(':rest-app')
 }

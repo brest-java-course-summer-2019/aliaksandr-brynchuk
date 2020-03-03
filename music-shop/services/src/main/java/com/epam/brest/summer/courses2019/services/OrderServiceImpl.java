@@ -8,6 +8,7 @@ import com.epam.brest.summer.courses2019.model.OrderDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,11 +30,15 @@ public class OrderServiceImpl implements OrderService {
     /**
      * Order DAO field
      */
+    @Autowired
+    @Qualifier("OrderJpaDao")
     private OrderDao orderDao;
 
     /**
      * OrderDTO DAO field
      */
+    @Autowired
+    @Qualifier("OrderDtoJpaDao")
     private OrderDTODao orderDTODao;
 
     /**
@@ -43,11 +48,11 @@ public class OrderServiceImpl implements OrderService {
      * @param itemDao Item DAO
      * @param orderDTODao OrderDTO DAO
      */
-    @Autowired
-    public OrderServiceImpl(OrderDao orderDao, OrderDTODao orderDTODao) {
-        this.orderDao = orderDao;
-        this.orderDTODao = orderDTODao;
-    }
+//    @Autowired
+//    public OrderServiceImpl(OrderDao orderDao, OrderDTODao orderDTODao) {
+//        this.orderDao = orderDao;
+//        this.orderDTODao = orderDTODao;
+//    }
 
     /**
      * Add order
@@ -94,7 +99,6 @@ public class OrderServiceImpl implements OrderService {
      * @return OrderDTOs List
      */
     @Override
-    @Transactional(readOnly=true)
     public List<OrderDTO> findAllOrderDTOs() {
         LOGGER.debug("Order service: find all orders");
 

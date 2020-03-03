@@ -26,7 +26,7 @@ class ItemDaoJdbcImplTest {
     @Test
     void findItemById(){
         assertNotNull(itemDao);
-        Item item = itemDao.findItemById(1).get();
+        Item item = itemDao.findItemById(1);
         assertEquals(item.getItemId().intValue(), 1);
         assertEquals(item.getItemName(), "Gibson Les Paul");
         assertEquals(item.getItemPrice(), new BigDecimal("1100"));
@@ -62,11 +62,11 @@ class ItemDaoJdbcImplTest {
 
     @Test
     void updateItem() {
-        Item item = itemDao.findItemById(2).get();
+        Item item = itemDao.findItemById(2);
         item.setItemName("Bla");
         item.setItemPrice(new BigDecimal("500"));
         itemDao.updateItem(item);
-        Item newItem = itemDao.findItemById(item.getItemId()).get();
+        Item newItem = itemDao.findItemById(item.getItemId());
         assertEquals(item.getItemName(), newItem.getItemName());
         assertEquals(item.getItemPrice(), newItem.getItemPrice());
 

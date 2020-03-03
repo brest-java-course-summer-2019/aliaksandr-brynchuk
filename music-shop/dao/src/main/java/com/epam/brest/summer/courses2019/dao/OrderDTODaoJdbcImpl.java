@@ -3,6 +3,7 @@ package com.epam.brest.summer.courses2019.dao;
 import com.epam.brest.summer.courses2019.model.OrderDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @Repository
 @PropertySource("classpath:/sql.properties")
+@Qualifier("OrderDtoJdbcDao")
 public class OrderDTODaoJdbcImpl implements OrderDTODao {
 
     /**

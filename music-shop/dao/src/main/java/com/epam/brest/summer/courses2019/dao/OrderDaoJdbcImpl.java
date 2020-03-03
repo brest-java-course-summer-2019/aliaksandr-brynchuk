@@ -4,6 +4,7 @@ import com.epam.brest.summer.courses2019.model.Item;
 import com.epam.brest.summer.courses2019.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @Repository
 @PropertySource("classpath:/sql.properties")
+@Qualifier("OrderJdbcDao")
 public class OrderDaoJdbcImpl implements OrderDao {
 
     /**
@@ -89,7 +91,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
      * @param orderId Order ID
      * @return Items list
      */
-    public List<Item> itemsListFromOrder(Integer orderId) {
+    private List<Item> itemsListFromOrder(Integer orderId) {
         LOGGER.debug("Item DAO: find items from order({})", orderId);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
@@ -109,7 +111,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
         Order order = namedParameterJdbcTemplate.queryForObject(findById, parameters, BeanPropertyRowMapper.newInstance(Order.class));
         order.setItemsList(itemsListFromOrder(orderId));
-//        return namedParameterJdbcTemplate.queryForObject(findById, parameters, BeanPropertyRowMapper.newInstance(Order.class));
         return order;
     }
 

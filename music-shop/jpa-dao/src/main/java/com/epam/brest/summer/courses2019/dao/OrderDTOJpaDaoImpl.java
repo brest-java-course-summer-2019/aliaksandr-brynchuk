@@ -3,16 +3,15 @@ package com.epam.brest.summer.courses2019.dao;
 import com.epam.brest.summer.courses2019.model.OrderDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.CacheRetrieveMode;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 
 @Repository
+@Qualifier("OrderDtoJpaDao")
 public class OrderDTOJpaDaoImpl implements OrderDTODao{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderDTOJpaDaoImpl.class);
@@ -23,8 +22,6 @@ public class OrderDTOJpaDaoImpl implements OrderDTODao{
     @Override
 
     public List<OrderDTO> findAllOrderDTOs() {
-//        entityManager.flush();
-//        entityManager.clear();
         return entityManager.createNamedQuery("getOrdersDTOWithCost", OrderDTO.class)
                 .getResultList();
     }

@@ -1,4 +1,5 @@
 import com.epam.brest.summer.courses2019.dao.OrderDao;
+import com.epam.brest.summer.courses2019.model.Order;
 import com.epam.brest.summer.courses2019.rest_app.RestApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,5 +16,11 @@ public class OrderJpaDaoImplTest {
     @Test
     void updateOrder(){
 
+    }
+
+    @Test
+    void findOrderById(){
+        Order order = orderDao.findOrderById(1);
+        System.out.println(order);
     }
 }
