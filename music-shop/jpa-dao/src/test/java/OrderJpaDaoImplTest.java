@@ -13,14 +13,19 @@ public class OrderJpaDaoImplTest {
     @Autowired
     private OrderDao orderDao;
 
-    @Test
-    void updateOrder(){
-
-    }
+//    @Test
+//    void updateOrder(){
+//
+//        Order order = new Order();
+//
+//
+//    }
 
     @Test
     void findOrderById(){
         Order order = orderDao.findOrderById(1);
         System.out.println(order);
+
+
     }
 }

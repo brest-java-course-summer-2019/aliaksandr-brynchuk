@@ -30,4 +30,8 @@ public interface OrderDao {
 
     void updateOrder(Order order);
 
+    void clearItemsList(Integer orderId);
+
+    void updateOrderItemsList(Order order);
+
 }

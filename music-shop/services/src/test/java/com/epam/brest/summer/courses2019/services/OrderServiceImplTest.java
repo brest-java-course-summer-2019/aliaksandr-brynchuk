@@ -33,10 +33,29 @@ class OrderServiceImplTest {
 
     @Test
     void findOrderById(){
-        Order order = orderService.findOrderById(1);
+//        Order order = orderService.findOrderById(1);
 
-        assertNotNull(order);
-        assertFalse(order.getItemsList().isEmpty());
+//        assertNotNull(order);
+//        assertFalse(order.getItemsList().isEmpty());
+
+//        System.out.println(order.getItemsList());
+
+        Order order = new Order();
+
+        order.setOrderId(1);
+        List<String> items = new ArrayList<>();
+
+        items.add("11");
+        items.add("12");
+        items.add("13");
+
+
+        order.setItemsIds(items);
+
+        orderService.updateOrder(order);
+
+        Order order1 = orderService.findOrderById(order.getOrderId());
+        System.out.println(order1);
     }
 
     @Test

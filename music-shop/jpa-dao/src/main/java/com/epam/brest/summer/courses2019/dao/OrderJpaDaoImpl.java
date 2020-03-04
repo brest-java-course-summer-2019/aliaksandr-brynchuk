@@ -54,6 +54,45 @@ public class OrderJpaDaoImpl implements OrderDao{
     public void updateOrder(Order order) {
         LOGGER.debug("Order JPA DAO: update order {}", order);
 
-        entityManager.merge(order);
+        entityManager.createNativeQuery("delete from order_items where order_id = ?")
+                .setParameter(1, order.getOrderId());
+
+        order.getItemsIds().forEach(item->
+                            {entityManager.createNativeQuery("insert into order_items (order_id, item_id) values (?1, ?2)")
+                            .setParameter(1, order.getOrderId())
+                            .setParameter(2, item);});
+    }
+
+    @Override
+    public void clearItemsList(Integer orderId){
+
+        LOGGER.debug("Order JPA DAO: clear items list {}", orderId);
+
+        entityManager.createNativeQuery("delete from order_items where order_id = ?")
+                .setParameter(1, orderId).executeUpdate();
+    }
+
+    @Override
+    public void updateOrderItemsList(Order order){
+
+        LOGGER.debug("Order JPA DAO: update order items list {}", order);
+
+        StringBuilder insert = new StringBuilder("insert into order_items (order_id, item_id) values ");
+
+        for(int i = 0; i<order.getItemsIds().size(); i++){
+            String temp = "("+ order.getOrderId()+", "+order.getItemsIds().get(i)+"),";
+            insert.append(temp);
+        }
+
+        insert.deleteCharAt(insert.length()-1);
+
+        entityManager.createNativeQuery(insert.toString()).executeUpdate();
+        LOGGER.debug("Order JPA DAO: update order items list, queryInsert = {}", insert);
+
+//        order.getItemsIds().forEach(item->
+//        {entityManager.createNativeQuery("insert into order_items (order_id, item_id) values (?1, ?2)")
+//                .setParameter(1, order.getOrderId())
+//                .setParameter(2, item).executeUpdate();});
+
     }
 }

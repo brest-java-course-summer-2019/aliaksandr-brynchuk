@@ -67,6 +67,7 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderDate(LocalDate.now());
         orderDao.addOrder(order);
+        orderDao.updateOrderItemsList(order);
     }
 
     /**
@@ -74,11 +75,21 @@ public class OrderServiceImpl implements OrderService {
      *
      * @param order Order
      */
+//    @Override
+//    public void updateOrder(Order order) {
+//        LOGGER.debug("Order service: update order: {}", order);
+//
+//        orderDao.updateOrder(order);
+//    }
+
+
     @Override
     public void updateOrder(Order order) {
         LOGGER.debug("Order service: update order: {}", order);
 
-        orderDao.updateOrder(order);
+        orderDao.clearItemsList(order.getOrderId());
+
+        orderDao.updateOrderItemsList(order);
     }
 
     /**
@@ -126,7 +137,6 @@ public class OrderServiceImpl implements OrderService {
      * @return OrderDTOs List
      */
     @Override
-    @Transactional(readOnly=true)
     public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
         LOGGER.debug("Order service: find orders by dates {} - {}", from,to);
 

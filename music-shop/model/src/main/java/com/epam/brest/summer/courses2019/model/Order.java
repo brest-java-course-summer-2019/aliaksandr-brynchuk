@@ -14,23 +14,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "orders")
-//@SqlResultSetMapping(
-//        name="OrderResult",
-//        entities = {
-//                @EntityResult(
-//                        entityClass = Order.class,
-//                        fields = {
-//                                @FieldResult(name = "orderId", column = "order_id"),
-//                                @FieldResult(name = "orderDate", column = "order_date"),
-//                                @FieldResult(name = "orderCost", column = "order_cost")
-//                        }
-//                )
-//        }
-//)
-//@NamedNativeQuery(
-//        name="OrderWithCostById",
-//        query=""
-//)
 public class Order {
     /**
      * Order id
@@ -53,7 +36,7 @@ public class Order {
             name="order_items",
             joinColumns = @JoinColumn(name="order_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
-    @OneToMany(cascade = CascadeType.REFRESH)
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Item> itemsList;
 
 

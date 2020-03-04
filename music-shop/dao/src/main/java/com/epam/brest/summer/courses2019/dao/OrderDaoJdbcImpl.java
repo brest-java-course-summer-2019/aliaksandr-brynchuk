@@ -179,4 +179,14 @@ public class OrderDaoJdbcImpl implements OrderDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
         namedParameterJdbcTemplate.update(deleteItemsFromOrder, parameters);
     }
+
+    @Override
+    public void clearItemsList(Integer orderId) {
+
+    }
+
+    @Override
+    public void updateOrderItemsList(Order order) {
+
+    }
 }
