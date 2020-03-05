@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = RestApplication.class)
 @Transactional
@@ -45,5 +44,13 @@ class OrderDaoJdbcImplTest {
         Order order = orderDao.findOrderById(id);
         assertNotNull(order);
         assertEquals(id, order.getOrderId());
+    }
+
+    @Test
+    void deleteItemsList(){
+        int id = 1;
+
+        orderDao.clearItemsList(id);
+        assertTrue(orderDao.findOrderById(id).getItemsList().isEmpty());
     }
 }

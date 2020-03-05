@@ -1,6 +1,5 @@
 package com.epam.brest.summer.courses2019.dao;
 
-import com.epam.brest.summer.courses2019.model.Item;
 import com.epam.brest.summer.courses2019.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +9,10 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Repository
 @Qualifier("OrderJpaDao")
-public class OrderJpaDaoImpl implements OrderDao{
+public class OrderJpaDaoImpl implements OrderDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderJpaDaoImpl.class);
 
@@ -27,7 +25,6 @@ public class OrderJpaDaoImpl implements OrderDao{
 
         entityManager.persist(order);
     }
-
 
     @Override
     public void deleteOrder(Integer orderId) {
@@ -51,21 +48,7 @@ public class OrderJpaDaoImpl implements OrderDao{
     }
 
     @Override
-    public void updateOrder(Order order) {
-        LOGGER.debug("Order JPA DAO: update order {}", order);
-
-        entityManager.createNativeQuery("delete from order_items where order_id = ?")
-                .setParameter(1, order.getOrderId());
-
-        order.getItemsIds().forEach(item->
-                            {entityManager.createNativeQuery("insert into order_items (order_id, item_id) values (?1, ?2)")
-                            .setParameter(1, order.getOrderId())
-                            .setParameter(2, item);});
-    }
-
-    @Override
-    public void clearItemsList(Integer orderId){
-
+    public void clearItemsList(Integer orderId) {
         LOGGER.debug("Order JPA DAO: clear items list {}", orderId);
 
         entityManager.createNativeQuery("delete from order_items where order_id = ?")
@@ -73,26 +56,17 @@ public class OrderJpaDaoImpl implements OrderDao{
     }
 
     @Override
-    public void updateOrderItemsList(Order order){
-
+    public void updateOrderItemsList(Order order) {
         LOGGER.debug("Order JPA DAO: update order items list {}", order);
 
         StringBuilder insert = new StringBuilder("insert into order_items (order_id, item_id) values ");
 
-        for(int i = 0; i<order.getItemsIds().size(); i++){
-            String temp = "("+ order.getOrderId()+", "+order.getItemsIds().get(i)+"),";
+        for (int i = 0; i < order.getItemsIds().size(); i++) {
+            String temp = "(" + order.getOrderId() + ", " + order.getItemsIds().get(i) + "),";
             insert.append(temp);
         }
-
-        insert.deleteCharAt(insert.length()-1);
+        insert.deleteCharAt(insert.length() - 1);
 
         entityManager.createNativeQuery(insert.toString()).executeUpdate();
-        LOGGER.debug("Order JPA DAO: update order items list, queryInsert = {}", insert);
-
-//        order.getItemsIds().forEach(item->
-//        {entityManager.createNativeQuery("insert into order_items (order_id, item_id) values (?1, ?2)")
-//                .setParameter(1, order.getOrderId())
-//                .setParameter(2, item).executeUpdate();});
-
     }
 }

@@ -114,7 +114,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
         return order;
     }
 
-        private void updateOrderItems(Order order) {
+        @Override
+        public void updateOrderItemsList(Order order) {
         LOGGER.debug("Order service: update order items {}", order);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -142,16 +143,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
         namedParameterJdbcTemplate.update(addOrder, parameters, generatedKeyHolder);
         order.setOrderId(generatedKeyHolder.getKey().intValue());
-
-        updateOrderItems(order);
     }
 
-    @Override
-    public void updateOrder(Order order) {
-
-        deleteItemsList(order.getOrderId());
-        updateOrderItems(order);
-    }
 
     /**
      * Delete Order from db
@@ -168,25 +161,12 @@ public class OrderDaoJdbcImpl implements OrderDao {
         namedParameterJdbcTemplate.update(deleteOrder, parameters);
     }
 
-        /**
-     * Clear order items list
-     *
-     * @param orderId Order id
-     */
-    private void deleteItemsList(Integer orderId) {
+    @Override
+    public void clearItemsList(Integer orderId) {
+
         LOGGER.debug("Item DAO: clear items list item {}", orderId);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
         namedParameterJdbcTemplate.update(deleteItemsFromOrder, parameters);
-    }
-
-    @Override
-    public void clearItemsList(Integer orderId) {
-
-    }
-
-    @Override
-    public void updateOrderItemsList(Order order) {
-
     }
 }

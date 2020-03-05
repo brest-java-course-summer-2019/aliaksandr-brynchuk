@@ -21,18 +21,16 @@ public class ItemServiceImpl implements ItemService {
     /**
      * Item DAO field
      */
-    @Autowired
-    @Qualifier("ItemJpaDao")
     private ItemDao dao;
 
     /**
      * Constructor, injection item dao bean
      * @param dao Item DAO
      */
-//    @Autowired
-//    public ItemServiceImpl(ItemDao dao){
-//         this.dao = dao;
-//    }
+    @Autowired
+    public ItemServiceImpl(@Qualifier("ItemJpaDao") ItemDao dao){
+         this.dao = dao;
+    }
 
     /**
      * Logger

@@ -1,6 +1,5 @@
 package com.epam.brest.summer.courses2019.services;
 
-import com.epam.brest.summer.courses2019.dao.ItemDao;
 import com.epam.brest.summer.courses2019.dao.OrderDTODao;
 import com.epam.brest.summer.courses2019.dao.OrderDao;
 import com.epam.brest.summer.courses2019.model.Order;
@@ -30,29 +29,24 @@ public class OrderServiceImpl implements OrderService {
     /**
      * Order DAO field
      */
-    @Autowired
-    @Qualifier("OrderJpaDao")
     private OrderDao orderDao;
 
     /**
      * OrderDTO DAO field
      */
-    @Autowired
-    @Qualifier("OrderDtoJpaDao")
     private OrderDTODao orderDTODao;
 
     /**
      * Constructor, injection order dao, item dao, orderDTO beans
      *
      * @param orderDao Order DAO
-     * @param itemDao Item DAO
      * @param orderDTODao OrderDTO DAO
      */
-//    @Autowired
-//    public OrderServiceImpl(OrderDao orderDao, OrderDTODao orderDTODao) {
-//        this.orderDao = orderDao;
-//        this.orderDTODao = orderDTODao;
-//    }
+    @Autowired
+    public OrderServiceImpl(@Qualifier("OrderJpaDao") OrderDao orderDao, @Qualifier("OrderDtoJpaDao") OrderDTODao orderDTODao) {
+        this.orderDao = orderDao;
+        this.orderDTODao = orderDTODao;
+    }
 
     /**
      * Add order
@@ -66,22 +60,11 @@ public class OrderServiceImpl implements OrderService {
         LOGGER.debug("Order service: add order:  {}", order);
 
         order.setOrderDate(LocalDate.now());
+
         orderDao.addOrder(order);
+
         orderDao.updateOrderItemsList(order);
     }
-
-    /**
-     * Update order
-     *
-     * @param order Order
-     */
-//    @Override
-//    public void updateOrder(Order order) {
-//        LOGGER.debug("Order service: update order: {}", order);
-//
-//        orderDao.updateOrder(order);
-//    }
-
 
     @Override
     public void updateOrder(Order order) {
@@ -133,12 +116,12 @@ public class OrderServiceImpl implements OrderService {
      * Find orderDTOs by dates
      *
      * @param from Date from
-     * @param to Date to
+     * @param to   Date to
      * @return OrderDTOs List
      */
     @Override
     public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
-        LOGGER.debug("Order service: find orders by dates {} - {}", from,to);
+        LOGGER.debug("Order service: find orders by dates {} - {}", from, to);
 
         return orderDTODao.findOrdersByDates(from, to);
     }

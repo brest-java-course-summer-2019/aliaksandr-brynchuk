@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest(classes = RestApplication.class)
@@ -22,8 +23,33 @@ public class ItemJpaDaoImplTest {
 
     @Test
     void findAll(){
-
         List<Item> items = dao.findAllItems();
         assertFalse(items.isEmpty());
+    }
+
+    @Test
+    void findById(){
+
+    }
+
+    @Test
+    void addItem(){
+        Item item = new Item();
+
+        int sizeBefore = dao.findAllItems().size();
+
+        dao.addItem(item);
+
+        assertEquals(sizeBefore+1, dao.findAllItems().size());
+    }
+
+    @Test
+    void updateItem(){
+
+    }
+
+    @Test
+    void deleteItem(){
+
     }
 }
