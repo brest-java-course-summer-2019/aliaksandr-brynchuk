@@ -26,7 +26,7 @@ public interface OrderDao {
      * @param orderId Order Id
      * @return Order
      */
-    Order findOrderById(Integer orderId);
+    Order findByOrderId(Integer orderId);
 
     void clearItemsList(Integer orderId);
 

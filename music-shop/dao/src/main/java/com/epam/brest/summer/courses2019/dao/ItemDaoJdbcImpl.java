@@ -100,7 +100,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
      * @return Items List
      */
     @Override
-    public List<Item> findAllItems() {
+    public List<Item> findAll() {
         LOGGER.debug("Item DAO: find all items");
 
         return namedParameterJdbcTemplate.query(findAll, BeanPropertyRowMapper.newInstance(Item.class));
@@ -113,7 +113,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
      * @return Optional<>Item</>
      */
     @Override
-    public Item findItemById(Integer itemId) {
+    public Item findByItemId(Integer itemId) {
         LOGGER.debug("Item DAO: find item by id({})", itemId);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource(ITEM_ID, itemId);

@@ -23,7 +23,7 @@ class OrderDtoDaoJdbcImplTest {
     @Test
     void findAllOrderDTOs(){
         assertNotNull(orderDTODao);
-        List<OrderDTO> orders = orderDTODao.findAllOrderDTOs();
+        List<OrderDTO> orders = orderDTODao.findAll();
         assertNotNull(orders);
         assertFalse(orders.isEmpty());
     }

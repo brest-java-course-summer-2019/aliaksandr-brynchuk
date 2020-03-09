@@ -35,7 +35,7 @@ public class OrderJpaDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order findOrderById(Integer orderId) {
+    public Order findByOrderId(Integer orderId) {
         LOGGER.debug("Order JPA DAO: find order by id {}", orderId);
 
         Order order = entityManager.find(Order.class, orderId);

@@ -41,26 +41,26 @@ class OrderServiceImplMockTest {
 
     @Test
     void findAllDTOs(){
-        Mockito.when(orderDTODao.findAllOrderDTOs()).thenReturn(Collections.singletonList(createDto()));
+        Mockito.when(orderDTODao.findAll()).thenReturn(Collections.singletonList(createDto()));
 
         List<OrderDTO> orders = orderService.findAllOrderDTOs();
 
         assertNotNull(orders);
         assertEquals(1, orders.size());
 
-        Mockito.verify(orderDTODao, Mockito.times(1)).findAllOrderDTOs();
+        Mockito.verify(orderDTODao, Mockito.times(1)).findAll();
     }
 
     @Test
     void findOrderById(){
         int id = 1;
-        Mockito.when(orderDao.findOrderById(id)).thenReturn(create());
+        Mockito.when(orderDao.findByOrderId(id)).thenReturn(create());
 
         Order order = orderService.findOrderById(id);
 
         assertTrue(order.getOrderId().equals(1));
 
-        Mockito.verify(orderDao, Mockito.times(1)).findOrderById(id);
+        Mockito.verify(orderDao, Mockito.times(1)).findByOrderId(id);
     }
 
     @Test

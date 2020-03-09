@@ -26,7 +26,7 @@ class ItemDaoJdbcImplTest {
     @Test
     void findItemById(){
         assertNotNull(itemDao);
-        Item item = itemDao.findItemById(1);
+        Item item = itemDao.findByItemId(1);
         assertEquals(item.getItemId().intValue(), 1);
         assertEquals(item.getItemName(), "Gibson Les Paul");
         assertEquals(item.getItemPrice(), new BigDecimal("1100"));
@@ -34,7 +34,7 @@ class ItemDaoJdbcImplTest {
 
     @Test
     void findAllItems() {
-        List<Item> items = itemDao.findAllItems();
+        List<Item> items = itemDao.findAll();
         assertNotNull(items);
         assertFalse(items.isEmpty());
     }
@@ -42,23 +42,23 @@ class ItemDaoJdbcImplTest {
 
     @Test
     void addItem() {
-        List<Item> items = itemDao.findAllItems();
+        List<Item> items = itemDao.findAll();
         int sizeBefore = items.size();
         Item item = new Item("Guitar", new BigDecimal("1000"));
         Item newItem = itemDao.addItem(item);
         assertNotNull(newItem.getItemId());
         assertEquals(newItem.getItemName(), item.getItemName());
         assertEquals(newItem.getItemPrice(), item.getItemPrice());
-        assertEquals((sizeBefore + 1), itemDao.findAllItems().size());
+        assertEquals((sizeBefore + 1), itemDao.findAll().size());
     }
 
     @Test
     void updateItem() {
-        Item item = itemDao.findItemById(2);
+        Item item = itemDao.findByItemId(2);
         item.setItemName("Bla");
         item.setItemPrice(new BigDecimal("500"));
         itemDao.updateItem(item);
-        Item newItem = itemDao.findItemById(item.getItemId());
+        Item newItem = itemDao.findByItemId(item.getItemId());
         assertEquals(item.getItemName(), newItem.getItemName());
         assertEquals(item.getItemPrice(), newItem.getItemPrice());
 
@@ -69,9 +69,9 @@ class ItemDaoJdbcImplTest {
         Item item = new Item();
         itemDao.addItem(item);
 
-        int sizeBefore = itemDao.findAllItems().size();
+        int sizeBefore = itemDao.findAll().size();
 
         itemDao.deleteItem(item.getItemId());
-        assertEquals(sizeBefore-1, itemDao.findAllItems().size());
+        assertEquals(sizeBefore-1, itemDao.findAll().size());
     }
 }

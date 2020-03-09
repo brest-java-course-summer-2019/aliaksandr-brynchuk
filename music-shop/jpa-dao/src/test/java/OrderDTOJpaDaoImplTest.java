@@ -23,7 +23,7 @@ public class OrderDTOJpaDaoImplTest {
 
     @Test
     void findAllDTOs(){
-        List<OrderDTO> orders = dao.findAllOrderDTOs();
+        List<OrderDTO> orders = dao.findAll();
         assertFalse(orders.isEmpty());
     }
 

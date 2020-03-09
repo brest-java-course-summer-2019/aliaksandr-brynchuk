@@ -65,7 +65,7 @@ public class OrderDTODaoJdbcImpl implements OrderDTODao {
      * @return OrderDTOs List
      */
     @Override
-    public List<OrderDTO> findAllOrderDTOs() {
+    public List<OrderDTO> findAll() {
         LOGGER.debug("Order DTO DAO: find all orderDTOs");
 
         return namedParameterJdbcTemplate.query(findAll, BeanPropertyRowMapper.newInstance(OrderDTO.class));

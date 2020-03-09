@@ -39,7 +39,7 @@ public interface ItemDao {
      *
      * @return Items List
      */
-    List<Item> findAllItems();
+    List<Item> findAll();
 
     /**
      *Find item by id
@@ -47,5 +47,5 @@ public interface ItemDao {
      * @param itemId Item ID
      * @return Optional<>Item</>
      */
-    Item findItemById(Integer itemId);
+    Item findByItemId(Integer itemId);
 }

@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
      * @param orderDTODao OrderDTO DAO
      */
     @Autowired
-    public OrderServiceImpl(@Qualifier("OrderJpaDao") OrderDao orderDao, @Qualifier("OrderDtoJpaDao") OrderDTODao orderDTODao) {
+    public OrderServiceImpl(@Qualifier("orderRepository") OrderDao orderDao, @Qualifier("orderDtoRepository") OrderDTODao orderDTODao) {
         this.orderDao = orderDao;
         this.orderDTODao = orderDTODao;
     }
@@ -96,7 +96,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDTO> findAllOrderDTOs() {
         LOGGER.debug("Order service: find all orders");
 
-        return orderDTODao.findAllOrderDTOs();
+        return orderDTODao.findAll();
     }
 
     /**
@@ -109,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
     public Order findOrderById(Integer orderId) {
         LOGGER.debug("Order service: find order by id({})", orderId);
 
-        return orderDao.findOrderById(orderId);
+        return orderDao.findByOrderId(orderId);
     }
 
     /**

@@ -105,7 +105,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
      * @return Order
      */
     @Override
-    public Order findOrderById(Integer orderId) {
+    public Order findByOrderId(Integer orderId) {
         LOGGER.debug("Order DAO: find order by id({})", orderId);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);

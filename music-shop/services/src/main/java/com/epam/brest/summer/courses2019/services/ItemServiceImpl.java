@@ -28,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
      * @param dao Item DAO
      */
     @Autowired
-    public ItemServiceImpl(@Qualifier("ItemJpaDao") ItemDao dao){
+    public ItemServiceImpl(@Qualifier("itemRepository") ItemDao dao){
          this.dao = dao;
     }
 
@@ -79,7 +79,7 @@ public class ItemServiceImpl implements ItemService {
     public List<Item> findAllItems() {
         LOGGER.debug("ItemService: find all items");
 
-        return dao.findAllItems();
+        return dao.findAll();
     }
 
     /**
@@ -92,6 +92,6 @@ public class ItemServiceImpl implements ItemService {
     public Item findItemById(Integer itemId) {
         LOGGER.debug("Item service: find item by id {}", itemId);
 
-        return dao.findItemById(itemId);
+        return dao.findByItemId(itemId);
     }
 }

@@ -33,14 +33,14 @@ class ItemServiceImplMockTest {
 
     @Test
     void findAllItems(){
-        Mockito.when(itemDao.findAllItems()).thenReturn(Collections.singletonList(createItem()));
+        Mockito.when(itemDao.findAll()).thenReturn(Collections.singletonList(createItem()));
 
         List<Item> items = itemService.findAllItems();
 
         assertNotNull(items);
         assertEquals(1, items.size());
 
-        Mockito.verify(itemDao).findAllItems();
+        Mockito.verify(itemDao).findAll();
     }
 
 
@@ -48,13 +48,13 @@ class ItemServiceImplMockTest {
     void findById(){
         int id = 1;
 
-        Mockito.when(itemDao.findItemById(id)).thenReturn(createItem());
+        Mockito.when(itemDao.findByItemId(id)).thenReturn(createItem());
 
         Item item = itemService.findItemById(id);
 
         assertEquals("Item", item.getItemName());
 
-        Mockito.verify(itemDao).findItemById(id);
+        Mockito.verify(itemDao).findByItemId(id);
 
     }
 

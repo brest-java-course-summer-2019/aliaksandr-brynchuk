@@ -21,7 +21,7 @@ public class OrderDTOJpaDaoImpl implements OrderDTODao{
 
     @Override
 
-    public List<OrderDTO> findAllOrderDTOs() {
+    public List<OrderDTO> findAll() {
         return entityManager.createNamedQuery("getOrdersDTOWithCost", OrderDTO.class)
                 .getResultList();
     }

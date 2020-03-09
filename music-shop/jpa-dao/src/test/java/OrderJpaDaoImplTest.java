@@ -23,7 +23,7 @@ public class OrderJpaDaoImplTest {
 
     @Test
     void findOrderById(){
-        Order order = orderDao.findOrderById(1);
+        Order order = orderDao.findByOrderId(1);
         System.out.println(order);
 
 

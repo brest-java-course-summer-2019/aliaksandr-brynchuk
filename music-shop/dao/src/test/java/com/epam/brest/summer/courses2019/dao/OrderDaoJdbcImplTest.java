@@ -21,9 +21,9 @@ class OrderDaoJdbcImplTest {
     @Test
     void addOrder() {
         Order order = new Order();
-        int sizeBefore = orderDTODao.findAllOrderDTOs().size();
+        int sizeBefore = orderDTODao.findAll().size();
         orderDao.addOrder(order);
-        assertEquals(sizeBefore+1, orderDTODao.findAllOrderDTOs().size());
+        assertEquals(sizeBefore+1, orderDTODao.findAll().size());
     }
 
 
@@ -31,17 +31,17 @@ class OrderDaoJdbcImplTest {
     void deleteOrder() {
         Order order = new Order();
         orderDao.addOrder(order);
-        int sizeBefore = orderDTODao.findAllOrderDTOs().size();
+        int sizeBefore = orderDTODao.findAll().size();
         orderDao.deleteOrder(order.getOrderId());
 
-        assertEquals(sizeBefore-1, orderDTODao.findAllOrderDTOs().size());
+        assertEquals(sizeBefore-1, orderDTODao.findAll().size());
     }
 
     @Test
     void findOrderById(){
         assertNotNull(orderDao);
         Integer id = 1;
-        Order order = orderDao.findOrderById(id);
+        Order order = orderDao.findByOrderId(id);
         assertNotNull(order);
         assertEquals(id, order.getOrderId());
     }
@@ -51,6 +51,6 @@ class OrderDaoJdbcImplTest {
         int id = 1;
 
         orderDao.clearItemsList(id);
-        assertTrue(orderDao.findOrderById(id).getItemsList().isEmpty());
+        assertTrue(orderDao.findByOrderId(id).getItemsList().isEmpty());
     }
 }
