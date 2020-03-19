@@ -18,15 +18,11 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 class OrderServiceImplMockTest {
     @Mock
     OrderDao orderDao;
-
-    @Mock
-    ItemDao itemDao;
 
     @Mock
     OrderDTODao orderDTODao;
@@ -37,7 +33,7 @@ class OrderServiceImplMockTest {
     @BeforeEach
     void setUp(){
         initMocks(this);
-        orderService = new OrderServiceImpl(orderDao, itemDao, orderDTODao);
+        orderService = new OrderServiceImpl(orderDao, orderDTODao);
     }
 
     private final static LocalDate FROM = LocalDate.of(2019, 10, 18);
@@ -45,26 +41,26 @@ class OrderServiceImplMockTest {
 
     @Test
     void findAllDTOs(){
-        Mockito.when(orderDTODao.findAllOrderDTOs()).thenReturn(Collections.singletonList(createDto()));
+        Mockito.when(orderDTODao.findAll()).thenReturn(Collections.singletonList(createDto()));
 
         List<OrderDTO> orders = orderService.findAllOrderDTOs();
 
         assertNotNull(orders);
         assertEquals(1, orders.size());
 
-        Mockito.verify(orderDTODao, Mockito.times(1)).findAllOrderDTOs();
+        Mockito.verify(orderDTODao, Mockito.times(1)).findAll();
     }
 
     @Test
     void findOrderById(){
         int id = 1;
-        Mockito.when(orderDao.findOrderById(id)).thenReturn(create());
+        Mockito.when(orderDao.findByOrderId(id)).thenReturn(create());
 
         Order order = orderService.findOrderById(id);
 
         assertTrue(order.getOrderId().equals(1));
 
-        Mockito.verify(orderDao, Mockito.times(1)).findOrderById(id);
+        Mockito.verify(orderDao, Mockito.times(1)).findByOrderId(id);
     }
 
     @Test
@@ -90,20 +86,19 @@ class OrderServiceImplMockTest {
         Mockito.verify(orderDao, Mockito.times(1)).addOrder(order);
 
     }
-
-    @Test
-    void updateOrder(){
-        Order order = create();
-
-        order.setItemsIds(Arrays.asList("1"));
-
-        orderService.updateOrder(order);
-
-        Mockito.verify(itemDao, Mockito.times(1)).deleteItemsList(order.getOrderId());
-        Mockito.verify(itemDao, Mockito.times(1)).changeItemStatus(1, true);
-        Mockito.verify(itemDao, Mockito.times(1))
-                .insertItem(any(MapSqlParameterSource.class));
-    }
+//
+//    @Test
+//    void updateOrder(){
+//        Order order = create();
+//
+//        order.setItemsIds(Arrays.asList("1"));
+//
+//        orderService.updateOrder(order);
+//
+//        Mockito.verify(itemDao, Mockito.times(1)).deleteItemsList(order.getOrderId());
+//        Mockito.verify(itemDao, Mockito.times(1))
+//                .insertItem(any(MapSqlParameterSource.class));
+//    }
 
 
     @Test

@@ -5,6 +5,7 @@ import com.epam.brest.summer.courses2019.model.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
      * @param dao Item DAO
      */
     @Autowired
-    public ItemServiceImpl(ItemDao dao){
+    public ItemServiceImpl(@Qualifier("itemRepository") ItemDao dao){
          this.dao = dao;
     }
 
@@ -78,7 +79,7 @@ public class ItemServiceImpl implements ItemService {
     public List<Item> findAllItems() {
         LOGGER.debug("ItemService: find all items");
 
-        return dao.findAllItems();
+        return dao.findAll();
     }
 
     /**
@@ -91,6 +92,6 @@ public class ItemServiceImpl implements ItemService {
     public Item findItemById(Integer itemId) {
         LOGGER.debug("Item service: find item by id {}", itemId);
 
-        return dao.findItemById(itemId).orElseThrow(()-> new RuntimeException("Failed to get item from DB"));
+        return dao.findByItemId(itemId);
     }
 }

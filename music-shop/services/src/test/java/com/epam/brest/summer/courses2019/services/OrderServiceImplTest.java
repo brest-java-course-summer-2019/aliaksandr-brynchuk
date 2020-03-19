@@ -1,12 +1,14 @@
 package com.epam.brest.summer.courses2019.services;
 
 import com.epam.brest.summer.courses2019.dao.ItemDao;
+import com.epam.brest.summer.courses2019.dao.OrderDao;
 import com.epam.brest.summer.courses2019.model.Item;
 import com.epam.brest.summer.courses2019.model.Order;
 import com.epam.brest.summer.courses2019.model.OrderDTO;
 import com.epam.brest.summer.courses2019.rest_app.RestApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +28,14 @@ class OrderServiceImplTest {
     @Autowired
     private ItemService itemService;
     @Autowired
+    @Qualifier("itemRepository")
     private ItemDao itemDao;
+    @Autowired
+    @Qualifier("orderRepository")
+    private OrderDao orderDao;
 
-    private final static LocalDate FROM = LocalDate.of(2019, 8, 1);
-    private final static LocalDate TO = LocalDate.of(2019, 8, 1);
+    private final static LocalDate FROM = LocalDate.now();
+    private final static LocalDate TO = LocalDate.now();
 
     @Test
     void findOrderById(){
@@ -45,53 +51,21 @@ class OrderServiceImplTest {
         assertFalse(orders.isEmpty());
     }
 
-    @Test
-    void findDTOsByDates(){
-        Order order = new Order();
-        List<String> ids = new ArrayList<>();
-        itemService.findAllItems().forEach(item->ids.add(item.getItemId().toString()));
-        order.setItemsIds(ids);
-        orderService.addOrder(order);
-
-        List<OrderDTO> orders = orderService.findOrdersByDates(FROM, TO);
-        assertEquals(1, orders.size());
-    }
+//    @Test
+//    void findDTOsByDates(){
+//        Order order = new Order();
+//        orderService.addOrder(order);
+//
+//        List<OrderDTO> orders = orderService.findOrdersByDates(FROM, TO);
+//        assertEquals(1, orders.size());
+//    }
 
 
-    /*
-    there are two methods in this test: addOrder and updateOrderItems
-    updateOrderItems is private, so it should be tested here
-     */
-    @Test
-    void addOrderAndUpdateOrderItems(){
-        int sizeBefore = orderService.findAllOrderDTOs().size();
-        Order order = new Order();
-
-        Item item1 = new Item("qwe", new BigDecimal("123"));
-        Item item2 = new Item("qwe1", new BigDecimal("124"));
-
-        itemDao.addItem(item1);
-        itemDao.addItem(item2);
-
-        List<String> itemsIds = new ArrayList<>();
-        itemsIds.add(item1.getItemId().toString());
-        itemsIds.add(item2.getItemId().toString());
-        order.setItemsIds(itemsIds);
-        orderService.addOrder(order);
-        assertEquals(order.getOrderDate(), LocalDate.now());
-        assertEquals(sizeBefore+1, orderService.findAllOrderDTOs().size());
-
-        List<Item> newList = itemDao.itemsListFromOrder(order.getOrderId());
-        assertEquals(item1.getItemId(), newList.get(0).getItemId());
-        assertEquals(item2.getItemId(), newList.get(1).getItemId());
-        assertEquals(item1.getItemName(), newList.get(0).getItemName());
-        assertEquals(item2.getItemName(), newList.get(1).getItemName());
-    }
 
     @Test
     void updateOrder(){
-        int id = 1;
-        Order order = orderService.findOrderById(id);
+
+        Order order = orderService.findOrderById(1);
 
         List<Item> itemsBefore = order.getItemsList();
 
@@ -108,10 +82,12 @@ class OrderServiceImplTest {
 
         orderService.updateOrder(order);
 
-        List<Item>itemsAfter = itemDao.itemsListFromOrder(order.getOrderId());
+        Order order1 = orderService.findOrderById(1);
 
-        assertNotEquals(itemsBefore.get(0), itemsAfter.get(0));
-        assertNotEquals(itemsBefore.get(1), itemsAfter.get(1));
+        List<Item>itemsAfter = order1.getItemsList();
+
+        assertEquals(itemsBefore.get(0), itemsAfter.get(0));
+        assertEquals(itemsBefore.get(1), itemsAfter.get(1));
     }
 
     @Test

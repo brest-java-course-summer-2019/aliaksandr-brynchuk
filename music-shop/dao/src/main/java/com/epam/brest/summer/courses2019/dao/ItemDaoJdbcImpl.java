@@ -4,6 +4,7 @@ import com.epam.brest.summer.courses2019.model.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -22,6 +23,7 @@ import java.util.Optional;
  */
 @Repository
 @PropertySource("classpath:/sql.properties")
+@Qualifier("ItemJdbcDao")
 public class ItemDaoJdbcImpl implements ItemDao {
 
     /**
@@ -40,11 +42,11 @@ public class ItemDaoJdbcImpl implements ItemDao {
     @Value("${item.findAll}")
     private String findAll;
 
-    /**
-     *SQL from property file. Find all items from order
-     */
-    @Value("${item.selectItemsFromOrder}")
-    private String selectItemsFromOrder;
+//    /**
+//     *SQL from property file. Find all items from order
+//     */
+//    @Value("${item.selectItemsFromOrder}")
+//    private String selectItemsFromOrder;
 
     /**
      *SQL from property file. Add item to db
@@ -65,28 +67,10 @@ public class ItemDaoJdbcImpl implements ItemDao {
     private String updateItem;
 
     /**
-     *SQL from property file. Insert item to order
-     */
-    @Value("${item.insertItem}")
-    private String insertItem;
-
-    /**
      *SQL from property file. Find item by id
      */
     @Value("${item.findItemById}")
     private String findItemById;
-
-    /**
-     *SQL from property file. Clear items list
-     */
-    @Value("${item.deleteItemsFromOrder}")
-    private String deleteItemsFromOrder;
-
-    /**
-     *SQL from property file. Change item status
-     */
-    @Value("${item.changeItemStatus}")
-    private String changeItemStatus;
 
     /**
      *Constant fields for sql requests
@@ -95,8 +79,6 @@ public class ItemDaoJdbcImpl implements ItemDao {
     private static final String ITEM_NAME = "itemName";
     private static final String ITEM_PRICE = "itemPrice";
     private static final String ORDER_ID = "orderId";
-    private static final String ITEM_STATUS = "isReserved";
-
 
     /**
      * Constructor, inject namedParameterJdbcTemplate bean
@@ -118,7 +100,7 @@ public class ItemDaoJdbcImpl implements ItemDao {
      * @return Items List
      */
     @Override
-    public List<Item> findAllItems() {
+    public List<Item> findAll() {
         LOGGER.debug("Item DAO: find all items");
 
         return namedParameterJdbcTemplate.query(findAll, BeanPropertyRowMapper.newInstance(Item.class));
@@ -131,28 +113,27 @@ public class ItemDaoJdbcImpl implements ItemDao {
      * @return Optional<>Item</>
      */
     @Override
-    public Optional<Item> findItemById(Integer itemId) {
+    public Item findByItemId(Integer itemId) {
         LOGGER.debug("Item DAO: find item by id({})", itemId);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource(ITEM_ID, itemId);
 
-        Item item = namedParameterJdbcTemplate.queryForObject(findItemById, parameters, BeanPropertyRowMapper.newInstance(Item.class));
-        return Optional.ofNullable(item);
+        return namedParameterJdbcTemplate.queryForObject(findItemById, parameters, BeanPropertyRowMapper.newInstance(Item.class));
     }
 
-    /**
-     * Get items list from order
-     *
-     * @param orderId Order ID
-     * @return Items list
-     */
-    @Override
-    public List<Item> itemsListFromOrder(Integer orderId) {
-        LOGGER.debug("Item DAO: find items from order({})", orderId);
-
-        MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
-        return namedParameterJdbcTemplate.query(selectItemsFromOrder, parameters, BeanPropertyRowMapper.newInstance(Item.class));
-    }
+//    /**
+//     * Get items list from order
+//     *
+//     * @param orderId Order ID
+//     * @return Items list
+//     */
+//    @Override
+//    public List<Item> itemsListFromOrder(Integer orderId) {
+//        LOGGER.debug("Item DAO: find items from order({})", orderId);
+//
+//        MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
+//        return namedParameterJdbcTemplate.query(selectItemsFromOrder, parameters, BeanPropertyRowMapper.newInstance(Item.class));
+//    }
 
     /**
      * Add item to db
@@ -167,7 +148,6 @@ public class ItemDaoJdbcImpl implements ItemDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(ITEM_NAME, item.getItemName());
         parameters.addValue(ITEM_PRICE, item.getItemPrice());
-        parameters.addValue(ITEM_STATUS, item.getIsReserved());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
@@ -190,17 +170,17 @@ public class ItemDaoJdbcImpl implements ItemDao {
                 .orElseThrow(() -> new RuntimeException("Failed to update item in DB"));
     }
 
-    /**
-     * Insert item to order
-     *
-     * @param parameters Parameters to sql request
-     */
-    @Override
-    public void insertItem(MapSqlParameterSource parameters) {
-        LOGGER.debug("Item DAO: insert item {}", parameters);
-
-        namedParameterJdbcTemplate.update(insertItem, parameters);
-    }
+//    /**
+//     * Insert item to order
+//     *
+//     * @param parameters Parameters to sql request
+//     */
+//    @Override
+//    public void insertItem(MapSqlParameterSource parameters) {
+//        LOGGER.debug("Item DAO: insert item {}", parameters);
+//
+//        namedParameterJdbcTemplate.update(insertItem, parameters);
+//    }
 
     /**
      * Delete item
@@ -218,33 +198,16 @@ public class ItemDaoJdbcImpl implements ItemDao {
                 .orElseThrow(() -> new RuntimeException("Failed to delete item from DB"));
     }
 
-    /**
-     * Clear order items list
-     *
-     * @param orderId Order id
-     */
-    @Override
-    public void deleteItemsList(Integer orderId) {
-        LOGGER.debug("Item DAO: clear items list item {}", orderId);
-
-        MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
-        namedParameterJdbcTemplate.update(deleteItemsFromOrder, parameters);
-    }
-
-    /**
-     * Change item status
-     *
-     * @param itemId Item ID
-     * @param status Item status
-     */
-    @Override
-    public void changeItemStatus(Integer itemId, boolean status) {
-        LOGGER.debug("Item DAO: change item status {} - {}", itemId, status);
-
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(ITEM_ID, itemId);
-        parameters.addValue(ITEM_STATUS, status);
-
-        namedParameterJdbcTemplate.update(changeItemStatus, parameters);
-    }
+//    /**
+//     * Clear order items list
+//     *
+//     * @param orderId Order id
+//     */
+//    @Override
+//    public void deleteItemsList(Integer orderId) {
+//        LOGGER.debug("Item DAO: clear items list item {}", orderId);
+//
+//        MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
+//        namedParameterJdbcTemplate.update(deleteItemsFromOrder, parameters);
+//    }
 }

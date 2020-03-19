@@ -1,6 +1,4 @@
 plugins {
-//    id 'com.github.kt3k.coveralls' version '2.8.4'
-//    id 'jacoco'
     id "io.spring.dependency-management" version "1.0.8.RELEASE"
     id "org.springframework.boot" version "2.2.2.RELEASE"
 }
@@ -8,6 +6,11 @@ plugins {
 allprojects {
     group = 'com.epam.brest.summer.courses2019'
     version = '1.0-SNAPSHOT'
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
 }
 
 subprojects {
@@ -35,12 +38,11 @@ subprojects {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
         runtimeOnly 'com.h2database:h2:1.4.199'
 
-        testImplementation ('org.springframework.boot:spring-boot-starter-test'){
-            exclude group: 'junit'
-        }
+        testImplementation ('org.springframework.boot:spring-boot-starter-test')
     }
 
     publishing {

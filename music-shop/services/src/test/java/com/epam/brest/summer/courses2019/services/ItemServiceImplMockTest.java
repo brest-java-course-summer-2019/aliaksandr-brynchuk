@@ -9,7 +9,6 @@ import org.mockito.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,28 +33,28 @@ class ItemServiceImplMockTest {
 
     @Test
     void findAllItems(){
-        Mockito.when(itemDao.findAllItems()).thenReturn(Collections.singletonList(createItem()));
+        Mockito.when(itemDao.findAll()).thenReturn(Collections.singletonList(createItem()));
 
         List<Item> items = itemService.findAllItems();
 
         assertNotNull(items);
         assertEquals(1, items.size());
 
-        Mockito.verify(itemDao).findAllItems();
+        Mockito.verify(itemDao).findAll();
     }
-    
+
 
     @Test
     void findById(){
         int id = 1;
 
-        Mockito.when(itemDao.findItemById(id)).thenReturn(Optional.of(createItem()));
+        Mockito.when(itemDao.findByItemId(id)).thenReturn(createItem());
 
         Item item = itemService.findItemById(id);
 
         assertEquals("Item", item.getItemName());
 
-        Mockito.verify(itemDao).findItemById(id);
+        Mockito.verify(itemDao).findByItemId(id);
 
     }
 

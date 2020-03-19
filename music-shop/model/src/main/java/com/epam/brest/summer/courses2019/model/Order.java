@@ -1,6 +1,8 @@
 package com.epam.brest.summer.courses2019.model;
 
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import java.time.LocalDate;
@@ -10,32 +12,44 @@ import java.util.Objects;
 /**
  * POJO Order for model
  */
-
+@Entity
+@Table(name = "orders")
 public class Order {
     /**
      * Order id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
     private Integer orderId;
 
     /**
      * Order date
      */
+    @Column(name = "order_date")
     private LocalDate orderDate;
 
     /**
      * Items list
      */
+    @JoinTable(
+            name="order_items",
+            joinColumns = @JoinColumn(name="order_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Item> itemsList;
 
 
     /**
      * Items ids list
      */
+    @Transient
     private List<String> itemsIds;
 
     /**
      * Order cost
      */
+    @Transient
     private BigDecimal orderCost;
 
     /**

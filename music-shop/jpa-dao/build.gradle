@@ -1,0 +1,12 @@
+dependencies {
+    api project(':model')
+    api project(':dao-api')
+
+    testCompile project(':rest-app')
+}
+
+test{
+    useJUnitPlatform()
+}
+
+description = 'Music Shop DAO'

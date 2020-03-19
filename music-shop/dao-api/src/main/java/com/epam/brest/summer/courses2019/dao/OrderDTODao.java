@@ -15,7 +15,7 @@ public interface OrderDTODao {
      * Find all orderDTOs
      * @return List OrderDTOs
      */
-    List<OrderDTO> findAllOrderDTOs();
+    List<OrderDTO> findAll();
 
     /**
      * Find orders DTOs by dates

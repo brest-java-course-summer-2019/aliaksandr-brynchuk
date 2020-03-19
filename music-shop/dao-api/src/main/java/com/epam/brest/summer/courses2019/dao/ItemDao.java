@@ -28,13 +28,6 @@ public interface ItemDao {
     void updateItem(Item item);
 
     /**
-     * Insert item to order
-     *
-     * @param parameters Parameters to sql request
-     */
-    void insertItem(MapSqlParameterSource parameters);
-
-    /**
      * Delete item
      *
      * @param itemId Item Id
@@ -42,26 +35,11 @@ public interface ItemDao {
     void deleteItem(Integer itemId);
 
     /**
-     * Clear order items list
-     *
-     * @param orderId Order id
-     */
-    void deleteItemsList(Integer orderId);
-
-    /**
      *Get all items
      *
      * @return Items List
      */
-    List<Item> findAllItems();
-
-    /**
-     * Get items list from order
-     *
-     * @param orderId Order ID
-     * @return Items list
-     */
-    List<Item> itemsListFromOrder(Integer orderId);
+    List<Item> findAll();
 
     /**
      *Find item by id
@@ -69,13 +47,5 @@ public interface ItemDao {
      * @param itemId Item ID
      * @return Optional<>Item</>
      */
-    Optional<Item> findItemById(Integer itemId);
-
-    /**
-     * Change item status
-     *
-     * @param itemId Item ID
-     * @param status Item status
-     */
-    void changeItemStatus(Integer itemId, boolean status);
+    Item findByItemId(Integer itemId);
 }
