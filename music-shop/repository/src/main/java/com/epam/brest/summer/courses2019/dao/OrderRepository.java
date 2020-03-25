@@ -19,8 +19,9 @@ public interface OrderRepository extends OrderDao, CrudRepository<Order, Integer
 
     @Override
     @Modifying
-    @Query("delete from Order o where o.orderId = :id")
-    void deleteOrder(@Param("id") Integer orderId);
+    default void deleteOrder(@Param("id") Integer orderId){
+        deleteById(orderId);
+    };
 
     @Override
     Order findByOrderId(Integer orderId);
@@ -29,7 +30,8 @@ public interface OrderRepository extends OrderDao, CrudRepository<Order, Integer
     @Modifying
     @Query(
             value = "delete from order_items where order_id = :id",
-            nativeQuery = true)
+            nativeQuery = true
+    )
     void clearItemsList(@Param("id") Integer orderId);
 
     @Override

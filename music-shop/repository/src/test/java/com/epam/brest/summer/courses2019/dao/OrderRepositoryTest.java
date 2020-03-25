@@ -34,24 +34,5 @@ public class OrderRepositoryTest {
 
     @Test
     void updateOrderItemsList(){
-        Order order = new Order();
-        dao.addOrder(order);
-
-        List<Item> itemsBefore = order.getItemsList();
-
-        Item item1 = new Item("qwe", new BigDecimal("123"));
-        Item item2 = new Item("qwe1", new BigDecimal("124"));
-
-        itemDao.addItem(item1);
-        itemDao.addItem(item2);
-
-        List<String> itemsIds = new ArrayList<>();
-        itemsIds.add(item1.getItemId().toString());
-        itemsIds.add(item2.getItemId().toString());
-        order.setItemsIds(itemsIds);
-
-        dao.updateOrderItemsList(order);
-        Order order1 = dao.findByOrderId(order.getOrderId());
-
     }
 }

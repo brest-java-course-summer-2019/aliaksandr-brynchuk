@@ -47,6 +47,11 @@ public class OrderServiceImpl implements OrderService {
         this.orderDao = orderDao;
         this.orderDTODao = orderDTODao;
     }
+//    @Autowired
+//    public OrderServiceImpl(@Qualifier("orderJpaDao") OrderDao orderDao, @Qualifier("orderDtoJpaDao") OrderDTODao orderDTODao) {
+//        this.orderDao = orderDao;
+//        this.orderDTODao = orderDTODao;
+//    }
 
     /**
      * Add order
