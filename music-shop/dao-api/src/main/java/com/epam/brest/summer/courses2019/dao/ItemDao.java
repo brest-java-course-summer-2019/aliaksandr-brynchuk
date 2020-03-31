@@ -1,11 +1,10 @@
 package com.epam.brest.summer.courses2019.dao;
 
-
 import com.epam.brest.summer.courses2019.model.Item;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  *Item DAO interface
@@ -18,28 +17,28 @@ public interface ItemDao {
      * @param item Item
      * @return Item
      */
-    Item addItem(Item item);
+    Mono<Void> saveItem(Item item);
 
-    /**
-     * Update item
-     *
-     * @param item Item
-     */
-    void updateItem(Item item);
+//    /**
+//     * Update item
+//     *
+//     * @param item Item
+//     */
+//    Mono<Void> updateItem(Item item);
 
     /**
      * Delete item
      *
      * @param itemId Item Id
      */
-    void deleteItem(Integer itemId);
+    Mono<Void> deleteByItemId(Integer itemId);
 
     /**
      *Get all items
      *
      * @return Items List
      */
-    List<Item> findAll();
+    Flux<Item> findAll();
 
     /**
      *Find item by id
@@ -47,5 +46,5 @@ public interface ItemDao {
      * @param itemId Item ID
      * @return Optional<>Item</>
      */
-    Item findByItemId(Integer itemId);
+    Mono<Item> findByItemId(Integer itemId);
 }

@@ -2,10 +2,6 @@ apply plugin: 'org.springframework.boot'
 
 dependencies {
     api project(':services')
-
-    implementation ('org.springframework.boot:spring-boot-starter-web'){
-        exclude module: 'org.springframework.boot:spring-boot-starter'
-    }
 }
 
 jar {

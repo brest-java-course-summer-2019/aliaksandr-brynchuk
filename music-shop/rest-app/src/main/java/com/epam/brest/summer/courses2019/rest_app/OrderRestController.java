@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -44,7 +46,7 @@ public class OrderRestController {
      * @return OrderDTOs List
      */
     @GetMapping
-    public List<OrderDTO> findAllOrderDTOs(){
+    public Flux<OrderDTO> findAllOrderDTOs(){
         LOGGER.debug("OrderRestController: findAllOrderDTOs");
 
         return orderService.findAllOrderDTOs();
@@ -58,7 +60,7 @@ public class OrderRestController {
      */
     @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Order findOrderById(@PathVariable Integer id){
+    public Mono<Order> findOrderById(@PathVariable Integer id){
         LOGGER.debug("OrderRestController: findOrderById({})", id);
 
         return orderService.findOrderById(id);
@@ -71,10 +73,10 @@ public class OrderRestController {
      */
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void addOrder(@RequestBody Order order){
+    public Mono<Void> addOrder(@RequestBody Order order){
         LOGGER.debug("OrderRestController: addOrder({})", order);
 
-        orderService.addOrder(order);
+        return orderService.addOrder(order);
     }
 
     /**
@@ -84,10 +86,10 @@ public class OrderRestController {
      */
     @PutMapping("/{orderId}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public void updateOrder(@PathVariable Integer orderId, @RequestBody Order order){
+    public Mono<Void> updateOrder(@PathVariable Integer orderId, @RequestBody Order order){
         LOGGER.debug("OrderRestController: updateOrder({})", order);
 
-        orderService.updateOrder(order);
+        return orderService.updateOrder(order);
     }
 
     /**
@@ -96,10 +98,10 @@ public class OrderRestController {
      * @param id Order ID
      */
     @DeleteMapping(value = "/{id}")
-    public void deleteOrder(@PathVariable Integer id){
+    public Mono<Void> deleteOrder(@PathVariable Integer id){
         LOGGER.debug("OrderRestController: deleteOrder({})", id);
 
-        orderService.deleteOrder(id);
+        return orderService.deleteOrder(id);
     }
 
     /**
@@ -110,7 +112,7 @@ public class OrderRestController {
      * @return OrderDTOs List
      */
     @GetMapping(value = "/{from}/{to}")
-    public List<OrderDTO> findOrdersByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo) {
+    public Flux<OrderDTO> findOrdersByDates(@PathVariable("from") String dateFrom, @PathVariable("to") String dateTo) {
         LOGGER.debug("OrderRestController: findOrdersByDates({} - {})", dateFrom, dateTo);
 
         LocalDate from = LocalDate.parse(dateFrom);

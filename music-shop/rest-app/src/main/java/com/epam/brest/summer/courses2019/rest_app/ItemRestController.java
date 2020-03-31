@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class ItemRestController {
      * @return Items list
      */
     @GetMapping
-    public List<Item> findAllItems(){
+    public Flux<Item> findAllItems(){
         LOGGER.debug("ItemRestController: findAllItems");
 
         return itemService.findAllItems();
@@ -58,7 +60,7 @@ public class ItemRestController {
      */
     @GetMapping(value = "/{itemId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Item findItemById(@PathVariable Integer itemId){
+    public Mono<Item> findItemById(@PathVariable Integer itemId){
         LOGGER.debug("ItemRestController: findItemById({})", itemId);
 
         return itemService.findItemById(itemId);
@@ -70,10 +72,10 @@ public class ItemRestController {
      * @param item Item
      */
     @PostMapping
-    public void addItem(@RequestBody Item item){
+    public Mono<Void> addItem(@RequestBody Item item){
         LOGGER.debug("ItemRestController: addItem({})", item);
 
-        itemService.addItem(item);
+        return itemService.addItem(item);
     }
 
     /**
@@ -83,10 +85,10 @@ public class ItemRestController {
      */
     @PutMapping("/{itemId}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public void updateItem(@RequestBody Item item){
+    public Mono<Void> updateItem(@RequestBody Item item){
         LOGGER.debug("ItemRestController: updateItem({})", item);
 
-        itemService.updateItem(item);
+        return itemService.updateItem(item);
     }
 
     /**
@@ -95,10 +97,10 @@ public class ItemRestController {
      * @param itemId Item ID
      */
     @DeleteMapping(value = "/{itemId}")
-    public void deleteItem(@PathVariable Integer itemId){
+    public Mono<Void> deleteItem(@PathVariable Integer itemId){
         LOGGER.debug("ItemRestController: deleteItem({})", itemId);
 
-        itemService.deleteItem(itemId);
+        return itemService.deleteItem(itemId);
     }
 }
 

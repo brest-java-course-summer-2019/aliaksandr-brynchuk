@@ -2,6 +2,7 @@ package com.epam.brest.summer.courses2019.dao;
 
 import com.epam.brest.summer.courses2019.model.OrderDTO;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +16,7 @@ public interface OrderDTODao {
      * Find all orderDTOs
      * @return List OrderDTOs
      */
-    List<OrderDTO> findAll();
+    Flux<OrderDTO> findAll();
 
     /**
      * Find orders DTOs by dates
@@ -24,5 +25,5 @@ public interface OrderDTODao {
      * @param to Date to
      * @return List OrderDTOs
      */
-    List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to);
+    Flux<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to);
 }

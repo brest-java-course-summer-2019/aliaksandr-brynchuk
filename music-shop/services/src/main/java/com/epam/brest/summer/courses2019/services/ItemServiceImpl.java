@@ -5,11 +5,10 @@ import com.epam.brest.summer.courses2019.model.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * Item Service implementation
@@ -28,13 +27,9 @@ public class ItemServiceImpl implements ItemService {
      * @param dao Item DAO
      */
     @Autowired
-    public ItemServiceImpl(@Qualifier("itemRepository") ItemDao dao){
+    public ItemServiceImpl(ItemDao dao){
          this.dao = dao;
     }
-//    @Autowired
-//    public ItemServiceImpl(@Qualifier("itemJpaDao") ItemDao dao){
-//        this.dao = dao;
-//    }
 
     /**
      * Logger
@@ -47,9 +42,9 @@ public class ItemServiceImpl implements ItemService {
      * @param item Item
      */
     @Override
-    public void addItem(Item item) {
+    public Mono<Void> addItem(Item item) {
         LOGGER.debug("Item service: add item: {}", item);
-        dao.addItem(item);
+       return dao.saveItem(item);
     }
 
     /**
@@ -58,9 +53,9 @@ public class ItemServiceImpl implements ItemService {
      * @param item Item
      */
     @Override
-    public void updateItem(Item item) {
+    public Mono<Void> updateItem(Item item) {
         LOGGER.debug("Item service: update item: {}", item);
-        dao.updateItem(item);
+        return dao.saveItem(item);
     }
 
     /**
@@ -69,9 +64,9 @@ public class ItemServiceImpl implements ItemService {
      * @param itemId Item Id
      */
     @Override
-    public void deleteItem(Integer itemId) {
+    public Mono<Void> deleteItem(Integer itemId) {
         LOGGER.debug("Item service: delete item {}", itemId);
-        dao.deleteItem(itemId);
+        return dao.deleteByItemId(itemId);
     }
 
     /**
@@ -80,7 +75,7 @@ public class ItemServiceImpl implements ItemService {
      * @return
      */
     @Override
-    public List<Item> findAllItems() {
+    public Flux<Item> findAllItems() {
         LOGGER.debug("ItemService: find all items");
 
         return dao.findAll();
@@ -93,7 +88,7 @@ public class ItemServiceImpl implements ItemService {
      * @return Item
      */
     @Override
-    public Item findItemById(Integer itemId) {
+    public Mono<Item> findItemById(Integer itemId) {
         LOGGER.debug("Item service: find item by id {}", itemId);
 
         return dao.findByItemId(itemId);

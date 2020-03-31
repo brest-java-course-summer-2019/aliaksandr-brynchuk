@@ -1,6 +1,7 @@
 package com.epam.brest.summer.courses2019.dao;
 
 import com.epam.brest.summer.courses2019.model.Order;
+import reactor.core.publisher.Mono;
 
 /**
  *Order DAO interface
@@ -11,14 +12,14 @@ public interface OrderDao {
      *
      * @param order Order
      */
-    void addOrder(Order order);
+    Mono<Void> saveOrder(Order order);
 
     /**
      * Delete order from db
      *
      * @param orderId Order Id
      */
-    void deleteOrder(Integer orderId);
+    Mono<Void> deleteByOrderId(Integer orderId);
 
     /**
      * Find order by id
@@ -26,10 +27,10 @@ public interface OrderDao {
      * @param orderId Order Id
      * @return Order
      */
-    Order findByOrderId(Integer orderId);
+    Mono<Order> findByOrderId(Integer orderId);
 
-    void clearItemsList(Integer orderId);
+    Mono<Void> clearItemsList(Integer orderId);
 
-    void updateOrderItemsList(Order order);
+    Mono<Void> updateOrderItemsList(Order order);
 
 }

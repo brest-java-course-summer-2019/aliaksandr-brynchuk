@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -43,15 +45,10 @@ public class OrderServiceImpl implements OrderService {
      * @param orderDTODao OrderDTO DAO
      */
     @Autowired
-    public OrderServiceImpl(@Qualifier("orderRepository") OrderDao orderDao, @Qualifier("orderDtoRepository") OrderDTODao orderDTODao) {
+    public OrderServiceImpl(OrderDao orderDao, OrderDTODao orderDTODao) {
         this.orderDao = orderDao;
         this.orderDTODao = orderDTODao;
     }
-//    @Autowired
-//    public OrderServiceImpl(@Qualifier("orderJpaDao") OrderDao orderDao, @Qualifier("orderDtoJpaDao") OrderDTODao orderDTODao) {
-//        this.orderDao = orderDao;
-//        this.orderDTODao = orderDTODao;
-//    }
 
     /**
      * Add order
@@ -61,23 +58,26 @@ public class OrderServiceImpl implements OrderService {
      * @param order Order
      */
     @Override
-    public void addOrder(Order order) {
+    public Mono<Void> addOrder(Order order) {
         LOGGER.debug("Order service: add order:  {}", order);
 
         order.setOrderDate(LocalDate.now());
 
-        orderDao.addOrder(order);
+        orderDao.saveOrder(order);
 
         orderDao.updateOrderItemsList(order);
+
+        return Mono.empty();
     }
 
     @Override
-    public void updateOrder(Order order) {
+    public Mono<Void> updateOrder(Order order) {
         LOGGER.debug("Order service: update order: {}", order);
 
         orderDao.clearItemsList(order.getOrderId());
 
         orderDao.updateOrderItemsList(order);
+        return Mono.empty();
     }
 
     /**
@@ -86,10 +86,10 @@ public class OrderServiceImpl implements OrderService {
      * @param orderId Order ID
      */
     @Override
-    public void deleteOrder(Integer orderId) {
+    public Mono<Void> deleteOrder(Integer orderId) {
         LOGGER.debug("Order service: delete order:  {}", orderId);
 
-        orderDao.deleteOrder(orderId);
+       return orderDao.deleteByOrderId(orderId);
     }
 
     /**
@@ -98,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
      * @return OrderDTOs List
      */
     @Override
-    public List<OrderDTO> findAllOrderDTOs() {
+    public Flux<OrderDTO> findAllOrderDTOs() {
         LOGGER.debug("Order service: find all orders");
 
         return orderDTODao.findAll();
@@ -111,7 +111,7 @@ public class OrderServiceImpl implements OrderService {
      * @return Order
      */
     @Override
-    public Order findOrderById(Integer orderId) {
+    public Mono<Order> findOrderById(Integer orderId) {
         LOGGER.debug("Order service: find order by id({})", orderId);
 
         return orderDao.findByOrderId(orderId);
@@ -125,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
      * @return OrderDTOs List
      */
     @Override
-    public List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
+    public Flux<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to) {
         LOGGER.debug("Order service: find orders by dates {} - {}", from, to);
 
         return orderDTODao.findOrdersByDates(from, to);

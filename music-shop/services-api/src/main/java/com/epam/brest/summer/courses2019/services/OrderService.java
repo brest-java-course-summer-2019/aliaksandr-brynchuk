@@ -3,6 +3,8 @@ package com.epam.brest.summer.courses2019.services;
 
 import com.epam.brest.summer.courses2019.model.Order;
 import com.epam.brest.summer.courses2019.model.OrderDTO;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,21 +20,21 @@ public interface OrderService {
      *
      * @param order Order
      */
-    void addOrder(Order order);
+    Mono<Void> addOrder(Order order);
 
     /**
      * Update order
      *
      * @param order Order
      */
-    void updateOrder(Order order);
+    Mono<Void> updateOrder(Order order);
 
     /**
      * Delete order
      *
      * @param orderId Order ID
      */
-    void deleteOrder(Integer orderId);
+    Mono<Void> deleteOrder(Integer orderId);
 
     /**
      * Find order by ID
@@ -40,14 +42,14 @@ public interface OrderService {
      * @param orderId Order ID
      * @return Order
      */
-    Order findOrderById(Integer orderId);
+    Mono<Order> findOrderById(Integer orderId);
 
     /**
      * Find all orderDTOs
      *
      * @return OrderDTOs List
      */
-    List<OrderDTO> findAllOrderDTOs();
+    Flux<OrderDTO> findAllOrderDTOs();
 
     /**
      * Find orderDTOs by dates
@@ -56,6 +58,6 @@ public interface OrderService {
      * @param to Date to
      * @return OrderDTOs list
      */
-    List<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to);
+    Flux<OrderDTO> findOrdersByDates(LocalDate from, LocalDate to);
 
 }
