@@ -5,6 +5,8 @@ import com.epam.brest.summer.courses2019.rest_app.RestApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,58 +17,63 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = RestApplication.class)
+@AutoConfigureTestEntityManager
 @Transactional
 @Sql({"classpath:/schema.sql", "classpath:/data.sql"})
-class ItemDaoJdbcImplTest {
+public class ItemJpaDaoImplTest {
 
     @Autowired
-    @Qualifier("ItemJdbcDao")
-    private ItemDao itemDao;
+    @Qualifier("itemJpaDao")
+    private ItemDao dao;
 
-    private final static String ORDER_ID ="orderId";
-    private final static String ITEM_ID ="itemId";
+    @Autowired
+    private TestEntityManager tem;
 
     @Test
-    void findItemById(){
-        assertNotNull(itemDao);
-        Item item = itemDao.findByItemId(1);
-        assertEquals(item.getItemId().intValue(), 1);
-        assertEquals(item.getItemName(), "Gibson Les Paul");
-        assertEquals(item.getItemPrice(), new BigDecimal("1100"));
+    void findById() {
+        int id = 1;
+        Item item = dao.findByItemId(id);
+
+        assertNotNull(item);
+        assertEquals("Gibson Les Paul", item.getItemName());
     }
 
     @Test
-    void findAllItems() {
-        List<Item> items = itemDao.findAll();
+    void findAll() {
+        List<Item> items = dao.findAll();
         assertNotNull(items);
         assertFalse(items.isEmpty());
     }
 
-
     @Test
-    void addItem(){
-        int sizeBefore = itemDao.findAll().size();
+    void addItem() {
+        int sizeBefore = dao.findAll().size();
         Item item = new Item("Guitar", new BigDecimal("1000"));
-        itemDao.addItem(item);
-        assertEquals((sizeBefore + 1), itemDao.findAll().size());
+        dao.addItem(item);
+        assertEquals((sizeBefore + 1), dao.findAll().size());
     }
 
     @Test
     void updateItem() {
-        Item item = itemDao.findByItemId(16);
+        Item item = tem.find(Item.class, 2);
+        tem.clear();
+
         item.setItemName("Bla");
         item.setItemPrice(new BigDecimal("500"));
-        itemDao.updateItem(item);
-        Item newItem = itemDao.findByItemId(item.getItemId());
+
+        dao.updateItem(item);
+
+        Item newItem = dao.findByItemId(2);
+
         assertEquals(item.getItemName(), newItem.getItemName());
         assertEquals(item.getItemPrice(), newItem.getItemPrice());
     }
 
     @Test
-    void deleteItem(){
-        int sizeBefore = itemDao.findAll().size();
+    void deleteItem() {
+        int sizeBefore = dao.findAll().size();
 
-        itemDao.deleteItem(16);
-        assertEquals(sizeBefore-1, itemDao.findAll().size());
+        dao.deleteItem(16);
+        assertEquals(sizeBefore - 1, dao.findAll().size());
     }
 }

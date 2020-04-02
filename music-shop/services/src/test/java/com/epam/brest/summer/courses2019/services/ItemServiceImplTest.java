@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = RestApplication.class)
+@Sql({"classpath:/schema.sql", "classpath:/data.sql"})
 @Transactional
 class ItemServiceImplTest {
 
@@ -47,14 +49,6 @@ class ItemServiceImplTest {
        assertNotNull(item);
        assertEquals("Gibson Les Paul", item.getItemName());
     }
-
-//    @Test
-//    void itemsList(){
-//        int id = 1;
-//        List<Item> items = itemDao.itemsListFromOrder(id);
-//        assertNotNull(items);
-//        assertEquals(3, items.size());
-//    }
 
     @Test
     void addItem(){

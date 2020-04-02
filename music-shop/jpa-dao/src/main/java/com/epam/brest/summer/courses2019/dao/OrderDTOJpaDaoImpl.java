@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-@Qualifier("OrderDtoJpaDao")
+@Qualifier("orderDtoJpaDao")
 public class OrderDTOJpaDaoImpl implements OrderDTODao{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderDTOJpaDaoImpl.class);

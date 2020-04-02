@@ -3,7 +3,6 @@ dependencies {
     api project(':dao-api')
 
     testCompile project(':rest-app')
-//    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.1.7.Final'
 
 }
 

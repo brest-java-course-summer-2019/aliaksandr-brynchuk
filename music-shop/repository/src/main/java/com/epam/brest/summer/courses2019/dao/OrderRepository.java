@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository extends OrderDao, CrudRepository<Order, Integer>, OrderRepositoryCustom {
 
     @Override
+    @Modifying
     default void addOrder(Order order) {
         save(order);
     }

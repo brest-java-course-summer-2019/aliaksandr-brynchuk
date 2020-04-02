@@ -9,7 +9,10 @@ import com.epam.brest.summer.courses2019.rest_app.RestApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -20,6 +23,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = RestApplication.class)
+@Sql({"classpath:/schema.sql", "classpath:/data.sql"})
 @Transactional
 class OrderServiceImplTest {
 
@@ -51,15 +55,36 @@ class OrderServiceImplTest {
         assertFalse(orders.isEmpty());
     }
 
+    @Test
+    void findDTOsByDates(){
+        Order order = new Order();
+        orderService.addOrder(order);
+
+        List<OrderDTO> orders = orderService.findOrdersByDates(FROM, TO);
+        assertEquals(1, orders.size());
+    }
+
 //    @Test
-//    void findDTOsByDates(){
+//    void addOrder(){
+//
 //        Order order = new Order();
+//
+//        Item item1 = new Item("qwe", new BigDecimal("123"));
+//        Item item2 = new Item("qwe1", new BigDecimal("124"));
+//
+//        itemDao.addItem(item1);
+//        itemDao.addItem(item2);
+//
+//        List<String> itemsIds = new ArrayList<>();
+//        itemsIds.add(item1.getItemId().toString());
+//        itemsIds.add(item2.getItemId().toString());
+//        order.setItemsIds(itemsIds);
+//
 //        orderService.addOrder(order);
 //
-//        List<OrderDTO> orders = orderService.findOrdersByDates(FROM, TO);
-//        assertEquals(1, orders.size());
+//        Order order1 = orderService.findOrderById(4);
+//        assertFalse(order1.getItemsList().isEmpty());
 //    }
-
 
 
     @Test
