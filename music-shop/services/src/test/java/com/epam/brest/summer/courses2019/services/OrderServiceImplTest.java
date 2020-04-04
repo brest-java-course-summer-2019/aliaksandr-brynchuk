@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,11 +30,14 @@ class OrderServiceImplTest {
 
     @Autowired
     private OrderService orderService;
+
     @Autowired
     private ItemService itemService;
+
     @Autowired
     @Qualifier("itemRepository")
     private ItemDao itemDao;
+
     @Autowired
     @Qualifier("orderRepository")
     private OrderDao orderDao;
@@ -58,6 +62,7 @@ class OrderServiceImplTest {
     @Test
     void findDTOsByDates(){
         Order order = new Order();
+        order.setItemsIds(Collections.singletonList("1"));
         orderService.addOrder(order);
 
         List<OrderDTO> orders = orderService.findOrdersByDates(FROM, TO);
@@ -66,23 +71,18 @@ class OrderServiceImplTest {
 
 //    @Test
 //    void addOrder(){
-//
 //        Order order = new Order();
 //
-//        Item item1 = new Item("qwe", new BigDecimal("123"));
-//        Item item2 = new Item("qwe1", new BigDecimal("124"));
-//
-//        itemDao.addItem(item1);
-//        itemDao.addItem(item2);
-//
 //        List<String> itemsIds = new ArrayList<>();
-//        itemsIds.add(item1.getItemId().toString());
-//        itemsIds.add(item2.getItemId().toString());
+//        itemsIds.add("15");
+//        itemsIds.add("16");
 //        order.setItemsIds(itemsIds);
 //
+//        System.out.println(order);
 //        orderService.addOrder(order);
 //
 //        Order order1 = orderService.findOrderById(4);
+//        System.out.println(order1);
 //        assertFalse(order1.getItemsList().isEmpty());
 //    }
 
@@ -118,13 +118,10 @@ class OrderServiceImplTest {
     @Test
     void deleteOrder(){
         int id = 1;
-
         int sizeBefore = orderService.findAllOrderDTOs().size();
-
         orderService.deleteOrder(id);
 
-        int sizeAfter = orderService.findAllOrderDTOs().size();
 
-        assertEquals(sizeBefore-1, sizeAfter);
+        assertEquals(sizeBefore-1, orderService.findAllOrderDTOs().size());
     }
 }
