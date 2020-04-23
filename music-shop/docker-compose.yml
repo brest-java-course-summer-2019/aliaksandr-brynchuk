@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.restapp
     container_name: restapp
     ports:
-      - 8081:8081
+      - 8083:8083
     restart: always
 
   webapp:
@@ -16,7 +16,7 @@ services:
       dockerfile: Dockerfile.webapp
     container_name: webapp
     ports:
-      - 8082:8082
+      - 8084:8084
     environment:
       RESTAPP_HOST: restapp
     depends_on:

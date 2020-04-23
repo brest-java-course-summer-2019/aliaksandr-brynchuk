@@ -1,11 +1,5 @@
 rootProject.name = 'music-shop'
-include(':model')
-include(':dao')
-include(':dao-api')
-include(':services')
-include(':services-api')
-include(':rest-app')
-include(':web-app')
-include 'jpa-dao'
-include 'repository'
+include ':web-app'
+include ':gringotts-rest-app'
+include ':broomstick-shop-rest-app'
 

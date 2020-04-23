@@ -1,6 +1,0 @@
-
-dependencies {
-    api project(':model')
-}
-
-description = 'Music Shop DAO API'
