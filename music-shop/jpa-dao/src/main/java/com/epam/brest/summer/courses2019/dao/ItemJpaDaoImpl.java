@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Qualifier("ItemJpaDao")
+@Qualifier("itemJpaDao")
 public class ItemJpaDaoImpl implements ItemDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemJpaDaoImpl.class);

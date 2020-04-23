@@ -42,12 +42,6 @@ public class ItemDaoJdbcImpl implements ItemDao {
     @Value("${item.findAll}")
     private String findAll;
 
-//    /**
-//     *SQL from property file. Find all items from order
-//     */
-//    @Value("${item.selectItemsFromOrder}")
-//    private String selectItemsFromOrder;
-
     /**
      *SQL from property file. Add item to db
      */
@@ -78,7 +72,6 @@ public class ItemDaoJdbcImpl implements ItemDao {
     private static final String ITEM_ID = "itemId";
     private static final String ITEM_NAME = "itemName";
     private static final String ITEM_PRICE = "itemPrice";
-    private static final String ORDER_ID = "orderId";
 
     /**
      * Constructor, inject namedParameterJdbcTemplate bean
@@ -121,20 +114,6 @@ public class ItemDaoJdbcImpl implements ItemDao {
         return namedParameterJdbcTemplate.queryForObject(findItemById, parameters, BeanPropertyRowMapper.newInstance(Item.class));
     }
 
-//    /**
-//     * Get items list from order
-//     *
-//     * @param orderId Order ID
-//     * @return Items list
-//     */
-//    @Override
-//    public List<Item> itemsListFromOrder(Integer orderId) {
-//        LOGGER.debug("Item DAO: find items from order({})", orderId);
-//
-//        MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
-//        return namedParameterJdbcTemplate.query(selectItemsFromOrder, parameters, BeanPropertyRowMapper.newInstance(Item.class));
-//    }
-
     /**
      * Add item to db
      *
@@ -170,18 +149,6 @@ public class ItemDaoJdbcImpl implements ItemDao {
                 .orElseThrow(() -> new RuntimeException("Failed to update item in DB"));
     }
 
-//    /**
-//     * Insert item to order
-//     *
-//     * @param parameters Parameters to sql request
-//     */
-//    @Override
-//    public void insertItem(MapSqlParameterSource parameters) {
-//        LOGGER.debug("Item DAO: insert item {}", parameters);
-//
-//        namedParameterJdbcTemplate.update(insertItem, parameters);
-//    }
-
     /**
      * Delete item
      *
@@ -197,17 +164,4 @@ public class ItemDaoJdbcImpl implements ItemDao {
                 .filter(this::succesfullyUpdated)
                 .orElseThrow(() -> new RuntimeException("Failed to delete item from DB"));
     }
-
-//    /**
-//     * Clear order items list
-//     *
-//     * @param orderId Order id
-//     */
-//    @Override
-//    public void deleteItemsList(Integer orderId) {
-//        LOGGER.debug("Item DAO: clear items list item {}", orderId);
-//
-//        MapSqlParameterSource parameters = new MapSqlParameterSource(ORDER_ID, orderId);
-//        namedParameterJdbcTemplate.update(deleteItemsFromOrder, parameters);
-//    }
 }

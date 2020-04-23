@@ -8,29 +8,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = RestApplication.class)
+@Sql({"classpath:/schema.sql", "classpath:/data.sql"})
 @Transactional
 class ItemServiceImplTest {
 
     @Autowired
     private ItemService itemService;
-
-    @Autowired
-    @Qualifier("itemRepository")
-    private ItemDao itemDao;
-
-    private Item create(){
-        Item item = new Item();
-        item.setItemId(10);
-        item.setItemName("Guitar");
-        return item;
-    }
 
     @Test
     void findAllItems(){
@@ -48,26 +40,18 @@ class ItemServiceImplTest {
        assertEquals("Gibson Les Paul", item.getItemName());
     }
 
-//    @Test
-//    void itemsList(){
-//        int id = 1;
-//        List<Item> items = itemDao.itemsListFromOrder(id);
-//        assertNotNull(items);
-//        assertEquals(3, items.size());
-//    }
-
     @Test
     void addItem(){
         int sizeBefore = itemService.findAllItems().size();
-        Item newItem = create();
-        itemService.addItem(newItem);
-        int sizeAfter = itemService.findAllItems().size();
-        assertEquals(sizeAfter, sizeBefore + 1);
+        Item item = new Item("Guitar", new BigDecimal("1000"));
+        itemService.addItem(item);
+        assertEquals((sizeBefore + 1), itemService.findAllItems().size());
     }
 
     @Test
     void updateItem(){
-        Item item = create();
+        Item item = itemService.findItemById(1);
+        item.setItemName("Guitar");
         itemService.updateItem(item);
         Item item1 = itemService.findItemById(item.getItemId());
         assertNotNull(item1);
@@ -76,12 +60,10 @@ class ItemServiceImplTest {
 
     @Test
     void deleteItem(){
-        Item item = create();
-        itemService.addItem(item);
-        int countBefore = itemService.findAllItems().size();
-        itemService.deleteItem(item.getItemId());
+        int sizeBefore = itemService.findAllItems().size();
 
-        assertEquals(countBefore-1, itemService.findAllItems().size());
+        itemService.deleteItem(16);
+        assertEquals(sizeBefore-1, itemService.findAllItems().size());
     }
 
 

@@ -9,27 +9,35 @@ import com.epam.brest.summer.courses2019.rest_app.RestApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = RestApplication.class)
+@Sql({"classpath:/schema.sql", "classpath:/data.sql"})
 @Transactional
 class OrderServiceImplTest {
 
     @Autowired
     private OrderService orderService;
+
     @Autowired
     private ItemService itemService;
+
     @Autowired
     @Qualifier("itemRepository")
     private ItemDao itemDao;
+
     @Autowired
     @Qualifier("orderRepository")
     private OrderDao orderDao;
@@ -51,15 +59,32 @@ class OrderServiceImplTest {
         assertFalse(orders.isEmpty());
     }
 
+    @Test
+    void findDTOsByDates(){
+        Order order = new Order();
+        order.setItemsIds(Collections.singletonList("1"));
+        orderService.addOrder(order);
+
+        List<OrderDTO> orders = orderService.findOrdersByDates(FROM, TO);
+        assertEquals(1, orders.size());
+    }
+
 //    @Test
-//    void findDTOsByDates(){
+//    void addOrder(){
 //        Order order = new Order();
+//
+//        List<String> itemsIds = new ArrayList<>();
+//        itemsIds.add("15");
+//        itemsIds.add("16");
+//        order.setItemsIds(itemsIds);
+//
+//        System.out.println(order);
 //        orderService.addOrder(order);
 //
-//        List<OrderDTO> orders = orderService.findOrdersByDates(FROM, TO);
-//        assertEquals(1, orders.size());
+//        Order order1 = orderService.findOrderById(4);
+//        System.out.println(order1);
+//        assertFalse(order1.getItemsList().isEmpty());
 //    }
-
 
 
     @Test
@@ -93,13 +118,10 @@ class OrderServiceImplTest {
     @Test
     void deleteOrder(){
         int id = 1;
-
         int sizeBefore = orderService.findAllOrderDTOs().size();
-
         orderService.deleteOrder(id);
 
-        int sizeAfter = orderService.findAllOrderDTOs().size();
 
-        assertEquals(sizeBefore-1, sizeAfter);
+        assertEquals(sizeBefore-1, orderService.findAllOrderDTOs().size());
     }
 }

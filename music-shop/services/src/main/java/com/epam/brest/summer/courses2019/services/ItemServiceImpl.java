@@ -31,6 +31,10 @@ public class ItemServiceImpl implements ItemService {
     public ItemServiceImpl(@Qualifier("itemRepository") ItemDao dao){
          this.dao = dao;
     }
+//    @Autowired
+//    public ItemServiceImpl(@Qualifier("itemJpaDao") ItemDao dao){
+//        this.dao = dao;
+//    }
 
     /**
      * Logger

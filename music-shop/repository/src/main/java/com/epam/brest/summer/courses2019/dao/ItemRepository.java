@@ -15,6 +15,7 @@ import java.util.List;
 public interface ItemRepository extends CrudRepository<Item, Integer>, ItemDao {
 
     @Override
+    @Modifying
     default Item addItem(Item item) {
         save(item);
         return item;

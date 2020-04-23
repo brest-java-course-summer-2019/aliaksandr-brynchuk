@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 
 @Repository
-@Qualifier("OrderJpaDao")
+@Qualifier("orderJpaDao")
 public class OrderJpaDaoImpl implements OrderDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderJpaDaoImpl.class);

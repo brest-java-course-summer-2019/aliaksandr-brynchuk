@@ -5,10 +5,11 @@ import com.epam.brest.summer.courses2019.rest_app.RestApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,22 +17,19 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
-@ContextConfiguration(classes = RestApplication.class)
+@SpringBootTest(classes = RestApplication.class)
+@AutoConfigureTestEntityManager
+@Transactional
 @Sql({"classpath:/schema.sql", "classpath:/data.sql"})
-public class OrderRepositoryTest {
+public class OrderJpaDaoImplTest {
 
     @Autowired
-    @Qualifier("orderRepository")
+    @Qualifier("orderJpaDao")
     private OrderDao orderDao;
 
     @Autowired
-    @Qualifier("orderDtoRepository")
+    @Qualifier("orderDtoJpaDao")
     private OrderDTODao orderDTODao;
-
-    @Autowired
-    @Qualifier("itemRepository")
-    private ItemDao itemDao;
 
     @Autowired
     private TestEntityManager tem;
